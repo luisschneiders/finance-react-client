@@ -1,13 +1,17 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "client-new",
-  "bundledWebRuntime": false,
+  "appId": "personal.finance.app",
+  "appName": "personal-finance",
+  "webDir": "www",
   "npmClient": "npm",
-  "webDir": "build",
-  "plugins": {
-    "SplashScreen": {
-      "launchShowDuration": 0
-    }
-  },
-  "cordova": {}
+  "bundledWebRuntime": false,
+  "backgroundColor": "#ffffffff",
+  "ios": {
+    "backgroundColor": "#ffffffff",
+    "contentInset": "always",
+    "cordovaSwiftVersion": "4.2",
+    "minVersion": "11.3",
+    "cordovaLinkerFlags": ["-ObjC"],
+    "allowsLinkPreview": false,
+    "hideLogs": true
+  }
 }

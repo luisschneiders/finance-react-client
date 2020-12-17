@@ -1,6 +1,6 @@
 {
-  "short_name": "Finance App",
-  "name": "My Personal Finance App",
+  "short_name": "Personal Finance",
+  "name": "Personal Finance App",
   "icons": [
     {
       "src": "assets/icon/favicon.png",

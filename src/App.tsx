@@ -1,19 +1,15 @@
-import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import {
+  Redirect,
+  Route,
+} from 'react-router-dom';
 import {
   IonApp,
-  IonIcon,
-  IonLabel,
   IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
-  IonTabs
+  IonSplitPane,
+  IonSpinner
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, square, triangle } from 'ionicons/icons';
-import Tab1 from './pages/Tab1';
-import Tab2 from './pages/Tab2';
-import Tab3 from './pages/Tab3';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -32,35 +28,128 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
 /* Theme variables */
-import './theme/variables.css';
+import './theme/variables.scss';
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route path="/tab1" component={Tab1} exact={true} />
-          <Route path="/tab2" component={Tab2} exact={true} />
-          <Route path="/tab3" component={Tab3} />
-          <Route path="/" render={() => <Redirect to="/tab1" />} exact={true} />
-        </IonRouterOutlet>
-        <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tab1">
-            <IonIcon icon={triangle} />
-            <IonLabel>Tab 1</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon icon={ellipse} />
-            <IonLabel>Tab 2</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon icon={square} />
-            <IonLabel>Tab 3</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
-    </IonReactRouter>
-  </IonApp>
-);
+import { 
+  getCurrentUser,
+  logoutUser
+} from './data/api/Firebase';
+import { connect } from './data/connect';
+import { AppContextProvider } from './app/AppContext';
+import {
+  setIsLoggedIn,
+  setDisplayName,
+  setPhotoURL,
+  getUserPreference
+} from './data/user/user.actions';
+
+import LsMainTabs from './components/tabs/MainTabs';
+import LsMenu from './components/menu/Menu';
+import { toast } from './components/toast/Toast';
+import HomeOrWelcome from './components/HomeOrWelcome';
+
+import Home from './pages/home/Home';
+import Login from './pages/login/Login';
+import Register from './pages/register/Register';
+import Account from './pages/account/Account';
+import Welcome from './pages/welcome/Welcome';
+
+import { ToastStatus } from './enum/ToastStatus';
+import { getAvatar } from './util/getAvatar';
+import * as ROUTES  from './constants/Routes';
+
+const App: React.FC = () => {
+  return (
+    <AppContextProvider>
+      <IonicAppConnected />
+    </AppContextProvider>
+  );
+};
+
+interface StateProps {
+  darkMode: boolean;
+}
+
+interface DispatchProps {
+  setIsLoggedIn: typeof setIsLoggedIn;
+  setDisplayName: typeof setDisplayName;
+  setPhotoURL: typeof setPhotoURL;
+  getUserPreference: typeof getUserPreference;
+}
+
+interface IonicAppProps extends StateProps, DispatchProps { }
+
+const IonicApp: React.FC<IonicAppProps> = ({
+    darkMode,
+    setIsLoggedIn,
+    setDisplayName,
+    setPhotoURL,
+    getUserPreference,
+  }) => {
+
+  const [busy, setBusy] = useState(true);
+
+  useEffect(() => {
+    getCurrentUser().then((user: any) => {
+      if (user) {
+        setIsLoggedIn(true);
+        setDisplayName(user.displayName);
+        setPhotoURL(user.photoURL ? user.photoURL : getAvatar(user.email));
+      } else {
+        setIsLoggedIn(false);
+      }
+      setBusy(false);
+      getUserPreference();
+    });
+  }, [
+      setIsLoggedIn,
+      setDisplayName,
+      setPhotoURL,
+      getUserPreference,
+    ]);
+
+  return (
+    <IonApp className={`${darkMode ? 'dark-theme' : ''}`}>
+      { busy ? <div className="container-spinner"><IonSpinner></IonSpinner></div> :
+              <IonReactRouter>
+                <IonSplitPane contentId="main">
+                  <LsMenu />
+                  <IonRouterOutlet id="main">
+                    <Route path='/' component={HomeOrWelcome} exact={true} />
+                    <Route path={ROUTES.TABS} component={LsMainTabs} />
+                    <Route path={ROUTES.ACCOUNT} component={Account} exact={true} />
+                    <Route path={ROUTES.HOME} component={Home} exact={true} />
+                    <Route path={ROUTES.LOGIN} component={Login} exact={true} />
+                    <Route path={ROUTES.REGISTER} component={Register} exact={true} />
+                    <Route path={ROUTES.WELCOME} component={Welcome} exact={true} />
+                    <Route path={ROUTES.LOGOUT} render={() => {
+                      logoutUser().then(() => {
+                        toast('Successfully logged out!', ToastStatus.DEFAULT);
+                        setIsLoggedIn(false);
+                      }, (error) => {
+                        toast(error.message, ToastStatus.ERROR, 4000);
+                      });
+                      return <Redirect to={ROUTES.LOGIN} />
+                    }} />
+                  </IonRouterOutlet>
+                </IonSplitPane>
+              </IonReactRouter>
+      }
+    </IonApp>
+  )
+}
 
 export default App;
+
+const IonicAppConnected = connect<{}, StateProps, DispatchProps>({
+  mapStateToProps: (state) => ({
+    darkMode: state.userReducer.darkMode,
+  }),
+  mapDispatchToProps: {
+    getUserPreference,
+    setIsLoggedIn,
+    setDisplayName,
+    setPhotoURL,
+  },
+  component: IonicApp
+});

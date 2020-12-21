@@ -1,5 +1,5 @@
 export interface Transactions {
-  id: number;
+  transactionId: number;
   transactionLink: number;
   transactionDate: string;
   transactionFromBank: number;

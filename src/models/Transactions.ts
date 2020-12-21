@@ -11,6 +11,6 @@ export interface Transactions {
   transactionComments: string;
   transactionInsertedBy: number;
   transactionFlag: string;
-  transactioncreatedAt: Date;
-  transactionupdatedAt: Date;
+  transactionCreatedAt: Date;
+  transactionUpdatedAt: Date;
 }

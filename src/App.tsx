@@ -48,7 +48,6 @@ import LsMenu from './components/menu/Menu';
 import { toast } from './components/toast/Toast';
 import HomeOrWelcome from './components/HomeOrWelcome';
 
-import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import Account from './pages/account/Account';
@@ -57,6 +56,8 @@ import Welcome from './pages/welcome/Welcome';
 import { ToastStatus } from './enum/ToastStatus';
 import { getAvatar } from './util/getAvatar';
 import * as ROUTES  from './constants/Routes';
+import Dashboard from './pages/dashboard/Dashboard';
+import { getAppSummary } from './data/summary/summary.actions';
 
 const App: React.FC = () => {
   return (
@@ -68,6 +69,7 @@ const App: React.FC = () => {
 
 interface StateProps {
   darkMode: boolean;
+  userProfile: any;
 }
 
 interface DispatchProps {
@@ -75,26 +77,38 @@ interface DispatchProps {
   setDisplayName: typeof setDisplayName;
   setPhotoURL: typeof setPhotoURL;
   getUserPreference: typeof getUserPreference;
+  getAppSummary: typeof getAppSummary;
 }
 
 interface IonicAppProps extends StateProps, DispatchProps { }
 
 const IonicApp: React.FC<IonicAppProps> = ({
     darkMode,
+    userProfile,
     setIsLoggedIn,
     setDisplayName,
     setPhotoURL,
     getUserPreference,
+    getAppSummary,
   }) => {
 
   const [busy, setBusy] = useState(true);
 
   useEffect(() => {
     getCurrentUser().then((user: any) => {
+      
       if (user) {
+        // convert localstorage userProfile from string to json
+        const userProfileObj = JSON.parse(userProfile);
+
         setIsLoggedIn(true);
         setDisplayName(user.displayName);
         setPhotoURL(user.photoURL ? user.photoURL : getAvatar(user.email));
+
+        if (userProfileObj) {
+          getAppSummary(userProfileObj.userId, 2020);
+        }
+
       } else {
         setIsLoggedIn(false);
       }
@@ -106,6 +120,8 @@ const IonicApp: React.FC<IonicAppProps> = ({
       setDisplayName,
       setPhotoURL,
       getUserPreference,
+      getAppSummary,
+      userProfile
     ]);
 
   return (
@@ -118,7 +134,7 @@ const IonicApp: React.FC<IonicAppProps> = ({
                     <Route path='/' component={HomeOrWelcome} exact={true} />
                     <Route path={ROUTES.TABS} component={LsMainTabs} />
                     <Route path={ROUTES.ACCOUNT} component={Account} exact={true} />
-                    <Route path={ROUTES.HOME} component={Home} exact={true} />
+                    <Route path={ROUTES.DASHBOARD} component={Dashboard} exact={true} />
                     <Route path={ROUTES.LOGIN} component={Login} exact={true} />
                     <Route path={ROUTES.REGISTER} component={Register} exact={true} />
                     <Route path={ROUTES.WELCOME} component={Welcome} exact={true} />
@@ -144,12 +160,14 @@ export default App;
 const IonicAppConnected = connect<{}, StateProps, DispatchProps>({
   mapStateToProps: (state) => ({
     darkMode: state.userReducer.darkMode,
+    userProfile: state.userReducer.userProfile
   }),
   mapDispatchToProps: {
     getUserPreference,
     setIsLoggedIn,
     setDisplayName,
     setPhotoURL,
+    getAppSummary,
   },
   component: IonicApp
 });

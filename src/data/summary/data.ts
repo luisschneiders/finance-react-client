@@ -1,3 +1,4 @@
+import { Summary } from "../../models/Summary";
 import { getSummary } from "../api/Summary";
 
 export const loadSummaryData = async (id: number, year: number) => {
@@ -5,9 +6,10 @@ export const loadSummaryData = async (id: number, year: number) => {
     getSummary(id, year)
   ]);
 
-  const transactions = response[0];
+  const summary = response as Summary;
   const data: any = {
-    transactions
+    summary
   }
+
   return data;
 }

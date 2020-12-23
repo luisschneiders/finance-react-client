@@ -20,6 +20,7 @@ export const initialState: AppState = {
     isLoggedin: false,
     loading: false,
     favouriteNewsId: null,
+    userCredentials: {},
   },
   newsReducer: {
     news: null,

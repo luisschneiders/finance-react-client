@@ -56,6 +56,7 @@ import Welcome from './pages/welcome/Welcome';
 import { ToastStatus } from './enum/ToastStatus';
 import { getAvatar } from './util/getAvatar';
 import * as ROUTES  from './constants/Routes';
+import * as MOMENT  from './util/moment';
 import Dashboard from './pages/dashboard/Dashboard';
 import { getAppSummary } from './data/summary/summary.actions';
 
@@ -106,7 +107,7 @@ const IonicApp: React.FC<IonicAppProps> = ({
         setPhotoURL(user.photoURL ? user.photoURL : getAvatar(user.email));
 
         if (userProfileObj) {
-          getAppSummary(userProfileObj.userId, 2020);
+          getAppSummary(userProfileObj.userId, parseInt(MOMENT.currentYear));
         }
 
       } else {

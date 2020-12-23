@@ -15,8 +15,8 @@ export function getSummary(id: number, year: number) {
               timesheets: [],
             };
 
-            Object.keys(summary).map((key: any, indexSummary: any) => {
-              result.map((data: any, indexResult: any) => {
+            Object.keys(summary).forEach((key: any, indexSummary: any) => {
+              result.forEach((data: any, indexResult: any) => {
                 if (indexSummary === indexResult) {
                   summary[key] = data;
                 }

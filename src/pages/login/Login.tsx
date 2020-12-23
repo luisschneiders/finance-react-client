@@ -24,34 +24,34 @@ import {
   setIsLoggedIn,
   setDisplayName,
   setPhotoURL,
-  setCredentialsServer
+  setUserProfileServer
 } from '../../data/user/user.actions';
 import { connect } from '../../data/connect';
 import { getAvatar } from '../../util/getAvatar';
 import * as ROUTES from '../../constants/Routes';
 import { setMenuEnabled } from '../../data/sessions/sessions.actions';
-import { getCredentialsServer } from '../../data/api/User';
-import { getSummaryData } from '../../data/summary/summary.actions';
+import { getUserCredentialsServer } from '../../data/api/User';
+import { getAppSummary } from '../../data/summary/summary.actions';
 
 interface OwnProps extends RouteComponentProps {}
 interface DispatchProps {
-  setCredentialsServer: typeof setCredentialsServer;
+  setUserProfileServer: typeof setUserProfileServer;
   setIsLoggedIn: typeof setIsLoggedIn;
   setDisplayName: typeof setDisplayName;
   setPhotoURL: typeof setPhotoURL;
   setMenuEnabled: typeof setMenuEnabled;
-  getSummaryData: typeof getSummaryData;
+  getAppSummary: typeof getAppSummary;
 }
 interface LoginProps extends OwnProps, DispatchProps { }
 
 const Login: React.FC<LoginProps> = ({
-    setCredentialsServer,
+    setUserProfileServer,
     setIsLoggedIn,
     history,
     setDisplayName: setDisplayNameAction,
     setPhotoURL: setPhotoURLAction,
     setMenuEnabled,
-    getSummaryData
+    getAppSummary
   }) => {
 
   useIonViewWillEnter(() => {
@@ -75,13 +75,12 @@ const Login: React.FC<LoginProps> = ({
 
     if (response) {
       // Go to dashboard...
-      const userProfile: any = await getCredentialsServer({email, password});
-      console.log('LFS - userProfile: ', userProfile);
+      const userProfile: any = await getUserCredentialsServer({email, password});
 
       // Check if credentials in the server match. If not, logout from Firebase
       if (userProfile) {
-        await getSummaryData(userProfile.userId, 2020);
-        await setCredentialsServer(userProfile);
+        await getAppSummary(userProfile.userId, 2020);
+        await setUserProfileServer(userProfile);
         await setIsLoggedIn(true);
         await setDisplayNameAction(response.user.displayName ? response.user.displayName : null);
         await setPhotoURLAction(response.user.photoURL ? response.user.photoURL : getAvatar(response.user.email));
@@ -143,12 +142,12 @@ const Login: React.FC<LoginProps> = ({
 
 export default connect<OwnProps, {}, DispatchProps>({
   mapDispatchToProps: {
-    setCredentialsServer,
+    setUserProfileServer,
     setIsLoggedIn,
     setDisplayName,
     setPhotoURL,
     setMenuEnabled,
-    getSummaryData,
+    getAppSummary,
   },
   component: Login
 });

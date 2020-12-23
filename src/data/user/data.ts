@@ -4,7 +4,7 @@ import { UserProfileServer } from '../../models/UserProfileServer';
 const { Storage } = Plugins;
 const DARK_MODE = 'darkMode';
 const HAS_SEEN_WELCOME = 'hasSeenWelcome';
-const USER_CREDENTIALS = 'userCredentials';
+const USER_CREDENTIALS = 'userProfile';
 
 export const getStorageUser = async () => {
   const response: any = await Promise.all([
@@ -15,12 +15,12 @@ export const getStorageUser = async () => {
 
   const darkMode = await response[0].value === 'true';
   const hasSeenWelcome = await response[1].value === 'true';
-  const userCredentials = await response[2].value;
+  const userProfile = await response[2].value;
 
   const data: any = {
     darkMode,
     hasSeenWelcome,
-    userCredentials,
+    userProfile,
   }
 
   return data;
@@ -34,6 +34,6 @@ export const setStorageHasSeenWelcome = async (hasSeenWelcome: boolean) => {
   await Storage.set({ key: HAS_SEEN_WELCOME, value: JSON.stringify(hasSeenWelcome)});
 }
 
-export const setStorageUserCredentials = async (data: UserProfileServer) => {
+export const setStorageUserProfileServer = async (data: UserProfileServer) => {
   await Storage.set({ key: USER_CREDENTIALS, value: JSON.stringify(data)});
 }

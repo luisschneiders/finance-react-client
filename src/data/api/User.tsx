@@ -4,7 +4,7 @@ import { UserCredentials } from "../../models/UserCredentials";
 import * as ROUTES from '../../constants/Routes';
 import { UserProfileServer } from "../../models/UserProfileServer";
 
-export function getCredentialsServer(credentials: UserCredentials) {
+export function getUserCredentialsServer(credentials: UserCredentials) {
 
   const requestOptions = {
     method: 'POST',

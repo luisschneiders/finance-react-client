@@ -1,3 +1,5 @@
+import { UserProfileServer } from "../../models/UserProfileServer";
+
 export interface UserState {
   darkMode: boolean;
   isLoggedin: boolean;
@@ -6,5 +8,5 @@ export interface UserState {
   photoURL?: string | null | undefined;
   hasSeenWelcome: boolean;
   favouriteNewsId: number[] | null | undefined;
-  userCredentials: {}
+  userProfile: any;
 }

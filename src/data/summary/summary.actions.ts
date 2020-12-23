@@ -2,7 +2,7 @@ import { ActionType } from "../../util/types";
 import { loadSummaryData } from "./data";
 import { SummaryState } from "./summary.state";
 
-export const getSummaryData = (id: number, year: number) => async (dispatch: React.Dispatch<any>) => {
+export const getAppSummary = (id: number, year: number) => async (dispatch: React.Dispatch<any>) => {
   const data = await loadSummaryData(id, year);
   dispatch(setSummaryData(data));
 }

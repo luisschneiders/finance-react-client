@@ -2,16 +2,16 @@ import {
   setStorageDarkMode,
   getStorageUser,
   setStorageHasSeenWelcome,
-  setStorageUserCredentials
+  setStorageUserProfileServer
 } from '../user/data';
 import { ActionType } from '../../util/types';
 import { UserState } from './user.state';
 import { UserProfileServer } from '../../models/UserProfileServer';
 
-export const setCredentialsServer = (data: UserProfileServer) => async (dispatch: React.Dispatch<any>) => {
-  await setStorageUserCredentials(data);
+export const setUserProfileServer = (data: UserProfileServer) => async (dispatch: React.Dispatch<any>) => {
+  await setStorageUserProfileServer(data);
   return ({
-    type: 'SET_CREDENTIALS_SERVER',
+    type: 'SET_USER_PROFILE_SERVER',
     data
   } as const);
 }
@@ -64,7 +64,7 @@ export const setUserPreference = (data: Partial<UserState>) => ({
 } as const);
 
 export type UserActions =
-  | ActionType<typeof setCredentialsServer>
+  | ActionType<typeof setUserProfileServer>
   | ActionType<typeof setIsLoggedIn>
   | ActionType<typeof setDarkMode>
   | ActionType<typeof setDisplayName>

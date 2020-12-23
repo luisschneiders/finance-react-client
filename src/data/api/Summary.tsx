@@ -1,7 +1,28 @@
+import { Summary } from "../../models/Summary";
+import * as ROUTES from '../../constants/Routes';
+
 export function getSummary(id: number, year: number) {
-  return fetch(`http://local.developing:3030/main-by-year/id=${id}&year=${year}`)
+  return fetch(`${ROUTES.SERVER}/main-by-year/id=${id}&year=${year}`)
           .then(response => response.json())
-          .then((result: any[]) => {
-            console.log('LFS - 1 results: ', result);
+          .then((result: Summary[]) => {
+
+            const summary: any = {
+              incomesOutcomesTransfers: [],
+              purchases: [],
+              transactions: [],
+              banks: [],
+              purchasesByType: [],
+              timesheets: [],
+            };
+
+            Object.keys(summary).map((key: any, indexSummary: any) => {
+              result.map((data: any, indexResult: any) => {
+                if (indexSummary === indexResult) {
+                  summary[key] = data;
+                }
+              });
+            });
+
+            return summary;
           })
 }

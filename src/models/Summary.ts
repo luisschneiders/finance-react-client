@@ -3,7 +3,7 @@ import { IncomesOutcomesTransfersSummary } from "./IncomesOutcomesTransfersSumma
 import { TransactionsSummary } from "./TransactionsSummary";
 import { Banks } from "./Banks";
 import { PurchasesByTypeSummary } from "./PurchasesByTypeSummary";
-import { TimesheetSummary } from "./TimesheetSummary";
+import { TimesheetsSummary } from "./TimesheetsSummary";
 
 export interface Summary {
   incomesOutcomesTransfers: IncomesOutcomesTransfersSummary[];
@@ -11,5 +11,5 @@ export interface Summary {
   transactions: TransactionsSummary[];
   banks: Banks[];
   purchasesByType: PurchasesByTypeSummary[];
-  timesheet: TimesheetSummary[];
+  timesheets: TimesheetsSummary[];
 }

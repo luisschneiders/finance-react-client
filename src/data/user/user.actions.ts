@@ -1,15 +1,15 @@
 import {
-  setDarkModeData,
-  loadUserData,
-  setHasSeenWelcomeData,
-  setUserCredentialsData
+  setStorageDarkMode,
+  getStorageUser,
+  setStorageHasSeenWelcome,
+  setStorageUserCredentials
 } from '../user/data';
 import { ActionType } from '../../util/types';
 import { UserState } from './user.state';
 import { UserProfileServer } from '../../models/UserProfileServer';
 
 export const setCredentialsServer = (data: UserProfileServer) => async (dispatch: React.Dispatch<any>) => {
-  await setUserCredentialsData(data);
+  await setStorageUserCredentials(data);
   return ({
     type: 'SET_CREDENTIALS_SERVER',
     data
@@ -24,7 +24,7 @@ export const setIsLoggedIn = (loggedIn: boolean) => async (dispatch: React.Dispa
 }
 
 export const setDarkMode = (darkMode: boolean) => async (dispatch: React.Dispatch<any>) => {
-  await setDarkModeData(darkMode)
+  await setStorageDarkMode(darkMode)
   return ({
    type: 'SET_DARK_MODE',
    darkMode
@@ -46,7 +46,7 @@ export const setPhotoURL = (photoURL: string | null | undefined) => async (dispa
 }
 
 export const setHasSeenWelcome = (hasSeenWelcome: boolean) => async (dispatch: React.Dispatch<any>) => {
-  await setHasSeenWelcomeData(hasSeenWelcome);
+  await setStorageHasSeenWelcome(hasSeenWelcome);
   return ({
     type: 'SET_HAS_SEEN_WELCOME',
     hasSeenWelcome
@@ -54,7 +54,7 @@ export const setHasSeenWelcome = (hasSeenWelcome: boolean) => async (dispatch: R
 }
 
 export const getUserPreference = () => async (dispatch: React.Dispatch<any>) => {
-  const data = await loadUserData();
+  const data = await getStorageUser();
   dispatch(setUserPreference(data));
 }
 

@@ -6,7 +6,7 @@ const DARK_MODE = 'darkMode';
 const HAS_SEEN_WELCOME = 'hasSeenWelcome';
 const USER_CREDENTIALS = 'userCredentials';
 
-export const loadUserData = async () => {
+export const getStorageUser = async () => {
   const response: any = await Promise.all([
     Storage.get({ key: DARK_MODE }),
     Storage.get({ key: HAS_SEEN_WELCOME }),
@@ -26,14 +26,14 @@ export const loadUserData = async () => {
   return data;
 }
 
-export const setDarkModeData = async (darkMode: boolean) => {
+export const setStorageDarkMode = async (darkMode: boolean) => {
   await Storage.set({ key: DARK_MODE, value: JSON.stringify(darkMode)});
 }
 
-export const setHasSeenWelcomeData = async (hasSeenWelcome: boolean) => {
+export const setStorageHasSeenWelcome = async (hasSeenWelcome: boolean) => {
   await Storage.set({ key: HAS_SEEN_WELCOME, value: JSON.stringify(hasSeenWelcome)});
 }
 
-export const setUserCredentialsData = async (data: UserProfileServer) => {
+export const setStorageUserCredentials = async (data: UserProfileServer) => {
   await Storage.set({ key: USER_CREDENTIALS, value: JSON.stringify(data)});
 }

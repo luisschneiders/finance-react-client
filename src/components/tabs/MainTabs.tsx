@@ -37,7 +37,7 @@ const LsMainTabs: React.FC<StateProps> = ({isAuthenticated}) => {
         <Route path={ROUTES.TABS_HOME} render={() => <Home></Home>} exact={true} />
         {/* <Route path={ROUTES.TAB2} render={() => <Tab2></Tab2>} exact={true} /> */}
         {/* <Route path={`${ROUTES.TAB1}/:id`} component={Tab1Detail} /> */}
-        <Route path='/' render={() => <Redirect to={ROUTES.DASHBOARD} />} exact={true} />
+        <Route path='/' render={() => <Redirect to={ROUTES.TABS_HOME} />} exact={true} />
       </IonRouterOutlet>
       <IonTabBar slot="bottom">
         {isAuthenticated ? renderTabItems(appTabs().authenticated) : renderTabItems(appTabs().unauthenticated)}

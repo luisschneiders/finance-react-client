@@ -55,6 +55,7 @@
   },
   "devDependencies": {
     "@capacitor/cli": "^1.5.1",
+    "@types/chart.js": "^2.9.29",
     "@types/firebase": "^3.2.1"
   },
   "description": "Personal Finance app"

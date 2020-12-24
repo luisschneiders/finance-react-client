@@ -1,4 +1,4 @@
-import { Summary } from "../../models/Summary";
+import { Summary } from '../../models/Summary';
 import * as ROUTES from '../../constants/Routes';
 
 export function getSummary(id: number, year: number) {

@@ -5,8 +5,8 @@ import {
   logInOutline,
   starOutline,
   happyOutline,
-} from "ionicons/icons";
-import { AppPage } from "../../models/AppPage";
+} from 'ionicons/icons';
+import { AppPage } from '../../models/AppPage';
 import * as ROUTES from '../../constants/Routes'
 
 export function appTabs() {

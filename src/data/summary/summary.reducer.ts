@@ -1,5 +1,5 @@
-import { SummaryActions } from "./summary.actions";
-import { SummaryState } from "./summary.state";
+import { SummaryActions } from './summary.actions';
+import { SummaryState } from './summary.state';
 
 export const summaryReducer = (state: SummaryState, action: SummaryActions) : SummaryState => {
   switch (action.type) {

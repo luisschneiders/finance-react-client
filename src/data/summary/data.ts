@@ -1,5 +1,5 @@
-import { Summary } from "../../models/Summary";
-import { getSummary } from "../api/Summary";
+import { Summary } from '../../models/Summary';
+import { getSummary } from '../api/Summary';
 
 export const loadSummaryData = async (id: number, year: number) => {
   const response: any = await getSummary(id, year);

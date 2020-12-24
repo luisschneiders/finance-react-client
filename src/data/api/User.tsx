@@ -1,8 +1,8 @@
-import { toast } from "../../components/toast/Toast";
-import { ToastStatus } from "../../enum/ToastStatus";
-import { UserCredentials } from "../../models/UserCredentials";
+import { toast } from '../../components/toast/Toast';
+import { ToastStatus } from '../../enum/ToastStatus';
+import { UserCredentials } from '../../models/UserCredentials';
 import * as ROUTES from '../../constants/Routes';
-import { UserProfileServer } from "../../models/UserProfileServer";
+import { UserProfileServer } from '../../models/UserProfileServer';
 
 export function getUserCredentialsServer(credentials: UserCredentials) {
 

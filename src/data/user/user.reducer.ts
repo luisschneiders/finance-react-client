@@ -8,7 +8,7 @@ export function userReducer(state: UserState, action: UserActions): UserState {
     case 'SET_HAS_SEEN_WELCOME':
         return { ...state, hasSeenWelcome: action.hasSeenWelcome };
     case 'SET_IS_LOGGEDIN':
-      return { ...state, isLoggedin: action.loggedIn };
+      return { ...state, isLoggedIn: action.isLoggedIn };
     case 'SET_DISPLAY_NAME':
       return { ...state, displayName: action.displayName };
     case 'SET_PHOTO_URL':

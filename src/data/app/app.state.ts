@@ -17,7 +17,7 @@ export const initialState: AppState = {
   userReducer: {
     darkMode: false,
     hasSeenWelcome: false,
-    isLoggedin: false,
+    isLoggedIn: false,
     loading: false,
     favouriteNewsId: null,
     userProfile: null,

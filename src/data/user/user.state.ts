@@ -1,5 +1,3 @@
-import { UserProfileServer } from "../../models/UserProfileServer";
-
 export interface UserState {
   darkMode: boolean;
   isLoggedin: boolean;

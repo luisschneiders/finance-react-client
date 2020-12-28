@@ -7,7 +7,7 @@ export function userReducer(state: UserState, action: UserActions): UserState {
       return { ...state, darkMode: action.darkMode };
     case 'SET_HAS_SEEN_WELCOME':
         return { ...state, hasSeenWelcome: action.hasSeenWelcome };
-    case 'SET_IS_LOGGEDIN':
+    case 'SET_IS_LOGGED_IN':
       return { ...state, isLoggedIn: action.isLoggedIn };
     case 'SET_DISPLAY_NAME':
       return { ...state, displayName: action.displayName };

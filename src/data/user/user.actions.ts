@@ -16,10 +16,10 @@ export const setUserProfileServer = (data: UserProfileServer) => async (dispatch
   } as const);
 }
 
-export const setIsLoggedIn = (isLoggedin: boolean) => async (dispatch: React.Dispatch<any>) => {
+export const setIsLoggedIn = (isLoggedIn: boolean) => async (dispatch: React.Dispatch<any>) => {
   return ({
-    type: 'SET_IS_LOGGEDIN',
-    isLoggedin
+    type: 'SET_IS_LOGGED_IN',
+    isLoggedIn
   } as const);
 }
 

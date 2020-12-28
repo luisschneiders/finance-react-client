@@ -62,7 +62,7 @@ const Login: React.FC<LoginProps> = ({
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false);
-  const [currentYear, setCurrentYear] = useState(Number);
+  const currentYear: any = parseInt(MOMENT.currentYear);
 
   const login = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,8 +70,6 @@ const Login: React.FC<LoginProps> = ({
     if (email.trim() === '' || password.trim() === '') {
       return toast('Email and password are required!', ToastStatus.WARNING);
     }
-
-    setCurrentYear(parseInt(MOMENT.currentYear));
 
     setBusy(true);
     const response: any = await loginUser(email, password);

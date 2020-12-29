@@ -79,7 +79,7 @@ export const renderBanks = (data: any[]) => {
   let totalCash: any = 0;
 
   bank.bankCurrentBalance = data.map((value, index) => {
-    banksLabel.push(value.bankDescription);
+    banksLabel.push(value.bankAccount);
     if (value.bankCurrentBalance >= 0 && value.bankCurrentBalance <= 1000) {
       doughnutBackgroundColors.push('#ff2f92');
     } else if (value.bankCurrentBalance >= 1000 && value.bankCurrentBalance <= 20000) {

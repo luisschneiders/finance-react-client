@@ -107,7 +107,7 @@ const IonicApp: React.FC<IonicAppProps> = ({
         setPhotoURL(user.photoURL ? user.photoURL : getAvatar(user.email));
 
         if (userProfileObj) {
-          getAppSummary(userProfileObj.userId, parseInt(MOMENT.currentYear));
+          getAppSummary(userProfileObj.userId, MOMENT.currentYear);
         }
 
       } else {

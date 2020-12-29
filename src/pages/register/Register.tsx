@@ -46,8 +46,7 @@ const Register: React.FC<RegisterProps> = ({
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [busy , setBusy] = useState(false);
-  const currentYear: any = parseInt(MOMENT.currentYear);
-  
+
   const register = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -67,7 +66,7 @@ const Register: React.FC<RegisterProps> = ({
       // Go to dashboard...
       await setIsLoggedIn(true);
       await setPhotoURLAction(getAvatar(response?.user?.email));
-      history.push(`${ROUTES.TABS_HOME}/${currentYear}`, {direction: 'none'});
+      history.push(ROUTES.TABS_HOME, {direction: 'none'});
     }
   }
 

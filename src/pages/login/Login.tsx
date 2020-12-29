@@ -62,7 +62,6 @@ const Login: React.FC<LoginProps> = ({
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false);
-  const currentYear: any = parseInt(MOMENT.currentYear);
 
   const login = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -81,13 +80,13 @@ const Login: React.FC<LoginProps> = ({
 
       // Check if credentials in the server match. If not, logout from Firebase
       if (userProfile) {
-        await getAppSummary(userProfile.userId, currentYear);
+        await getAppSummary(userProfile.userId, MOMENT.currentYear);
         await setUserProfileServer(userProfile);
         await setIsLoggedIn(true);
         await setDisplayNameAction(response.user.displayName ? response.user.displayName : null);
         await setPhotoURLAction(response.user.photoURL ? response.user.photoURL : getAvatar(response.user.email));
 
-        history.push(`${ROUTES.TABS_HOME}/${currentYear}`, {direction: 'none'});
+        history.push(ROUTES.TABS_HOME, {direction: 'none'});
 
       } else {
         logoutUser().then(() => {

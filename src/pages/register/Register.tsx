@@ -19,28 +19,31 @@ import {
   RouteComponentProps
 } from 'react-router-dom';
 import { toast } from '../../components/toast/Toast';
-import { registerUser } from '../../data/api/Firebase';
+import { logoutUser, registerUser } from '../../data/api/Firebase';
 import { ToastStatus } from '../../enum/ToastStatus';
 import {
   setIsLoggedIn,
-  setPhotoURL
+  setPhotoURL,
+  setUserProfileServer
 } from '../../data/user/user.actions';
 import { connect } from '../../data/connect';
 import { getAvatar } from '../../util/getAvatar';
 import * as ROUTES from '../../constants/Routes';
-import * as MOMENT  from '../../util/moment';
+import { setUserCredentialsServer } from '../../data/api/User';
 
 interface OwnProps extends RouteComponentProps {}
 interface DispatchProps {
   setIsLoggedIn: typeof setIsLoggedIn;
   setPhotoURL: typeof setPhotoURL;
+  setUserProfileServer: typeof setUserProfileServer;
 }
 interface RegisterProps extends OwnProps, DispatchProps { }
 
 const Register: React.FC<RegisterProps> = ({
     setIsLoggedIn,
     history,
-    setPhotoURL: setPhotoURLAction
+    setPhotoURL: setPhotoURLAction,
+    setUserProfileServer,
   }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -64,9 +67,20 @@ const Register: React.FC<RegisterProps> = ({
 
     if (response) {
       // Go to dashboard...
-      await setIsLoggedIn(true);
-      await setPhotoURLAction(getAvatar(response?.user?.email));
-      history.push(ROUTES.TABS_HOME, {direction: 'none'});
+      const userProfile: any = await setUserCredentialsServer({email, password});
+
+      if (userProfile) {
+        await setUserProfileServer(userProfile);
+        await setIsLoggedIn(true);
+        await setPhotoURLAction(getAvatar(response?.user?.email));
+        history.push(ROUTES.TABS_HOME, {direction: 'none'});
+      } else {
+        logoutUser().then(() => {
+          setIsLoggedIn(false);
+        }, (error) => {
+          toast(error.message, ToastStatus.ERROR, 4000);
+        });
+      }
     }
   }
 
@@ -125,6 +139,7 @@ export default connect<OwnProps, {}, DispatchProps>({
   mapDispatchToProps: {
     setIsLoggedIn,
     setPhotoURL,
+    setUserProfileServer,
   },
   component: Register
 });

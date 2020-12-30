@@ -45,3 +45,45 @@ export function getUserCredentialsServer(credentials: UserCredentials) {
           });
 
 }
+
+export function setUserCredentialsServer(credentials: UserCredentials) {
+  const requestOptions = {
+    method: 'POST',
+    body: JSON.stringify(credentials),
+    headers: { 'Content-type': 'application/json; charset=UTF-8' },
+  };
+
+  let resStatus: any = null;
+
+  return fetch(`${ROUTES.SERVER}/signup`, requestOptions)
+          .then(res => {
+            resStatus = res.status;
+            console.log('LFS - res api: ', res);
+            return res.json();
+          })
+          .then((result: any) => {
+            switch (resStatus) {
+              case 200:
+              case 201:
+                const userProfile: UserProfileServer = Object.assign({}, {
+                  userId: result.id,
+                  name: result.name,
+                  email: result.email
+                })
+                return userProfile;
+              case 400:
+                toast(result.error, ToastStatus.ERROR, 4000);
+                return false;
+              case 401:
+                toast(result.error, ToastStatus.ERROR, 4000);
+                return false;
+              default:
+                toast('Unhandled', ToastStatus.ERROR, 4000);
+                return false;
+            }
+          }).catch((error) => {
+            toast(error.msg, ToastStatus.ERROR, 4000);
+            return false;
+          });
+
+}

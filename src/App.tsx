@@ -40,7 +40,7 @@ import {
   setIsLoggedIn,
   setDisplayName,
   setPhotoURL,
-  getUserPreference
+  getUserPreference,
 } from './data/user/user.actions';
 
 import LsMainTabs from './components/tabs/MainTabs';
@@ -56,9 +56,7 @@ import Welcome from './pages/welcome/Welcome';
 import { ToastStatus } from './enum/ToastStatus';
 import { getAvatar } from './util/getAvatar';
 import * as ROUTES  from './constants/Routes';
-import * as MOMENT  from './util/moment';
 import Dashboard from './pages/dashboard/Dashboard';
-import { getAppSummary } from './data/summary/summary.actions';
 
 const App: React.FC = () => {
   return (
@@ -78,7 +76,6 @@ interface DispatchProps {
   setDisplayName: typeof setDisplayName;
   setPhotoURL: typeof setPhotoURL;
   getUserPreference: typeof getUserPreference;
-  getAppSummary: typeof getAppSummary;
 }
 
 interface IonicAppProps extends StateProps, DispatchProps { }
@@ -86,11 +83,10 @@ interface IonicAppProps extends StateProps, DispatchProps { }
 const IonicApp: React.FC<IonicAppProps> = ({
     darkMode,
     userProfile,
+    getUserPreference,
     setIsLoggedIn,
     setDisplayName,
     setPhotoURL,
-    getUserPreference,
-    getAppSummary,
   }) => {
 
   const [busy, setBusy] = useState(true);
@@ -99,17 +95,9 @@ const IonicApp: React.FC<IonicAppProps> = ({
     getCurrentUser().then((user: any) => {
       
       if (user) {
-        // convert localstorage userProfile from string to json
-        const userProfileObj = JSON.parse(userProfile);
-
         setIsLoggedIn(true);
         setDisplayName(user.displayName);
         setPhotoURL(user.photoURL ? user.photoURL : getAvatar(user.email));
-
-        if (userProfileObj) {
-          getAppSummary(userProfileObj.userId, MOMENT.currentYear);
-        }
-
       } else {
         setIsLoggedIn(false);
       }
@@ -117,11 +105,10 @@ const IonicApp: React.FC<IonicAppProps> = ({
       getUserPreference();
     });
   }, [
+      getUserPreference,
       setIsLoggedIn,
       setDisplayName,
       setPhotoURL,
-      getUserPreference,
-      getAppSummary,
       userProfile
     ]);
 
@@ -168,7 +155,6 @@ const IonicAppConnected = connect<{}, StateProps, DispatchProps>({
     setIsLoggedIn,
     setDisplayName,
     setPhotoURL,
-    getAppSummary,
   },
   component: IonicApp
 });

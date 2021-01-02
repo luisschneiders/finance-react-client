@@ -4,6 +4,7 @@ import { userReducer } from '../user/user.reducer';
 import { newsReducer } from '../news/news.reducer';
 import { summaryReducer } from '../summary/summary.reducer';
 import { transactionsReducer } from '../transactions/transactions.reducer';
+import * as MOMENT  from './../../util/moment';
 
 export const initialState: AppState = {
   // An example of reducer
@@ -21,6 +22,7 @@ export const initialState: AppState = {
     loading: false,
     favouriteNewsId: null,
     userProfile: null,
+    homeTimeTransition: 0,
   },
   newsReducer: {
     news: null,

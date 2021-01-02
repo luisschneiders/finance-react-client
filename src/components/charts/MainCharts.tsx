@@ -8,7 +8,9 @@ interface ContainerProps {
 
 const LsMainCharts: React.FC<ContainerProps> = ({func, data, id}) => {
   useEffect(() => {
-    func(data);
+    if (data && data.length) {
+      func(data);
+    }
   });
   return (
     <>

@@ -29,10 +29,8 @@ import {
 import { connect } from '../../data/connect';
 import { getAvatar } from '../../util/getAvatar';
 import * as ROUTES from '../../constants/Routes';
-import * as MOMENT  from '../../util/moment';
 import { setMenuEnabled } from '../../data/sessions/sessions.actions';
 import { getUserCredentialsServer } from '../../data/api/User';
-import { getAppSummary } from '../../data/summary/summary.actions';
 
 interface OwnProps extends RouteComponentProps {}
 interface DispatchProps {
@@ -41,9 +39,8 @@ interface DispatchProps {
   setDisplayName: typeof setDisplayName;
   setPhotoURL: typeof setPhotoURL;
   setMenuEnabled: typeof setMenuEnabled;
-  getAppSummary: typeof getAppSummary;
 }
-interface LoginProps extends OwnProps, DispatchProps { }
+interface LoginProps extends OwnProps, DispatchProps {}
 
 const Login: React.FC<LoginProps> = ({
     setUserProfileServer,
@@ -52,7 +49,6 @@ const Login: React.FC<LoginProps> = ({
     setDisplayName: setDisplayNameAction,
     setPhotoURL: setPhotoURLAction,
     setMenuEnabled,
-    getAppSummary
   }) => {
 
   useIonViewWillEnter(() => {
@@ -80,7 +76,7 @@ const Login: React.FC<LoginProps> = ({
 
       // Check if credentials in the server match. If not, logout from Firebase
       if (userProfile) {
-        await getAppSummary(userProfile.userId, MOMENT.currentYear);
+
         await setUserProfileServer(userProfile);
         await setIsLoggedIn(true);
         await setDisplayNameAction(response.user.displayName ? response.user.displayName : null);
@@ -148,7 +144,6 @@ export default connect<OwnProps, {}, DispatchProps>({
     setDisplayName,
     setPhotoURL,
     setMenuEnabled,
-    getAppSummary,
   },
   component: Login
 });

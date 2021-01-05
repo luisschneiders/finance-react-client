@@ -87,7 +87,7 @@ const LsMenu: React.FC<MenuProps> = ({darkMode, history, isAuthenticated, setDar
   );
 }
 
-export default connect<{}, StateProps, {}>({
+export default connect<{}, StateProps, DispatchProps>({
   mapStateToProps: (state) => ({
     darkMode: state.userReducer.darkMode,
     isAuthenticated: state.userReducer.isLoggedIn,

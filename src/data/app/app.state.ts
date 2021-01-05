@@ -4,7 +4,6 @@ import { userReducer } from '../user/user.reducer';
 import { newsReducer } from '../news/news.reducer';
 import { summaryReducer } from '../summary/summary.reducer';
 import { transactionsReducer } from '../transactions/transactions.reducer';
-import * as MOMENT  from './../../util/moment';
 
 export const initialState: AppState = {
   // An example of reducer
@@ -36,7 +35,7 @@ export const initialState: AppState = {
   }
 };
 
-export const reducers = combineReducers({
+export const rootReducer = combineReducers({
   // exampleReducer: exampleReducer,
   sessionsReducer,
   userReducer,
@@ -45,5 +44,12 @@ export const reducers = combineReducers({
   newsReducer,
 });
 
+export const reducers = (state: any, action: any) => {
+  if (action.type === 'SET_APP_CLEAR_STORE') {
+    state = initialState;
+  }
+
+  return rootReducer(state, action)
+}
 
 export type AppState = ReturnType<typeof reducers>;

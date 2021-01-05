@@ -58,7 +58,6 @@ export function setUserCredentialsServer(credentials: UserCredentials) {
   return fetch(`${ROUTES.SERVER}/signup`, requestOptions)
           .then(res => {
             resStatus = res.status;
-            console.log('LFS - res api: ', res);
             return res.json();
           })
           .then((result: any) => {

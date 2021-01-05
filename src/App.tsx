@@ -40,7 +40,8 @@ import {
   setIsLoggedIn,
   setDisplayName,
   setPhotoURL,
-  getUserPreference,
+  setHasSeenWelcome,
+  getDarkMode,
 } from './data/user/user.actions';
 
 import LsMainTabs from './components/tabs/MainTabs';
@@ -57,6 +58,7 @@ import { ToastStatus } from './enum/ToastStatus';
 import { getAvatar } from './util/getAvatar';
 import * as ROUTES  from './constants/Routes';
 import Dashboard from './pages/dashboard/Dashboard';
+import { setAppClearStore } from './data/app/app.actions';
 
 const App: React.FC = () => {
   return (
@@ -68,48 +70,52 @@ const App: React.FC = () => {
 
 interface StateProps {
   darkMode: boolean;
-  userProfile: any;
 }
 
 interface DispatchProps {
+  getDarkMode: typeof getDarkMode;
   setIsLoggedIn: typeof setIsLoggedIn;
   setDisplayName: typeof setDisplayName;
   setPhotoURL: typeof setPhotoURL;
-  getUserPreference: typeof getUserPreference;
+  setAppClearStore: typeof setAppClearStore;
+  setHasSeenWelcome: typeof setHasSeenWelcome;
 }
 
-interface IonicAppProps extends StateProps, DispatchProps { }
+interface IonicAppProps extends StateProps, DispatchProps {}
 
 const IonicApp: React.FC<IonicAppProps> = ({
     darkMode,
-    userProfile,
-    getUserPreference,
+    getDarkMode,
     setIsLoggedIn,
+    // setHasSeenWelcome,
     setDisplayName,
     setPhotoURL,
+    setAppClearStore,
   }) => {
 
   const [busy, setBusy] = useState(true);
 
   useEffect(() => {
+    getDarkMode();
     getCurrentUser().then((user: any) => {
       
       if (user) {
         setIsLoggedIn(true);
         setDisplayName(user.displayName);
         setPhotoURL(user.photoURL ? user.photoURL : getAvatar(user.email));
+        setHasSeenWelcome(true);
       } else {
         setIsLoggedIn(false);
       }
       setBusy(false);
-      getUserPreference();
     });
   }, [
-      getUserPreference,
+      getDarkMode,
       setIsLoggedIn,
+      // setHasSeenWelcome,
       setDisplayName,
       setPhotoURL,
-      userProfile
+      setAppClearStore,
     ]);
 
   return (
@@ -130,6 +136,7 @@ const IonicApp: React.FC<IonicAppProps> = ({
                       logoutUser().then(() => {
                         toast('Successfully logged out!', ToastStatus.DEFAULT);
                         setIsLoggedIn(false);
+                        // setAppClearStore();
                       }, (error) => {
                         toast(error.message, ToastStatus.ERROR, 4000);
                       });
@@ -148,13 +155,14 @@ export default App;
 const IonicAppConnected = connect<{}, StateProps, DispatchProps>({
   mapStateToProps: (state) => ({
     darkMode: state.userReducer.darkMode,
-    userProfile: state.userReducer.userProfile
   }),
   mapDispatchToProps: {
-    getUserPreference,
+    getDarkMode,
     setIsLoggedIn,
+    setHasSeenWelcome,
     setDisplayName,
     setPhotoURL,
+    setAppClearStore,
   },
   component: IonicApp
 });

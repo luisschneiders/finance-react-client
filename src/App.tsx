@@ -87,7 +87,7 @@ const IonicApp: React.FC<IonicAppProps> = ({
     darkMode,
     getDarkMode,
     setIsLoggedIn,
-    // setHasSeenWelcome,
+    setHasSeenWelcome,
     setDisplayName,
     setPhotoURL,
     setAppClearStore,
@@ -112,7 +112,7 @@ const IonicApp: React.FC<IonicAppProps> = ({
   }, [
       getDarkMode,
       setIsLoggedIn,
-      // setHasSeenWelcome,
+      setHasSeenWelcome,
       setDisplayName,
       setPhotoURL,
       setAppClearStore,

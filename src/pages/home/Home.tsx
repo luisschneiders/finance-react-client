@@ -13,30 +13,45 @@ import {
 import './Home.scss';
 import { connect } from '../../data/connect';
 // import { News } from '../../models/News';
-// import { Transactions } from '../../models/Transactions';
 // import * as selectors from '../../data/news/news.selectors';
-// import * as selectorsTransactions from '../../data/transactions/transactions.selectors';
-import * as selectorsSummary from '../../data/summary/summary.selectors';
-import { Summary } from '../../models/Summary';
+import * as selectorsUser from '../../data/user/user.selectors';
+import LsTimeTransition from '../../components/time/TimeTransition';
+import LsAppSummary from '../../components/summary/AppSummary';
+import { getUserProfileServer } from '../../data/user/user.actions';
 
 interface StateProps {
   // news: News | null;
-  // transactions: Transactions | null,
-  summary: Summary,
+  isLoggedIn: boolean;
 }
-interface HomeProps extends StateProps {}
+interface DispatchProps {
+  getUserProfileServer: typeof getUserProfileServer;
+}
+interface HomeProps extends StateProps, DispatchProps {}
 
 const Home: React.FC<HomeProps> = ({
     // news,
-    // transactions,
-    summary,
+    isLoggedIn,
+    getUserProfileServer
   }) => {
+
   const [isError, setError] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const [items, setItems] = useState<Summary>();
 
   useEffect(() => {
     setIsLoaded(true);
+
+    if (isLoggedIn) {
+      getUserProfileServer();
+      setError(false);
+      setTimeout(() => {
+        setIsLoaded(false);
+      }, 1000);
+
+    } else {
+      setError(true);
+      setIsLoaded(false);
+    }
+
     // if (news && Object.keys(news).length > 0) {
     //   setError(false);
     //   setTimeout(() => {
@@ -47,31 +62,11 @@ const Home: React.FC<HomeProps> = ({
     //   setError(true);
     //   setIsLoaded(false);
     // }
-    // if (transactions && Object.keys(transactions).length > 0) {
-    //   setError(false);
-    //   setTimeout(() => {
-    //     setIsLoaded(false);
-    //   }, 1000);
-    //   setItems(transactions);
-    // } else {
-    //   setError(true);
-    //   setIsLoaded(false);
-    // }
-    if (summary && Object.keys(summary).length > 0) {
-      setError(false);
-      setTimeout(() => {
-        setIsLoaded(false);
-      }, 1000);
-      console.log('LFS - summary: ', summary);
-      setItems(summary);
-    } else {
-      setError(true);
-      setIsLoaded(false);
-    }
+
   },[
     // news,
-    // transactions,
-    summary,
+    isLoggedIn,
+    getUserProfileServer
   ]);
 
   return (
@@ -84,21 +79,26 @@ const Home: React.FC<HomeProps> = ({
           <IonTitle>Home</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonLoading message="Fetching news..." duration={0} isOpen={isLoaded}></IonLoading>
+      <IonLoading message="Fetching data..." duration={0} isOpen={isLoaded}></IonLoading>
       <IonContent>
         {isError && <IonList>
-          <p className="ion-text-center">Home Page!</p>
+          <p className="ion-text-center">Something went wrong! <span role="img" aria-label="sad-face">😢</span></p>
+          <p className="ion-text-center">Please try again!</p>
         </IonList>}
+        {!isError && <LsTimeTransition />}
+        {!isError && <LsAppSummary />}
       </IonContent>
     </IonPage>
   );
 };
 
-export default connect<{}, StateProps, {}>({
+export default connect<{}, StateProps, DispatchProps>({
   mapStateToProps: (state) => ({
     // news: selectors.getNewsByGroup(state),
-    // transactions: selectorsTransactions.getTransactions(state),
-    summary: selectorsSummary.getSummary(state),
+    isLoggedIn: selectorsUser.getIsLoggedIn(state),
+  }),
+  mapDispatchToProps: ({
+    getUserProfileServer,
   }),
   component: React.memo(Home)
 });

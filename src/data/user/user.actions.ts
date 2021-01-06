@@ -1,34 +1,89 @@
 import {
   setStorageDarkMode,
-  getStorageUser,
   setStorageHasSeenWelcome,
-  setStorageUserProfileServer
+  setStorageUserProfileServer,
+  setStorageHomeTimeTransition,
+  getStorageDarkMode,
+  getStorageHasSeenWelcome,
+  getStorageUserProfileServer,
+  getStorageHomeTimeTransition
 } from '../user/data';
 import { ActionType } from '../../util/types';
-import { UserState } from './user.state';
 import { UserProfileServer } from '../../models/UserProfileServer';
 
-export const setUserProfileServer = (data: UserProfileServer) => async (dispatch: React.Dispatch<any>) => {
-  await setStorageUserProfileServer(data);
+const darkModeAction = (darkMode: boolean) => {
   return ({
-    type: 'SET_USER_PROFILE_SERVER',
-    data
+    type: 'SET_DARK_MODE',
+    darkMode
   } as const);
 }
 
-export const setIsLoggedIn = (isLoggedIn: boolean) => async (dispatch: React.Dispatch<any>) => {
+const hasSeenWelcomeAction = (hasSeenWelcome: boolean) => {
+  return ({
+    type: 'SET_HAS_SEEN_WELCOME',
+    hasSeenWelcome
+  } as const);
+}
+
+const userProfileServerAction = (userProfileServer: UserProfileServer) => {
+  return ({
+    type: 'SET_USER_PROFILE_SERVER',
+    userProfileServer
+  } as const);
+}
+
+const homeTimeTransitionAction = (homeTimeTransition: number) => {
+  return ({
+    type: 'SET_HOME_TIME_TRANSITON',
+    homeTimeTransition
+  } as const);
+}
+
+export const setDarkMode = (darkMode: boolean) => async () => {
+  await setStorageDarkMode(darkMode);
+  return darkModeAction(darkMode);
+}
+
+export const getDarkMode = () => async (dispatch: React.Dispatch<any>) => {
+  const darkMode: boolean = await getStorageDarkMode();
+  dispatch(darkModeAction(darkMode));
+}
+
+export const setHasSeenWelcome = (hasSeenWelcome: boolean) => async () => {
+  await setStorageHasSeenWelcome(hasSeenWelcome);
+  return hasSeenWelcomeAction(hasSeenWelcome);
+}
+
+export const getHasSeenWelcome = () => async (dispatch: React.Dispatch<any>) => {
+  const hasSeenWelcome: boolean = await getStorageHasSeenWelcome();
+  dispatch(hasSeenWelcomeAction(hasSeenWelcome));
+}
+
+export const setUserProfileServer = (userProfileServer: UserProfileServer) => async () => {
+  await setStorageUserProfileServer(userProfileServer);
+  return userProfileServerAction(userProfileServer);
+}
+
+export const getUserProfileServer = () => async (dispatch: React.Dispatch<any>) => {
+  const userProfileServer: UserProfileServer = await getStorageUserProfileServer();
+  dispatch(userProfileServerAction(userProfileServer));
+}
+
+export const setHomeTimeTransition = (homeTimeTransition: number) => async () => {
+  await setStorageHomeTimeTransition(homeTimeTransition);
+  return homeTimeTransitionAction(homeTimeTransition);
+}
+
+export const getHomeTimeTransition = () => async (dispatch: React.Dispatch<any>) => {
+  const homeTimeTransition: number = await getStorageHomeTimeTransition();
+  dispatch(homeTimeTransitionAction(homeTimeTransition));
+}
+
+export const setIsLoggedIn = (isLoggedIn: boolean) => async () => {
   return ({
     type: 'SET_IS_LOGGED_IN',
     isLoggedIn
   } as const);
-}
-
-export const setDarkMode = (darkMode: boolean) => async (dispatch: React.Dispatch<any>) => {
-  await setStorageDarkMode(darkMode)
-  return ({
-   type: 'SET_DARK_MODE',
-   darkMode
- } as const);
 }
 
 export const setDisplayName = (displayName: string | null | undefined) => async (dispatch: React.Dispatch<any>) => {
@@ -45,24 +100,6 @@ export const setPhotoURL = (photoURL: string | null | undefined) => async (dispa
   } as const);
 }
 
-export const setHasSeenWelcome = (hasSeenWelcome: boolean) => async (dispatch: React.Dispatch<any>) => {
-  await setStorageHasSeenWelcome(hasSeenWelcome);
-  return ({
-    type: 'SET_HAS_SEEN_WELCOME',
-    hasSeenWelcome
-  } as const);
-}
-
-export const getUserPreference = () => async (dispatch: React.Dispatch<any>) => {
-  const data = await getStorageUser();
-  dispatch(setUserPreference(data));
-}
-
-export const setUserPreference = (data: Partial<UserState>) => ({
-  type: 'SET_USER_PREFERENCE',
-  data
-} as const);
-
 export type UserActions =
   | ActionType<typeof setUserProfileServer>
   | ActionType<typeof setIsLoggedIn>
@@ -70,4 +107,4 @@ export type UserActions =
   | ActionType<typeof setDisplayName>
   | ActionType<typeof setPhotoURL>
   | ActionType<typeof setHasSeenWelcome>
-  | ActionType<typeof setUserPreference>
+  | ActionType<typeof setHomeTimeTransition>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   arrowBackOutline,
   arrowForwardOutline
@@ -10,15 +10,39 @@ import {
   IonIcon,
   IonRow
 } from '@ionic/react';
+import { connect } from '../../data/connect';
+import { setHomeTimeTransition } from '../../data/user/user.actions';
+import * as MOMENT  from '../../util/moment';
 
-interface ContainerProps {
-
+interface StateProps {
 }
+interface DispatchProps {
+  setHomeTimeTransition: typeof setHomeTimeTransition;
+}
+interface TimeTransitionProps extends StateProps, DispatchProps {}
 
-const LsTimeTransition: React.FC<ContainerProps> = ({}) => {
+const LsTimeTransition: React.FC<TimeTransitionProps> = ({ setHomeTimeTransition }) => {
+  const [year, setYear] = useState<number>(MOMENT.currentYear);
+
+  useEffect(() => {
+    setHomeTimeTransition(year);
+  });
+
   const changePeriod = (value: string) => {
-    console.log('LFS - changePeriod value: ', value);
-  }
+    let period: number = year;
+
+    if (value === 'd') {
+      setYear(--period);
+    } else {
+      setYear(++period);
+    }
+  };
+  
+  const currentTime = () => {
+    setHomeTimeTransition(MOMENT.currentYear);
+    setYear(MOMENT.currentYear);
+  };
+
   return (
     <>
     <IonGrid>
@@ -29,7 +53,7 @@ const LsTimeTransition: React.FC<ContainerProps> = ({}) => {
           </IonButton>
         </IonCol>
         <IonCol className="ion-text-center" size="2">
-          <IonButton color="light" size="small">2020</IonButton>
+          <IonButton color="light" size="small" onClick={() => currentTime()}>{year}</IonButton>
         </IonCol>
         <IonCol className="ion-text-left">
           <IonButton color="light" size="small" onClick={() => changePeriod('i')}>
@@ -42,4 +66,11 @@ const LsTimeTransition: React.FC<ContainerProps> = ({}) => {
   )
 };
 
-export default LsTimeTransition;
+export default connect<{}, StateProps, DispatchProps>({
+  mapStateToProps: (state) => ({
+  }),
+  mapDispatchToProps: ({
+    setHomeTimeTransition
+  }),
+  component: React.memo(LsTimeTransition)
+});

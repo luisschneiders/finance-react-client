@@ -64,4 +64,4 @@ Information about how to configure the firebase deploy is available at [Progress
 
 ## License
 
-Personal Finance app is open source software [licensed as ISC](https://github.com/luisschneiders/finance-react-client/blob/master/LICENSE).
+Personal Finance app is open source software [licensed as ISC](https://github.com/luisschneiders/finance-react-client/blob/main/LICENSE).

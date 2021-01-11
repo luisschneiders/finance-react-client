@@ -5,7 +5,7 @@ import { NewsType } from '../../enum/NewsType';
 import { List } from '../../components/list/List';
 
 // To use this one...
-export function getNews(category: string = NewsType.GENERAL, minId: number = 10) {
+export function getNews(category: string = NewsType.CRYPTO, minId: number = 10) {
   return fetch(`https://finnhub.io/api/v1/news?category=${category}&${minId}&token=${Finnhub.token}`)
     .then(response => response.json())
     .then(

@@ -26,7 +26,7 @@ const LsListItemThumbnail: React.FC<ContainerProps> = ({list, index}) => {
 
   return (
     <IonItemSliding ref={ionItemSlidingRef}>
-      {/* <IonItem key={`group-item-${index}`} routerLink={`${ROUTES.TABS_TRANSACTIONS}/${list.id}`}>
+      <IonItem key={`group-item-${index}`} routerLink={`${ROUTES.TABS_NEWS_DETAILS}/${list.id}`}>
       <IonThumbnail slot="start">
         {!isImageLoaded && <LsImgPlaceholder size={SIZE_56} radius={null}></LsImgPlaceholder>}
         <IonImg src={list.image} alt={list.alt} onIonImgDidLoad={onImgLoaded}/>
@@ -35,7 +35,7 @@ const LsListItemThumbnail: React.FC<ContainerProps> = ({list, index}) => {
         <h2>{list.headline}</h2>
         <p>{list.summary}</p>
       </IonLabel>
-    </IonItem> */}
+    </IonItem>
   </IonItemSliding>
   );
 };

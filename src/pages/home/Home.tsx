@@ -12,16 +12,17 @@ import {
 } from '@ionic/react';
 import './Home.scss';
 import { connect } from '../../data/connect';
-// import { News } from '../../models/News';
-// import * as selectors from '../../data/news/news.selectors';
 import * as selectorsUser from '../../data/user/user.selectors';
 import LsTimeTransition from '../../components/time/TimeTransition';
 import LsAppSummary from '../../components/summary/AppSummary';
 import { getUserProfileServer } from '../../data/user/user.actions';
+import LsGroupList from '../../components/list/GroupList';
+import { News } from '../../models/News';
+import * as selectorsNews from '../../data/news/news.selectors';
 
 interface StateProps {
-  // news: News | null;
   isLoggedIn: boolean;
+  news: News | null;
 }
 interface DispatchProps {
   getUserProfileServer: typeof getUserProfileServer;
@@ -29,13 +30,15 @@ interface DispatchProps {
 interface HomeProps extends StateProps, DispatchProps {}
 
 const Home: React.FC<HomeProps> = ({
-    // news,
     isLoggedIn,
+    news,
     getUserProfileServer
   }) => {
 
   const [isError, setError] = useState<boolean>(false);
+  const [isNewsError, setNewsError] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [newsList, setNewsItems] = useState<any>();
 
   useEffect(() => {
     setIsLoaded(true);
@@ -46,26 +49,21 @@ const Home: React.FC<HomeProps> = ({
       setTimeout(() => {
         setIsLoaded(false);
       }, 1000);
-
     } else {
       setError(true);
       setIsLoaded(false);
     }
 
-    // if (news && Object.keys(news).length > 0) {
-    //   setError(false);
-    //   setTimeout(() => {
-    //     setIsLoaded(false);
-    //   }, 1000);
-    //   setItems(news);
-    // } else {
-    //   setError(true);
-    //   setIsLoaded(false);
-    // }
+    if (news && Object.keys(news).length > 0) {
+      setNewsError(false);
+      setNewsItems(news);
+    } else {
+      setNewsError(true);
+    }
 
   },[
-    // news,
     isLoggedIn,
+    news,
     getUserProfileServer
   ]);
 
@@ -87,6 +85,10 @@ const Home: React.FC<HomeProps> = ({
         </IonList>}
         {!isError && <LsTimeTransition />}
         {!isError && <LsAppSummary />}
+        {isNewsError && <IonList>
+          <p className="ion-text-center">No news found! <span role="img" aria-label="sad-face">😢</span></p>
+        </IonList>}
+        {newsList && <LsGroupList data={newsList}></LsGroupList>}
       </IonContent>
     </IonPage>
   );
@@ -94,8 +96,8 @@ const Home: React.FC<HomeProps> = ({
 
 export default connect<{}, StateProps, DispatchProps>({
   mapStateToProps: (state) => ({
-    // news: selectors.getNewsByGroup(state),
     isLoggedIn: selectorsUser.getIsLoggedIn(state),
+    news: selectorsNews.getNewsByGroup(state),
   }),
   mapDispatchToProps: ({
     getUserProfileServer,

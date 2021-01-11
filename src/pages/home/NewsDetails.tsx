@@ -39,7 +39,7 @@ const Tab1Detail: React.FC<NewsDetailsProps> = ({
   }) => {
 
   return (
-    <IonPage id="tab1-detail-page">
+    <IonPage id="news-details-page">
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">

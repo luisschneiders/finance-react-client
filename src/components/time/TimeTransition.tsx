@@ -22,7 +22,7 @@ interface DispatchProps {
 interface TimeTransitionProps extends StateProps, DispatchProps {}
 
 const LsTimeTransition: React.FC<TimeTransitionProps> = ({ setHomeTimeTransition }) => {
-  const [year, setYear] = useState<number>(MOMENT.currentYear);
+  const [year, setYear] = useState<number>(MOMENT.currentYearYYYY);
 
   useEffect(() => {
     setHomeTimeTransition(year);
@@ -39,8 +39,8 @@ const LsTimeTransition: React.FC<TimeTransitionProps> = ({ setHomeTimeTransition
   };
   
   const currentTime = () => {
-    setHomeTimeTransition(MOMENT.currentYear);
-    setYear(MOMENT.currentYear);
+    setHomeTimeTransition(MOMENT.currentYearYYYY);
+    setYear(MOMENT.currentYearYYYY);
   };
 
   return (
@@ -52,7 +52,7 @@ const LsTimeTransition: React.FC<TimeTransitionProps> = ({ setHomeTimeTransition
             <IonIcon icon={arrowBackOutline}/>
           </IonButton>
         </IonCol>
-        <IonCol className="ion-text-center" size="2">
+        <IonCol className="ion-text-center" size="3">
           <IonButton color="light" size="small" onClick={() => currentTime()}>{year}</IonButton>
         </IonCol>
         <IonCol className="ion-text-left">

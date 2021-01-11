@@ -1,12 +1,15 @@
+import { IonChip, IonLabel } from '@ionic/react';
 import React, { useEffect } from 'react';
 
 interface ContainerProps {
   func: Function,
   data: any,
-  id: string
+  id: string,
+  color: string,
+  label: string,
 }
 
-const LsMainCharts: React.FC<ContainerProps> = ({func, data, id}) => {
+const LsMainCharts: React.FC<ContainerProps> = ({func, data, id, color, label}) => {
   useEffect(() => {
     if (data && data.length) {
       func(data);
@@ -14,6 +17,9 @@ const LsMainCharts: React.FC<ContainerProps> = ({func, data, id}) => {
   });
   return (
     <>
+      <IonChip color={color}>
+        <IonLabel>{label}</IonLabel>
+      </IonChip>
       <canvas id={id}></canvas>
     </>
   );

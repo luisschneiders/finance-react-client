@@ -4,12 +4,14 @@ import {
   IonRow,
   IonCol,
   IonCard,
-  IonCardContent
+  IonCardContent,
 } from '@ionic/react';
 import { connect } from '../../data/connect';
 import {
   renderIncomesOutcomesTransfers,
-  renderBanks
+  renderBanks,
+  renderIncomesOutcomes,
+  renderDailyTransactions,
 } from '../charts/AppCharts';
 import LsMainCharts from '../charts/MainCharts';
 import * as HTML_ELEMENTS from '../../constants/HTMLElements';
@@ -41,7 +43,7 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
   const [hasSummary, setHasSummary] = useState<boolean>(false);
   const [currentYear, setCurrentYear] = useState<number>(0);
 
-  useEffect(() => {    
+  useEffect(() => {
     if (userProfileServer && (homeTimeTransition > 0)) {
       if (!hasSummary || (currentYear !== homeTimeTransition)) {
         setAppSummary(userProfileServer.userId, homeTimeTransition);
@@ -65,7 +67,9 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
           {summary && summary.incomesOutcomesTransfers.length > 0 ?
           <LsMainCharts func={renderIncomesOutcomesTransfers}
                         data={summary.incomesOutcomesTransfers}
-                        id={HTML_ELEMENTS.INCOMES_OUTCOMES_TRANSFERS_CHART}></LsMainCharts> :
+                        id={HTML_ELEMENTS.INCOMES_OUTCOMES_TRANSFERS_CHART}
+                        label='Transactions'
+                        color='primary'></LsMainCharts> :
           <IonCard color="warning">
             <IonCardContent className="ion-text-center">
               <h3>No data available!</h3>
@@ -73,10 +77,40 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
           </IonCard>}
         </IonCol>
         <IonCol size="12" size-sm="6">
-        {summary && summary.banks.length > 0 ?
+          {summary && (summary.purchases.length > 0 || summary.transactions.length > 0) ?
+          <LsMainCharts func={renderIncomesOutcomes}
+                        data={[summary.purchases, summary.transactions]}
+                        id={HTML_ELEMENTS.INCOMES_OUTCOMES_CHART}
+                        label='Incomes / Outcomes'
+                        color='tertiary'></LsMainCharts> :
+          <IonCard color="warning">
+            <IonCardContent className="ion-text-center">
+              <h3>No data available!</h3>
+            </IonCardContent>
+          </IonCard>}
+        </IonCol>
+      </IonRow>
+      <IonRow>
+        <IonCol size="12" size-sm="6">
+          {summary && summary.incomesOutcomesTransfers.length > 0 ?
+          <LsMainCharts func={renderDailyTransactions}
+                        data={[summary.incomesOutcomesTransfers, homeTimeTransition]}
+                        id={HTML_ELEMENTS.DAILY_TRANSACTIONS}
+                        label='Day by day'
+                        color='success'></LsMainCharts> :
+          <IonCard color="warning">
+            <IonCardContent className="ion-text-center">
+              <h3>No data available!</h3>
+            </IonCardContent>
+          </IonCard>}
+        </IonCol>
+        <IonCol size="12" size-sm="6">
+          {summary && summary.banks.length > 0 ?
           <LsMainCharts func={renderBanks}
                         data={summary.banks}
-                        id={HTML_ELEMENTS.BANKS_CHART}></LsMainCharts> :
+                        id={HTML_ELEMENTS.BANKS_CHART}
+                        label='Banks'
+                        color='secondary'></LsMainCharts> :
           <IonCard color="warning">
             <IonCardContent className="ion-text-center">
               <h3>No data available!</h3>

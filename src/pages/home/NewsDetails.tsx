@@ -58,7 +58,10 @@ const Tab1Detail: React.FC<NewsDetailsProps> = ({
           </IonCardHeader>
           <IonCardContent>
             <p>
-              {news?.summary} <a target="_blank" rel="noopener noreferrer" href={news?.url}>Read more...</a>
+              {news?.summary}
+            </p>
+            <p>
+              <a target="_blank" rel="noopener noreferrer" href={news?.url}>Read more...</a>
             </p>
           </IonCardContent>
         </IonCard>

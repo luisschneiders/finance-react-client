@@ -83,7 +83,7 @@ const Home: React.FC<HomeProps> = ({
           <p className="ion-text-center">Something went wrong! <span role="img" aria-label="sad-face">😢</span></p>
           <p className="ion-text-center">Please try again!</p>
         </IonList>}
-        {!isError && <LsTimeTransition />}
+        {/* {!isError && <LsTimeTransition />} */}
         {!isError && <LsAppSummary />}
         {isNewsError && <IonList>
           <p className="ion-text-center">No news found! <span role="img" aria-label="sad-face">😢</span></p>

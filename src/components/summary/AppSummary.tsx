@@ -21,6 +21,7 @@ import {
   setAppSummary
 } from '../../data/summary/summary.actions';
 import { UserProfileServer } from '../../models/UserProfileServer';
+import LsTimeTransition from '../../components/time/TimeTransition';
 
 interface StateProps {
   userProfileServer: UserProfileServer;
@@ -62,14 +63,15 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
 
   return (
     <IonGrid>
+      <LsTimeTransition />
       <IonRow>
         <IonCol size="12" size-sm="6">
           {summary && summary.incomesOutcomesTransfers.length > 0 ?
           <LsMainCharts func={renderIncomesOutcomesTransfers}
                         data={summary.incomesOutcomesTransfers}
                         id={HTML_ELEMENTS.INCOMES_OUTCOMES_TRANSFERS_CHART}
-                        label='Transactions'
-                        color='primary'></LsMainCharts> :
+                        label="Transactions"
+                        color="primary"></LsMainCharts> :
           <IonCard color="warning">
             <IonCardContent className="ion-text-center">
               <h3>No data available!</h3>
@@ -81,8 +83,8 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
           <LsMainCharts func={renderIncomesOutcomes}
                         data={[summary.purchases, summary.transactions]}
                         id={HTML_ELEMENTS.INCOMES_OUTCOMES_CHART}
-                        label='Incomes / Outcomes'
-                        color='tertiary'></LsMainCharts> :
+                        label="Incomes / Outcomes"
+                        color="tertiary"></LsMainCharts> :
           <IonCard color="warning">
             <IonCardContent className="ion-text-center">
               <h3>No data available!</h3>
@@ -96,8 +98,8 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
           <LsMainCharts func={renderDailyTransactions}
                         data={[summary.incomesOutcomesTransfers, homeTimeTransition]}
                         id={HTML_ELEMENTS.DAILY_TRANSACTIONS}
-                        label='Day by day'
-                        color='success'></LsMainCharts> :
+                        label="Day by day"
+                        color="success"></LsMainCharts> :
           <IonCard color="warning">
             <IonCardContent className="ion-text-center">
               <h3>No data available!</h3>
@@ -109,8 +111,8 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
           <LsMainCharts func={renderBanks}
                         data={summary.banks}
                         id={HTML_ELEMENTS.BANKS_CHART}
-                        label='Banks'
-                        color='secondary'></LsMainCharts> :
+                        label="Banks"
+                        color="secondary"></LsMainCharts> :
           <IonCard color="warning">
             <IonCardContent className="ion-text-center">
               <h3>No data available!</h3>

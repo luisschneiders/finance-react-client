@@ -75,7 +75,7 @@ interface StateProps {
 
 interface DispatchProps {
   getDarkMode: typeof getDarkMode;
-  getNews: typeof getNews;
+  // getNews: typeof getNews;
   setIsLoggedIn: typeof setIsLoggedIn;
   setDisplayName: typeof setDisplayName;
   setPhotoURL: typeof setPhotoURL;
@@ -88,7 +88,7 @@ interface IonicAppProps extends StateProps, DispatchProps {}
 const IonicApp: React.FC<IonicAppProps> = ({
     darkMode,
     getDarkMode,
-    getNews,
+    // getNews,
     setIsLoggedIn,
     setHasSeenWelcome,
     setDisplayName,
@@ -100,7 +100,7 @@ const IonicApp: React.FC<IonicAppProps> = ({
 
   useEffect(() => {
     getDarkMode();
-    getNews();
+    // getNews();
     getCurrentUser().then((user: any) => {
       if (user) {
         setIsLoggedIn(true);
@@ -114,7 +114,7 @@ const IonicApp: React.FC<IonicAppProps> = ({
     });
   }, [
       getDarkMode,
-      getNews,
+      // getNews,
       setIsLoggedIn,
       setHasSeenWelcome,
       setDisplayName,
@@ -162,7 +162,7 @@ const IonicAppConnected = connect<{}, StateProps, DispatchProps>({
   }),
   mapDispatchToProps: {
     getDarkMode,
-    getNews,
+    // getNews,
     setIsLoggedIn,
     setHasSeenWelcome,
     setDisplayName,

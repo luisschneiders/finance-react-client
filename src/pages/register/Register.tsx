@@ -20,7 +20,7 @@ import {
 } from 'react-router-dom';
 import { toast } from '../../components/toast/Toast';
 import { logoutUser, registerUser } from '../../data/api/Firebase';
-import { ToastStatus } from '../../enum/ToastStatus';
+import { StatusColor } from '../../enum/StatusColor';
 import {
   setIsLoggedIn,
   setPhotoURL,
@@ -54,11 +54,11 @@ const Register: React.FC<RegisterProps> = ({
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      return toast('Passwords should match!', ToastStatus.WARNING);
+      return toast('Passwords should match!', StatusColor.WARNING);
     }
 
     if (email.trim() === '' || password.trim() === '') {
-      return toast('Email and password are required!', ToastStatus.WARNING);
+      return toast('Email and password are required!', StatusColor.WARNING);
     }
 
     setBusy(true);
@@ -78,7 +78,7 @@ const Register: React.FC<RegisterProps> = ({
         logoutUser().then(() => {
           setIsLoggedIn(false);
         }, (error) => {
-          toast(error.message, ToastStatus.ERROR, 4000);
+          toast(error.message, StatusColor.ERROR, 4000);
         });
       }
     }

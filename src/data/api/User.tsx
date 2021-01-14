@@ -1,5 +1,5 @@
 import { toast } from '../../components/toast/Toast';
-import { ToastStatus } from '../../enum/ToastStatus';
+import { StatusColor } from '../../enum/StatusColor';
 import { UserCredentials } from '../../models/UserCredentials';
 import * as ROUTES from '../../constants/Routes';
 import { UserProfileServer } from '../../models/UserProfileServer';
@@ -30,17 +30,17 @@ export function getUserCredentialsServer(credentials: UserCredentials) {
                 })
                 return userProfile;
               case 400:
-                toast(result.error, ToastStatus.ERROR, 4000);
+                toast(result.error, StatusColor.ERROR, 4000);
                 return false;
               case 401:
-                toast(result.error, ToastStatus.ERROR, 4000);
+                toast(result.error, StatusColor.ERROR, 4000);
                 return false;
               default:
-                toast('Unhandled', ToastStatus.ERROR, 4000);
+                toast('Unhandled', StatusColor.ERROR, 4000);
                 return false;
             }
           }).catch((error) => {
-            toast(error.msg, ToastStatus.ERROR, 4000);
+            toast(error.msg, StatusColor.ERROR, 4000);
             return false;
           });
 
@@ -71,17 +71,17 @@ export function setUserCredentialsServer(credentials: UserCredentials) {
                 })
                 return userProfile;
               case 400:
-                toast(result.error, ToastStatus.ERROR, 4000);
+                toast(result.error, StatusColor.ERROR, 4000);
                 return false;
               case 401:
-                toast(result.error, ToastStatus.ERROR, 4000);
+                toast(result.error, StatusColor.ERROR, 4000);
                 return false;
               default:
-                toast('Unhandled', ToastStatus.ERROR, 4000);
+                toast('Unhandled', StatusColor.ERROR, 4000);
                 return false;
             }
           }).catch((error) => {
-            toast(error.msg, ToastStatus.ERROR, 4000);
+            toast(error.msg, StatusColor.ERROR, 4000);
             return false;
           });
 

@@ -27,7 +27,7 @@ import {
 import './Account.scss';
 import { updateProfile } from '../../data/api/Firebase';
 import { toast } from '../../components/toast/Toast';
-import { ToastStatus } from '../../enum/ToastStatus';
+import { StatusColor } from '../../enum/StatusColor';
 import { delay } from '../../util/delay';
 import { RouteComponentProps } from 'react-router';
 import { setDisplayName, setPhotoURL } from '../../data/user/user.actions';
@@ -79,7 +79,7 @@ const Account: React.FC<AccountProps> = ({
       setUsername(null);
       setDisplayName(username ? username : displayName);
       setPhotoURL(data?.downloadUrl ? data?.downloadUrl : photoURL);
-      toast('Successfully updated!', ToastStatus.DEFAULT);
+      toast('Successfully updated!', StatusColor.DEFAULT);
     }
   }
 

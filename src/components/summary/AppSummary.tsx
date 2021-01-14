@@ -24,6 +24,8 @@ import {
 } from '../../data/summary/summary.actions';
 import { UserProfileServer } from '../../models/UserProfileServer';
 import LsTimeTransition from '../../components/time/TimeTransition';
+import LsMainCard from '../card/MainCard';
+import { StatusColor } from '../../enum/StatusColor';
 
 interface StateProps {
   userProfileServer: UserProfileServer;
@@ -108,12 +110,7 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
           </IonChip>
           { transactionsData && transactionsData.datasets.length > 0 ?
             <Pie data={transactionsData} options={{ maintainAspectRatio: true, legend: { position: 'left' } }}/> :
-            <IonCard color="warning">
-              <IonCardContent className="ion-text-center">
-                <h3>No data available!</h3>
-              </IonCardContent>
-            </IonCard>
-          }
+            <LsMainCard color={StatusColor.WARNING} message='No data available'/>}
         </IonCol>
         <IonCol size="12" size-sm="6">
           <IonChip color="tertiary">
@@ -132,12 +129,7 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
               },
             }
           }/> :
-            <IonCard color="warning">
-              <IonCardContent className="ion-text-center">
-                <h3>No data available!</h3>
-              </IonCardContent>
-            </IonCard>
-          }
+          <LsMainCard color={StatusColor.WARNING} message='No data available'/>}
         </IonCol>
       </IonRow>
       <IonRow className="min-height min-height--300">
@@ -158,25 +150,16 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
                 },
                 legend: { position: 'left' }
               }}/> :
-            <IonCard color="warning">
-              <IonCardContent className="ion-text-center">
-                <h3>No data available!</h3>
-              </IonCardContent>
-            </IonCard>
-          }
+            <LsMainCard color={StatusColor.WARNING} message='No data available'/>}
         </IonCol>
         <IonCol size="12" size-sm="6" >
+{/* Refactor IonChip */}
           <IonChip color="secondary">
             <IonLabel>Banks</IonLabel>
           </IonChip>
           { banksData && banksData.datasets.length > 0 ?
             <Doughnut data={banksData} options={{ maintainAspectRatio: true, legend: { position: 'left' } }}/> :
-            <IonCard color="warning">
-              <IonCardContent className="ion-text-center">
-                <h3>No data available!</h3>
-              </IonCardContent>
-            </IonCard>
-          }
+            <LsMainCard color={StatusColor.WARNING} message='No data available'/>}
         </IonCol>
       </IonRow>
     </IonGrid>

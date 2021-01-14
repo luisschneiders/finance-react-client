@@ -1,6 +1,6 @@
 import { Finnhub } from '../../credentials/Finnhub';
 import { toast } from '../../components/toast/Toast';
-import { ToastStatus } from '../../enum/ToastStatus';
+import { StatusColor } from '../../enum/StatusColor';
 import { NewsType } from '../../enum/NewsType';
 import { List } from '../../components/list/List';
 
@@ -27,7 +27,7 @@ export function getNews(category: string = NewsType.CRYPTO, minId: number = 10) 
         return customList;
       },
       (error) => {
-        toast(error.message, ToastStatus.ERROR, 4000);
+        toast(error.message, StatusColor.ERROR, 4000);
         return null;
       }
     );

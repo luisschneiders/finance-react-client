@@ -54,12 +54,12 @@ import Register from './pages/register/Register';
 import Account from './pages/account/Account';
 import Welcome from './pages/welcome/Welcome';
 
-import { ToastStatus } from './enum/ToastStatus';
+import { StatusColor } from './enum/StatusColor';
 import { getAvatar } from './util/getAvatar';
 import * as ROUTES  from './constants/Routes';
 import Dashboard from './pages/dashboard/Dashboard';
 import { setAppClearStore } from './data/app/app.actions';
-import { getNews } from './data/news/news.actions';
+// import { getNews } from './data/news/news.actions';
 
 const App: React.FC = () => {
   return (
@@ -138,11 +138,11 @@ const IonicApp: React.FC<IonicAppProps> = ({
                     <Route path={ROUTES.WELCOME} component={Welcome} exact={true} />
                     <Route path={ROUTES.LOGOUT} render={() => {
                       logoutUser().then(() => {
-                        toast('Successfully logged out!', ToastStatus.DEFAULT);
+                        toast('Successfully logged out!', StatusColor.DEFAULT);
                         setIsLoggedIn(false);
                         // setAppClearStore();
                       }, (error) => {
-                        toast(error.message, ToastStatus.ERROR, 4000);
+                        toast(error.message, StatusColor.ERROR, 4000);
                       });
                       return <Redirect to={ROUTES.LOGIN} />
                     }} />

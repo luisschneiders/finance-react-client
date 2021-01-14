@@ -3,7 +3,7 @@ import 'firebase/firestore';
 import 'firebase/auth';
 import { toast } from '../../components/toast/Toast';
 import { Firebase } from '../../credentials/Firebase';
-import { ToastStatus } from '../../enum/ToastStatus';
+import { StatusColor } from '../../enum/StatusColor';
 import { UserProfileFirebase } from '../../models/UserProfileFirebase';
 import { NewsCategory } from '../../models/News';
 import { NEWS_CATEGORY } from '../../constants/Firestore';
@@ -14,10 +14,10 @@ const db = firebase.firestore();
 export async function loginUser(email: string, password: string) {
   try {
     const response: any = await firebase.auth().signInWithEmailAndPassword(email, password);
-    toast(`Welcome back ${response?.user?.displayName || ''}!`, ToastStatus.DEFAULT);
+    toast(`Welcome back ${response?.user?.displayName || ''}!`, StatusColor.DEFAULT);
     return response;
   } catch(error) {
-    toast(error.message, ToastStatus.ERROR, 4000);
+    toast(error.message, StatusColor.ERROR, 4000);
     return false;
   }
 }
@@ -25,10 +25,10 @@ export async function loginUser(email: string, password: string) {
 export async function registerUser(email: string, password: string) {
   try {
     const response: any = await firebase.auth().createUserWithEmailAndPassword(email, password);
-    toast('Successfully registered!', ToastStatus.DEFAULT);
+    toast('Successfully registered!', StatusColor.DEFAULT);
     return response;
   } catch(error) {
-    toast(error.message, ToastStatus.ERROR, 4000);
+    toast(error.message, StatusColor.ERROR, 4000);
     return false;
   }
 }
@@ -57,7 +57,7 @@ export async function updateProfile(profile: UserProfileFirebase) {
     return true;
 
   } catch(error) {
-    toast(error.message, ToastStatus.ERROR, 4000);
+    toast(error.message, StatusColor.ERROR, 4000);
     return false;
   }
 }
@@ -69,7 +69,7 @@ export async function addNewsFirestore(news: NewsCategory | undefined) {
     .then((response: any) => {
       return true;
     }).catch((error) => {
-      toast(error, ToastStatus.ERROR, 4000);
+      toast(error, StatusColor.ERROR, 4000);
       return false;
     });
 };

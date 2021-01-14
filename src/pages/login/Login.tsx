@@ -19,7 +19,7 @@ import './Login.scss';
 import { RouteComponentProps } from 'react-router-dom';
 import { toast } from '../../components/toast/Toast';
 import { loginUser, logoutUser } from '../../data/api/Firebase';
-import { ToastStatus } from '../../enum/ToastStatus';
+import { StatusColor } from '../../enum/StatusColor';
 import {
   setIsLoggedIn,
   setDisplayName,
@@ -63,7 +63,7 @@ const Login: React.FC<LoginProps> = ({
     e.preventDefault();
 
     if (email.trim() === '' || password.trim() === '') {
-      return toast('Email and password are required!', ToastStatus.WARNING);
+      return toast('Email and password are required!', StatusColor.WARNING);
     }
 
     setBusy(true);
@@ -88,7 +88,7 @@ const Login: React.FC<LoginProps> = ({
         logoutUser().then(() => {
           setIsLoggedIn(false);
         }, (error) => {
-          toast(error.message, ToastStatus.ERROR, 4000);
+          toast(error.message, StatusColor.ERROR, 4000);
         });
       }
     }

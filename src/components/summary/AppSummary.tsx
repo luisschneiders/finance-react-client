@@ -8,6 +8,7 @@ import {
   IonChip,
   IonLabel,
 } from '@ionic/react';
+import './AppSummary.scss'
 import {Bar, Doughnut, HorizontalBar, Pie} from 'react-chartjs-2';
 import { connect } from '../../data/connect';
 import {
@@ -23,7 +24,6 @@ import {
 } from '../../data/summary/summary.actions';
 import { UserProfileServer } from '../../models/UserProfileServer';
 import LsTimeTransition from '../../components/time/TimeTransition';
-
 
 interface StateProps {
   userProfileServer: UserProfileServer;
@@ -99,9 +99,9 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
   ]);
 
   return (
-    <IonGrid>
+    <IonGrid id="app-summary">
       <LsTimeTransition />
-      <IonRow >
+      <IonRow className="min-height min-height--300">
         <IonCol size="12" size-sm="6">
           <IonChip color="primary">
             <IonLabel>Transactions</IonLabel>
@@ -140,7 +140,7 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
           }
         </IonCol>
       </IonRow>
-      <IonRow>
+      <IonRow className="min-height min-height--300">
         <IonCol size="12" size-sm="6">
           <IonChip color="success">
             <IonLabel>Day by day</IonLabel>

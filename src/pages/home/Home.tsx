@@ -13,7 +13,6 @@ import {
 import './Home.scss';
 import { connect } from '../../data/connect';
 import * as selectorsUser from '../../data/user/user.selectors';
-import LsTimeTransition from '../../components/time/TimeTransition';
 import LsAppSummary from '../../components/summary/AppSummary';
 import { getUserProfileServer } from '../../data/user/user.actions';
 import LsGroupList from '../../components/list/GroupList';
@@ -83,7 +82,6 @@ const Home: React.FC<HomeProps> = ({
           <p className="ion-text-center">Something went wrong! <span role="img" aria-label="sad-face">😢</span></p>
           <p className="ion-text-center">Please try again!</p>
         </IonList>}
-        {/* {!isError && <LsTimeTransition />} */}
         {!isError && <LsAppSummary />}
         {isNewsError && <IonList>
           <p className="ion-text-center">No news found! <span role="img" aria-label="sad-face">😢</span></p>

@@ -13,6 +13,7 @@ import {
 import { connect } from '../../data/connect';
 import { setHomeTimeTransition } from '../../data/user/user.actions';
 import * as MOMENT  from '../../util/moment';
+import { AppColor } from '../../enum/AppColor';
 
 interface StateProps {
 }
@@ -48,15 +49,15 @@ const LsTimeTransition: React.FC<TimeTransitionProps> = ({ setHomeTimeTransition
     <IonGrid>
       <IonRow>
         <IonCol className="ion-text-right">
-          <IonButton color="light" size="small" onClick={() => changePeriod('d')}>
+          <IonButton color={AppColor.LIGHT} size="small" onClick={() => changePeriod('d')}>
             <IonIcon icon={arrowBackOutline}/>
           </IonButton>
         </IonCol>
         <IonCol className="ion-text-center" size="3">
-          <IonButton color="light" size="small" onClick={() => currentTime()}>{year}</IonButton>
+          <IonButton color={AppColor.LIGHT} size="small" onClick={() => currentTime()}>{year}</IonButton>
         </IonCol>
         <IonCol className="ion-text-left">
-          <IonButton color="light" size="small" onClick={() => changePeriod('i')}>
+          <IonButton color={AppColor.LIGHT} size="small" onClick={() => changePeriod('i')}>
             <IonIcon icon={arrowForwardOutline}/>
           </IonButton>
         </IonCol>

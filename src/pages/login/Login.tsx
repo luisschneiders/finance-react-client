@@ -31,6 +31,7 @@ import { getAvatar } from '../../util/getAvatar';
 import * as ROUTES from '../../constants/Routes';
 import { setMenuEnabled } from '../../data/sessions/sessions.actions';
 import { getUserCredentialsServer } from '../../data/api/User';
+import { AppColor } from '../../enum/AppColor';
 
 interface OwnProps extends RouteComponentProps {}
 interface DispatchProps {
@@ -109,14 +110,14 @@ const Login: React.FC<LoginProps> = ({
         <form noValidate onSubmit={login}>
           <IonList lines="full">
             <IonItem>
-              <IonLabel position="stacked" color="primary">Email</IonLabel>
+              <IonLabel position="stacked" color={AppColor.PRIMARY}>Email</IonLabel>
               <IonInput name="email" type="email"
                         value={email} spellCheck={false} autocapitalize="off"
                         onIonChange={(e: any) => setEmail(e.detail.value!)} required>
               </IonInput>
             </IonItem>
             <IonItem>
-              <IonLabel position="stacked" color="primary">Password</IonLabel>
+              <IonLabel position="stacked" color={AppColor.PRIMARY}>Password</IonLabel>
               <IonInput name="password" type="password"
                         value={password}
                         onIonChange={(e: any) => setPassword(e.detail.value!)} required>
@@ -128,7 +129,7 @@ const Login: React.FC<LoginProps> = ({
               <IonButton type="submit" fill="outline" expand="block">Login</IonButton>
             </IonCol>
             <IonCol>
-              <IonButton routerLink={ROUTES.REGISTER} fill="clear" expand="block" color="dark">Register</IonButton>
+              <IonButton routerLink={ROUTES.REGISTER} fill="clear" expand="block" color={AppColor.DARK}>Register</IonButton>
             </IonCol>
           </IonRow>
         </form>

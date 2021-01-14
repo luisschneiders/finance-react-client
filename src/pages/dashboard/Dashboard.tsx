@@ -12,6 +12,7 @@ import {
 } from '@ionic/react';
 import './Dashboard.scss';
 import * as ROUTES from '../../constants/Routes';
+import { AppColor } from '../../enum/AppColor';
 
 const Dashboard: React.FC = () => {
   return (
@@ -31,7 +32,7 @@ const Dashboard: React.FC = () => {
           <IonRow>
             <IonCol>
               <div>
-                <IonButton routerLink={ROUTES.LOGIN} expand="full" color="light">Login</IonButton>
+                <IonButton routerLink={ROUTES.LOGIN} expand="full" color={AppColor.LIGHT}>Login</IonButton>
               </div>
             </IonCol>
           </IonRow>
@@ -43,7 +44,7 @@ const Dashboard: React.FC = () => {
           <IonRow>
             <IonCol>
               <div>
-                <IonButton routerLink={ROUTES.REGISTER} expand="full" color="medium">Register</IonButton>
+                <IonButton routerLink={ROUTES.REGISTER} expand="full" color={AppColor.MEDIUM}>Register</IonButton>
               </div>
             </IonCol>
           </IonRow>

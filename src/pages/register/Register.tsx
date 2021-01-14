@@ -30,6 +30,7 @@ import { connect } from '../../data/connect';
 import { getAvatar } from '../../util/getAvatar';
 import * as ROUTES from '../../constants/Routes';
 import { setUserCredentialsServer } from '../../data/api/User';
+import { AppColor } from '../../enum/AppColor';
 
 interface OwnProps extends RouteComponentProps {}
 interface DispatchProps {
@@ -99,21 +100,21 @@ const Register: React.FC<RegisterProps> = ({
         <form noValidate onSubmit={register}>
           <IonList lines="full">
             <IonItem>
-              <IonLabel position="stacked" color="primary">Email</IonLabel>
+              <IonLabel position="stacked" color={AppColor.PRIMARY}>Email</IonLabel>
               <IonInput name="email" type="email"
                         value={email} spellCheck={false} autocapitalize="off"
                         onIonChange={(e: any) => setEmail(e.detail.value!)} required>
               </IonInput>
             </IonItem>
             <IonItem>
-              <IonLabel position="stacked" color="primary">Password</IonLabel>
+              <IonLabel position="stacked" color={AppColor.PRIMARY}>Password</IonLabel>
               <IonInput name="password" type="password"
                         value={password}
                         onIonChange={(e: any) => setPassword(e.detail.value!)} required>
               </IonInput>
             </IonItem>
             <IonItem>
-              <IonLabel position="stacked" color="primary">Confirm Password</IonLabel>
+              <IonLabel position="stacked" color={AppColor.PRIMARY}>Confirm Password</IonLabel>
               <IonInput name="password" type="password"
                         value={confirmPassword}
                         onIonChange={(e: any) => setConfirmPassword(e.detail.value!)} required>

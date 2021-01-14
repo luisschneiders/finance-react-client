@@ -8,6 +8,7 @@ import {
 } from '@ionic/react';
 import LsListItemThumbnail from './ListItemThumbnail';
 import { List } from './List';
+import { AppColor } from '../../enum/AppColor';
 
 interface ContainerProps {
   data: any;
@@ -21,7 +22,7 @@ const LsGroupList: React.FC<ContainerProps> = ({data}) => {
           <IonItemGroup key={`group-${index}`}>
             <IonItemDivider sticky>
               <IonLabel>
-                <IonText color="primary">
+                <IonText color={AppColor.PRIMARY}>
                   <h3 className="ion-text-uppercase">{group[0].category}</h3>
                 </IonText>
               </IonLabel>

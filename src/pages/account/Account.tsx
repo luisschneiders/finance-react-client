@@ -35,6 +35,7 @@ import { connect } from '../../data/connect';
 import useFirebaseUpload from '../../hooks/useFirebaseUpload';
 import LsImgPlaceholder from '../../components/img/ImgPlaceholder';
 import { SIZE_64, BORDER_RADIUS_50, SIZE_48 } from '../../constants/Images';
+import { AppColor } from '../../enum/AppColor';
 
 interface OwnProps extends RouteComponentProps {}
 interface StateProps {
@@ -129,7 +130,7 @@ const Account: React.FC<AccountProps> = ({
           </IonCard>
           <IonList lines="full">
             <IonItem>
-              <IonLabel position="stacked" color="primary">Username</IonLabel>
+              <IonLabel position="stacked" color={AppColor.PRIMARY}>Username</IonLabel>
               <IonInput name="username" type="text"
                         value={username} spellCheck={false} autocapitalize="off"
                         onIonChange={(e: any) => setUsername(e.detail.value!)}

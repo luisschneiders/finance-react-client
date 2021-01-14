@@ -18,6 +18,7 @@ import { connect } from '../../data/connect';
 import { arrowForward } from 'ionicons/icons';
 import * as ROUTES from '../../constants/Routes';
 import { setHasSeenWelcome } from '../../data/user/user.actions';
+import { AppColor } from '../../enum/AppColor';
 
 interface OwnProps extends RouteComponentProps {};
 
@@ -51,7 +52,7 @@ const Welcome: React.FC<WelcomeProps> = ({ history, setHasSeenWelcome, setMenuEn
       <IonHeader no-border>
       <IonToolbar>
         <IonButtons slot="end">
-          {showSkip && <IonButton color='primary' onClick={startApp}>Skip</IonButton>}
+          {showSkip && <IonButton color={AppColor.PRIMARY} onClick={startApp}>Skip</IonButton>}
         </IonButtons>
       </IonToolbar>
     </IonHeader>

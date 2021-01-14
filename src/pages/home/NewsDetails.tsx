@@ -22,6 +22,7 @@ import { connect } from '../../data/connect';
 import * as ROUTES from '../../constants/Routes';
 import * as newsSelectors from '../../data/news/news.selectors';
 import { NewsCategory } from '../../models/News';
+import { AppColor } from '../../enum/AppColor';
 
 interface OwnProps extends RouteComponentProps {};
 
@@ -52,7 +53,7 @@ const Tab1Detail: React.FC<NewsDetailsProps> = ({
           <IonImg src={news?.image}></IonImg>
           <IonCardHeader>
             <IonCardTitle
-              color="tertiary"
+              color={AppColor.TERTIARY}
               className="ion-text-capitalize">{news?.category}</IonCardTitle>
             <IonCardSubtitle>{news?.headline}</IonCardSubtitle>
           </IonCardHeader>

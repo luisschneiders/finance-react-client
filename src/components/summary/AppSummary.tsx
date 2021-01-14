@@ -3,10 +3,6 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-  IonCard,
-  IonCardContent,
-  IonChip,
-  IonLabel,
 } from '@ionic/react';
 import './AppSummary.scss'
 import {Bar, Doughnut, HorizontalBar, Pie} from 'react-chartjs-2';
@@ -26,6 +22,8 @@ import { UserProfileServer } from '../../models/UserProfileServer';
 import LsTimeTransition from '../../components/time/TimeTransition';
 import LsMainCard from '../card/MainCard';
 import { StatusColor } from '../../enum/StatusColor';
+import LsMainChip from '../chip/MainChip';
+import { AppColor } from '../../enum/AppColor';
 
 interface StateProps {
   userProfileServer: UserProfileServer;
@@ -105,17 +103,13 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
       <LsTimeTransition />
       <IonRow className="min-height min-height--300">
         <IonCol size="12" size-sm="6">
-          <IonChip color="primary">
-            <IonLabel>Transactions</IonLabel>
-          </IonChip>
+          <LsMainChip color={AppColor.PRIMARY} text='Transactions' />
           { transactionsData && transactionsData.datasets.length > 0 ?
             <Pie data={transactionsData} options={{ maintainAspectRatio: true, legend: { position: 'left' } }}/> :
             <LsMainCard color={StatusColor.WARNING} message='No data available'/>}
         </IonCol>
         <IonCol size="12" size-sm="6">
-          <IonChip color="tertiary">
-            <IonLabel>Incomes / Outcomes</IonLabel>
-          </IonChip>
+          <LsMainChip color={AppColor.TERTIARY} text='Incomes / Outcomes' />
           { incomeOutcomeData && incomeOutcomeData.datasets.length > 0 ?
             <Bar data={incomeOutcomeData}
               options={{
@@ -134,9 +128,7 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
       </IonRow>
       <IonRow className="min-height min-height--300">
         <IonCol size="12" size-sm="6">
-          <IonChip color="success">
-            <IonLabel>Day by day</IonLabel>
-          </IonChip>
+          <LsMainChip color={AppColor.SUCCESS} text='Day by day' />
           { dailyTransactionsData && dailyTransactionsData.datasets.length > 0 ?
             <HorizontalBar data={dailyTransactionsData}
               options={{
@@ -153,10 +145,7 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
             <LsMainCard color={StatusColor.WARNING} message='No data available'/>}
         </IonCol>
         <IonCol size="12" size-sm="6" >
-{/* Refactor IonChip */}
-          <IonChip color="secondary">
-            <IonLabel>Banks</IonLabel>
-          </IonChip>
+          <LsMainChip color={AppColor.SECONDARY} text='Banks' />
           { banksData && banksData.datasets.length > 0 ?
             <Doughnut data={banksData} options={{ maintainAspectRatio: true, legend: { position: 'left' } }}/> :
             <LsMainCard color={StatusColor.WARNING} message='No data available'/>}

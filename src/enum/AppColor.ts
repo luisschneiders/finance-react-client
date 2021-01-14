@@ -5,4 +5,5 @@ export enum AppColor {
   LIGHT = 'light',
   DARK = 'dark',
   MEDIUM = 'medium',
+  SUCCESS = 'success',
 }

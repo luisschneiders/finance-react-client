@@ -5,16 +5,17 @@ import {
   IonCol,
   IonCard,
   IonCardContent,
+  IonChip,
+  IonLabel,
 } from '@ionic/react';
+import {Bar, Doughnut, HorizontalBar, Pie} from 'react-chartjs-2';
 import { connect } from '../../data/connect';
 import {
-  renderIncomesOutcomesTransfers,
-  renderBanks,
-  renderIncomesOutcomes,
-  renderDailyTransactions,
+  setTransactionsChart,
+  setIncomeOutcomeChart,
+  setBanksChart,
+  setDailyTransactionsChart,
 } from '../charts/AppCharts';
-import LsMainCharts from '../charts/MainCharts';
-import * as HTML_ELEMENTS from '../../constants/HTMLElements';
 import * as selectorsUser from '../../data/user/user.selectors';
 import * as selectorsSummary from '../../data/summary/summary.selectors';
 import {
@@ -22,6 +23,7 @@ import {
 } from '../../data/summary/summary.actions';
 import { UserProfileServer } from '../../models/UserProfileServer';
 import LsTimeTransition from '../../components/time/TimeTransition';
+
 
 interface StateProps {
   userProfileServer: UserProfileServer;
@@ -43,6 +45,10 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
 
   const [hasSummary, setHasSummary] = useState<boolean>(false);
   const [currentYear, setCurrentYear] = useState<number>(0);
+  const [transactionsData, setTransactionsData] = useState<any>();
+  const [incomeOutcomeData, setIncomeOutcomeData] = useState<any>();
+  const [banksData, setBanksData] = useState<any>();
+  const [dailyTransactionsData, setDailyTransactionsData] = useState<any>();
 
   useEffect(() => {
     if (userProfileServer && (homeTimeTransition > 0)) {
@@ -50,8 +56,39 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
         setAppSummary(userProfileServer.userId, homeTimeTransition);
         setHasSummary(true);
         setCurrentYear(homeTimeTransition);
+      } else {
+        setTransactionsData({ labels: [], datasets: [] });
+        setIncomeOutcomeData({ labels: [], datasets: [] });
+        setBanksData({ labels: [], datasets: [] });
+        setDailyTransactionsData({ labels: [], datasets: [] });
+      }
+
+      if (summary && summary.incomesOutcomesTransfers.length > 0) {
+        const pieChart: any = setTransactionsChart(summary.incomesOutcomesTransfers);
+        if (pieChart && pieChart.Data) {
+          setTransactionsData(pieChart.Data);
+        }
+      }
+      if (summary && (summary.purchases.length > 0 || summary.transactions.length > 0)) {
+        const barChart: any = setIncomeOutcomeChart([summary.purchases, summary.transactions]);
+        if (barChart.Data) {
+          setIncomeOutcomeData(barChart.Data);
+        }
+      }
+      if (summary && summary.banks.length > 0) {
+        const doughnutChart: any = setBanksChart(summary.banks);
+        if (doughnutChart && doughnutChart.Data) {
+          setBanksData(doughnutChart.Data);
+        }
+      }
+      if (summary && summary.incomesOutcomesTransfers.length > 0) {
+        const horizontalBarChart: any = setDailyTransactionsChart([summary.incomesOutcomesTransfers, homeTimeTransition]);
+        if (horizontalBarChart && horizontalBarChart.Data) {
+          setDailyTransactionsData(horizontalBarChart.Data);
+        }
       }
     }
+
   }, [
     userProfileServer,
     homeTimeTransition,
@@ -64,60 +101,82 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
   return (
     <IonGrid>
       <LsTimeTransition />
-      <IonRow>
+      <IonRow >
         <IonCol size="12" size-sm="6">
-          {summary && summary.incomesOutcomesTransfers.length > 0 ?
-          <LsMainCharts func={renderIncomesOutcomesTransfers}
-                        data={summary.incomesOutcomesTransfers}
-                        id={HTML_ELEMENTS.INCOMES_OUTCOMES_TRANSFERS_CHART}
-                        label="Transactions"
-                        color="primary"></LsMainCharts> :
-          <IonCard color="warning">
-            <IonCardContent className="ion-text-center">
-              <h3>No data available!</h3>
-            </IonCardContent>
-          </IonCard>}
+          <IonChip color="primary">
+            <IonLabel>Transactions</IonLabel>
+          </IonChip>
+          { transactionsData && transactionsData.datasets.length > 0 ?
+            <Pie data={transactionsData} options={{ maintainAspectRatio: true, legend: { position: 'left' } }}/> :
+            <IonCard color="warning">
+              <IonCardContent className="ion-text-center">
+                <h3>No data available!</h3>
+              </IonCardContent>
+            </IonCard>
+          }
         </IonCol>
         <IonCol size="12" size-sm="6">
-          {summary && (summary.purchases.length > 0 || summary.transactions.length > 0) ?
-          <LsMainCharts func={renderIncomesOutcomes}
-                        data={[summary.purchases, summary.transactions]}
-                        id={HTML_ELEMENTS.INCOMES_OUTCOMES_CHART}
-                        label="Incomes / Outcomes"
-                        color="tertiary"></LsMainCharts> :
-          <IonCard color="warning">
-            <IonCardContent className="ion-text-center">
-              <h3>No data available!</h3>
-            </IonCardContent>
-          </IonCard>}
+          <IonChip color="tertiary">
+            <IonLabel>Incomes / Outcomes</IonLabel>
+          </IonChip>
+          { incomeOutcomeData && incomeOutcomeData.datasets.length > 0 ?
+            <Bar data={incomeOutcomeData}
+              options={{
+              maintainAspectRatio: true,
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }]
+              },
+            }
+          }/> :
+            <IonCard color="warning">
+              <IonCardContent className="ion-text-center">
+                <h3>No data available!</h3>
+              </IonCardContent>
+            </IonCard>
+          }
         </IonCol>
       </IonRow>
       <IonRow>
         <IonCol size="12" size-sm="6">
-          {summary && summary.incomesOutcomesTransfers.length > 0 ?
-          <LsMainCharts func={renderDailyTransactions}
-                        data={[summary.incomesOutcomesTransfers, homeTimeTransition]}
-                        id={HTML_ELEMENTS.DAILY_TRANSACTIONS}
-                        label="Day by day"
-                        color="success"></LsMainCharts> :
-          <IonCard color="warning">
-            <IonCardContent className="ion-text-center">
-              <h3>No data available!</h3>
-            </IonCardContent>
-          </IonCard>}
+          <IonChip color="success">
+            <IonLabel>Day by day</IonLabel>
+          </IonChip>
+          { dailyTransactionsData && dailyTransactionsData.datasets.length > 0 ?
+            <HorizontalBar data={dailyTransactionsData}
+              options={{
+                maintainAspectRatio: true,
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      beginAtZero: true
+                    }
+                  }]
+                },
+                legend: { position: 'left' }
+              }}/> :
+            <IonCard color="warning">
+              <IonCardContent className="ion-text-center">
+                <h3>No data available!</h3>
+              </IonCardContent>
+            </IonCard>
+          }
         </IonCol>
-        <IonCol size="12" size-sm="6">
-          {summary && summary.banks.length > 0 ?
-          <LsMainCharts func={renderBanks}
-                        data={summary.banks}
-                        id={HTML_ELEMENTS.BANKS_CHART}
-                        label="Banks"
-                        color="secondary"></LsMainCharts> :
-          <IonCard color="warning">
-            <IonCardContent className="ion-text-center">
-              <h3>No data available!</h3>
-            </IonCardContent>
-          </IonCard>}
+        <IonCol size="12" size-sm="6" >
+          <IonChip color="secondary">
+            <IonLabel>Banks</IonLabel>
+          </IonChip>
+          { banksData && banksData.datasets.length > 0 ?
+            <Doughnut data={banksData} options={{ maintainAspectRatio: true, legend: { position: 'left' } }}/> :
+            <IonCard color="warning">
+              <IonCardContent className="ion-text-center">
+                <h3>No data available!</h3>
+              </IonCardContent>
+            </IonCard>
+          }
         </IonCol>
       </IonRow>
     </IonGrid>

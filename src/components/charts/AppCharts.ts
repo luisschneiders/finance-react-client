@@ -1,5 +1,3 @@
-import Chart from 'chart.js';
-import * as HTML_ELEMENTS from '../../constants/HTMLElements';
 import { isLeapYear, monthFormatM } from '../../util/moment';
 
 const transactionTypeLabel = (data: any[]) => {
@@ -41,8 +39,7 @@ const chartColoursBackground = (data: any[]) => {
   });
 }
 
-export const renderIncomesOutcomesTransfers = (data: any[]) => {
-  const ctx: any = document.getElementById(HTML_ELEMENTS.INCOMES_OUTCOMES_TRANSFERS_CHART);
+export const setTransactionsChart = (data: any[]) => {
   const incomesOutcomesTransfers: any = data.map((value) => {
     switch(value.transactionLabel) {
       case 'T':
@@ -51,93 +48,29 @@ export const renderIncomesOutcomesTransfers = (data: any[]) => {
     }
     return [value.TotalAmountByLabel];
   });
-
   const incomesOutcomesTransfersLabel: any = transactionTypeLabel(data);
   const pieChartColoursBackground: any = chartColoursBackground(data);
 
-  new Chart(ctx, {
-    type: 'pie',
-    data: {
+  return {
+    Data: {
       labels: incomesOutcomesTransfersLabel,
       datasets: [{
         data: incomesOutcomesTransfers,
         backgroundColor: pieChartColoursBackground,
         borderColor: '#383838',
         hoverBackgroundColor: 'rgb(218,171,85,0.68)',
-        borderWidth: 1
-      }]
+        borderWidth: 1,
+      }],
     },
-    options: {
-      legend: {
-        position: 'left'
-      }
-    }
-  });
-}
-
-export const renderBanks = (data: any[]) => {
-  const banksLabel: any[] = [];
-  const doughnutBackgroundColors: any[] = [];
-  const bank: any = {
-    totalCash: 0,
-    bankCurrentBalance: {}
   };
-  const ctx: any = document.getElementById(HTML_ELEMENTS.BANKS_CHART);
-
-  let totalCash: any = 0;
-
-  bank.bankCurrentBalance = data.map((value, index) => {
-    banksLabel.push(value.bankAccount);
-    if (value.bankCurrentBalance >= 0 && value.bankCurrentBalance <= 1000) {
-      doughnutBackgroundColors.push('#ff2f92');
-    } else if (value.bankCurrentBalance >= 1000 && value.bankCurrentBalance <= 20000) {
-      doughnutBackgroundColors.push('#0096ff');
-    } else {
-      doughnutBackgroundColors.push('#005493');
-    }
-
-    totalCash += value.bankCurrentBalance;
-    return [value.bankCurrentBalance];
-  });
-
-  new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: banksLabel,
-      datasets: [{
-        data: bank.bankCurrentBalance,
-        backgroundColor: doughnutBackgroundColors,
-        borderColor: '#383838',
-        hoverBackgroundColor: 'rgb(218,171,85,0.68)',
-        borderWidth: 1
-      }]
-    },
-    options: {
-      legend: {
-        position: 'left'
-      }
-    }
-  });
 }
 
-export const renderIncomesOutcomes = (data: any[]) => {
-  const ctx: any = document.getElementById(HTML_ELEMENTS.INCOMES_OUTCOMES_CHART);
-  
+export const setIncomeOutcomeChart = (data: any[]) => {
   const outcome: any[] = data[0];
   const income: any[] = data[1];
   const incomeAndOutcome: any = {
     income: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     outcome: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  };
-
-  const barChartOptions = {
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
-    }
   };
   const barChartLabelsMonths: any[] = [
     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -160,46 +93,66 @@ export const renderIncomesOutcomes = (data: any[]) => {
     }
   });
 
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: barChartLabelsMonths,
-        datasets: [{
-          label: 'Incomes',
-          data: incomeAndOutcome.income,
-          backgroundColor: '#005493',
-          borderColor: '#383838',
-          hoverBackgroundColor: 'rgb(218,171,85,0.68)',
-          borderWidth: 1
-        },
-        {
-          label: 'Outcomes',
-          data: incomeAndOutcome.outcome,
-          backgroundColor: '#ff2f92',
-          borderColor: '#383838',
-          hoverBackgroundColor: 'rgb(218,171,85,0.68)',
-          borderWidth: 1
-        }]
-    },
-    options: barChartOptions
-  });
+  return {
+    Data: {
+      labels: barChartLabelsMonths,
+      datasets: [{
+        label: 'Incomes',
+        data: incomeAndOutcome.income,
+        backgroundColor: '#005493',
+        borderColor: '#383838',
+        hoverBackgroundColor: 'rgb(218,171,85,0.68)',
+        borderWidth: 1
+      },
+      {
+        label: 'Outcomes',
+        data: incomeAndOutcome.outcome,
+        backgroundColor: '#ff2f92',
+        borderColor: '#383838',
+        hoverBackgroundColor: 'rgb(218,171,85,0.68)',
+        borderWidth: 1
+      }]
+    }
+  }
+
 }
 
-export const renderDailyTransactions = (data: any[]) => {
-  const ctx: any = document.getElementById(HTML_ELEMENTS.DAILY_TRANSACTIONS);
-  const horizontalBarChartOptions: any = {
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
-    },
-    legend: {
-      position: 'left'
-    }
+export const setBanksChart = (data: any[]) => {
+  const banksLabel: any[] = [];
+  const doughnutBackgroundColors: any[] = [];
+  const bank: any = {
+    totalCash: 0,
+    bankCurrentBalance: {}
   };
 
+  bank.bankCurrentBalance = data.map((value, index) => {
+    banksLabel.push(value.bankAccount);
+    if (value.bankCurrentBalance >= 0 && value.bankCurrentBalance <= 1000) {
+      doughnutBackgroundColors.push('#ff2f92');
+    } else if (value.bankCurrentBalance >= 1000 && value.bankCurrentBalance <= 20000) {
+      doughnutBackgroundColors.push('#0096ff');
+    } else {
+      doughnutBackgroundColors.push('#005493');
+    }
+
+    return [value.bankCurrentBalance];
+  });
+
+  return {
+    Data: {
+      labels: banksLabel,
+      datasets: [{
+        data: bank.bankCurrentBalance,
+        backgroundColor: doughnutBackgroundColors,
+        borderColor: '#383838',
+        hoverBackgroundColor: 'rgb(218,171,85,0.68)',
+        borderWidth: 1
+      }]
+    }
+  };
+}
+
+export const setDailyTransactionsChart = (data: any[]) => {
   const isLeap = isLeapYear(data[1]);
   const days = isLeap === true ? 366 : 365;
 
@@ -210,19 +163,17 @@ export const renderDailyTransactions = (data: any[]) => {
   const transactionsLabel: any = transactionTypeLabel(data[0]);
   const horizontalChartColoursBackground: any = chartColoursBackground(data[0]);
 
-  new Chart(ctx, {
-    type: 'horizontalBar',
-    data: {
-        labels: transactionsLabel,
-        datasets: [{
-            label: 'Amount per Day',
-            data: transactionsData,
-            backgroundColor: horizontalChartColoursBackground,
-            borderColor: '#383838',
-            hoverBackgroundColor: 'rgb(218,171,85,0.68)',
-            borderWidth: 1
-        }]
-    },
-    options: horizontalBarChartOptions
-  });
+  return {
+    Data: {
+      labels: transactionsLabel,
+      datasets: [{
+          label: 'Amount per Day',
+          data: transactionsData,
+          backgroundColor: horizontalChartColoursBackground,
+          borderColor: '#383838',
+          hoverBackgroundColor: 'rgb(218,171,85,0.68)',
+          borderWidth: 1
+      }]
+    }
+  };
 }

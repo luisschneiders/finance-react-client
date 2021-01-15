@@ -42,6 +42,7 @@ import {
   setPhotoURL,
   setHasSeenWelcome,
   getDarkMode,
+  getUserProfileServer,
 } from './data/user/user.actions';
 
 import LsMainTabs from './components/tabs/MainTabs';
@@ -75,6 +76,7 @@ interface StateProps {
 
 interface DispatchProps {
   getDarkMode: typeof getDarkMode;
+  getUserProfileServer: typeof getUserProfileServer;
   // getNews: typeof getNews;
   setIsLoggedIn: typeof setIsLoggedIn;
   setDisplayName: typeof setDisplayName;
@@ -88,6 +90,7 @@ interface IonicAppProps extends StateProps, DispatchProps {}
 const IonicApp: React.FC<IonicAppProps> = ({
     darkMode,
     getDarkMode,
+    getUserProfileServer,
     // getNews,
     setIsLoggedIn,
     setHasSeenWelcome,
@@ -103,6 +106,7 @@ const IonicApp: React.FC<IonicAppProps> = ({
     // getNews();
     getCurrentUser().then((user: any) => {
       if (user) {
+        getUserProfileServer();
         setIsLoggedIn(true);
         setDisplayName(user.displayName);
         setPhotoURL(user.photoURL ? user.photoURL : getAvatar(user.email));
@@ -114,6 +118,7 @@ const IonicApp: React.FC<IonicAppProps> = ({
     });
   }, [
       getDarkMode,
+      getUserProfileServer,
       // getNews,
       setIsLoggedIn,
       setHasSeenWelcome,
@@ -162,6 +167,7 @@ const IonicAppConnected = connect<{}, StateProps, DispatchProps>({
   }),
   mapDispatchToProps: {
     getDarkMode,
+    getUserProfileServer,
     // getNews,
     setIsLoggedIn,
     setHasSeenWelcome,

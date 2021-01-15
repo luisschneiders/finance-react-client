@@ -17,7 +17,6 @@ import {
   withRouter,
   RouteComponentProps
 } from 'react-router';
-import './NewsDetails.scss';
 import { connect } from '../../data/connect';
 import * as ROUTES from '../../constants/Routes';
 import * as newsSelectors from '../../data/news/news.selectors';
@@ -58,12 +57,8 @@ const Tab1Detail: React.FC<NewsDetailsProps> = ({
             <IonCardSubtitle>{news?.headline}</IonCardSubtitle>
           </IonCardHeader>
           <IonCardContent>
-            <p>
-              {news?.summary}
-            </p>
-            <p>
-              <a target="_blank" rel="noopener noreferrer" href={news?.url}>Read more...</a>
-            </p>
+            <p>{news?.summary}</p>
+            <p> <a target="_blank" rel="noopener noreferrer" href={news?.url}>Read more...</a> </p>
           </IonCardContent>
         </IonCard>
       </IonContent>

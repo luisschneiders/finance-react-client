@@ -29,16 +29,9 @@ const LsTimeTransition: React.FC<TimeTransitionProps> = ({ setHomeTimeTransition
     setHomeTimeTransition(year);
   });
 
-  const changePeriod = (value: string) => {
-    let period: number = year;
+  const decreasePeriod = (period: number = year) => setYear(--period);
+  const increasePeriod = (period: number = year) => setYear(++period);
 
-    if (value === 'd') {
-      setYear(--period);
-    } else {
-      setYear(++period);
-    }
-  };
-  
   const currentTime = () => {
     setHomeTimeTransition(MOMENT.currentYearYYYY);
     setYear(MOMENT.currentYearYYYY);
@@ -49,7 +42,7 @@ const LsTimeTransition: React.FC<TimeTransitionProps> = ({ setHomeTimeTransition
     <IonGrid>
       <IonRow>
         <IonCol className="ion-text-right">
-          <IonButton color={AppColor.LIGHT} size="small" onClick={() => changePeriod('d')}>
+          <IonButton color={AppColor.LIGHT} size="small" onClick={() => decreasePeriod()}>
             <IonIcon icon={arrowBackOutline}/>
           </IonButton>
         </IonCol>
@@ -57,7 +50,7 @@ const LsTimeTransition: React.FC<TimeTransitionProps> = ({ setHomeTimeTransition
           <IonButton color={AppColor.LIGHT} size="small" onClick={() => currentTime()}>{year}</IonButton>
         </IonCol>
         <IonCol className="ion-text-left">
-          <IonButton color={AppColor.LIGHT} size="small" onClick={() => changePeriod('i')}>
+          <IonButton color={AppColor.LIGHT} size="small" onClick={() => increasePeriod()}>
             <IonIcon icon={arrowForwardOutline}/>
           </IonButton>
         </IonCol>

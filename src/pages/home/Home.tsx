@@ -14,7 +14,6 @@ import './Home.scss';
 import { connect } from '../../data/connect';
 import * as selectorsUser from '../../data/user/user.selectors';
 import LsAppSummary from '../../components/summary/AppSummary';
-import { getUserProfileServer } from '../../data/user/user.actions';
 import LsGroupList from '../../components/list/GroupList';
 import { News } from '../../models/News';
 import * as selectorsNews from '../../data/news/news.selectors';
@@ -24,14 +23,13 @@ interface StateProps {
   news: News | null;
 }
 interface DispatchProps {
-  getUserProfileServer: typeof getUserProfileServer;
+
 }
 interface HomeProps extends StateProps, DispatchProps {}
 
 const Home: React.FC<HomeProps> = ({
     isLoggedIn,
     news,
-    getUserProfileServer
   }) => {
 
   const [isError, setError] = useState<boolean>(false);
@@ -43,7 +41,6 @@ const Home: React.FC<HomeProps> = ({
     setIsLoaded(true);
 
     if (isLoggedIn) {
-      getUserProfileServer();
       setError(false);
       setTimeout(() => {
         setIsLoaded(false);
@@ -63,7 +60,6 @@ const Home: React.FC<HomeProps> = ({
   },[
     isLoggedIn,
     news,
-    getUserProfileServer
   ]);
 
   return (
@@ -98,7 +94,7 @@ export default connect<{}, StateProps, DispatchProps>({
     news: selectorsNews.getNewsByGroup(state),
   }),
   mapDispatchToProps: ({
-    getUserProfileServer,
+
   }),
   component: React.memo(Home)
 });

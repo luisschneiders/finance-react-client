@@ -1,4 +1,4 @@
-export interface PurchasesByTypeSummary {
+export interface SummaryPurchasesByType {
   totalAmountByExpensiveType: number;
   expenseTypeDescription: string;
 }

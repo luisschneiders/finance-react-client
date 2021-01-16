@@ -1,4 +1,4 @@
-export interface IncomesOutcomesTransfersSummary {
+export interface SummaryIncomesOutcomesTransfers {
   totalAmountByLabel: number;
   transactionAmount: number;
   transactionDate: string;

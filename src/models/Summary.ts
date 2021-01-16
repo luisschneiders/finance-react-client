@@ -1,15 +1,15 @@
-import { PurchasesSummary } from './PurchasesSummary';
-import { IncomesOutcomesTransfersSummary } from './IncomesOutcomesTransfersSummary';
-import { TransactionsSummary } from './TransactionsSummary';
+import { SummaryPurchases } from './SummaryPurchases';
+import { SummaryIncomesOutcomesTransfers } from './SummaryIncomesOutcomesTransfers';
+import { SummaryTransactions } from './SummaryTransactions';
 import { Banks } from './Banks';
-import { PurchasesByTypeSummary } from './PurchasesByTypeSummary';
-import { TimesheetsSummary } from './TimesheetsSummary';
+import { SummaryPurchasesByType } from './SummaryPurchasesByType';
+import { SummaryTimesheets } from './SummaryTimesheets';
 
 export interface Summary {
-  incomesOutcomesTransfers: IncomesOutcomesTransfersSummary[];
-  purchases: PurchasesSummary[];
-  transactions: TransactionsSummary[];
+  incomesOutcomesTransfers: SummaryIncomesOutcomesTransfers[];
+  purchases: SummaryPurchases[];
+  transactions: SummaryTransactions[];
   banks: Banks[];
-  purchasesByType: PurchasesByTypeSummary[];
-  timesheets: TimesheetsSummary[];
+  purchasesByType: SummaryPurchasesByType[];
+  timesheets: SummaryTimesheets[];
 }

@@ -1,4 +1,4 @@
-export interface TransactionsSummary {
+export interface SummaryTransactions {
   totalIncomeByMonth: number;
   transactionAmount: number;
   transactionDate: string;

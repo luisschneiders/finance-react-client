@@ -1,12 +1,12 @@
 import { Summary } from '../../models/Summary';
-import { getSummary } from '../api/Summary';
+import { fetchSummary } from '../api/Summary';
 
-export const loadSummaryData = async (id: number, year: number) => {
-  const response: any = await getSummary(id, year);
+export const fetchSummaryData = async (id: number, year: number) => {
+  const response: any = await fetchSummary(id, year);
   const summary = response as Summary;
   const data: any = {
     summary
-  }
+  };
 
   return data;
 }

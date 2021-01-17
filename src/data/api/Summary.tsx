@@ -1,7 +1,7 @@
 import { Summary } from '../../models/Summary';
 import * as ROUTES from '../../constants/Routes';
 
-export function getSummary(id: number, year: number) {
+export function fetchSummary(id: number, year: number) {
   return fetch(`${ROUTES.SERVER}/main-by-year/id=${id}&year=${year}`)
           .then(response => response.json())
           .then((result: Summary[]) => {

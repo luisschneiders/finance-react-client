@@ -22,6 +22,7 @@ export const initialState: AppState = {
     favouriteNewsId: null,
     userProfile: null,
     homeTimeTransition: 0,
+    expensesTimeTransition: { startDate: '', endDate: '' },
   },
   newsReducer: {
     news: null,

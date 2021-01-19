@@ -6,10 +6,12 @@ import {
   getStorageDarkMode,
   getStorageHasSeenWelcome,
   getStorageUserProfileServer,
-  getStorageHomeTimeTransition
+  getStorageHomeTimeTransition,
+  setStorageExpensesTimeTransition
 } from '../user/data';
 import { ActionType } from '../../util/types';
 import { UserProfileServer } from '../../models/UserProfileServer';
+import { Period } from '../../models/Period';
 
 const darkModeAction = (darkMode: boolean) => {
   return ({
@@ -36,6 +38,12 @@ const homeTimeTransitionAction = (homeTimeTransition: number) => {
   return ({
     type: 'SET_HOME_TIME_TRANSITON',
     homeTimeTransition
+  } as const);
+}
+const expensesTimeTransitionAction = (expensesTimeTransition: Period) => {
+  return ({
+    type: 'SET_EXPENSES_TIME_TRANSITON',
+    expensesTimeTransition
   } as const);
 }
 
@@ -79,6 +87,11 @@ export const getHomeTimeTransition = () => async (dispatch: React.Dispatch<any>)
   dispatch(homeTimeTransitionAction(homeTimeTransition));
 }
 
+export const setExpensesTimeTransition = (expensesTimeTransition: Period) => async () => {
+  await setStorageExpensesTimeTransition(expensesTimeTransition);
+  return expensesTimeTransitionAction(expensesTimeTransition);
+}
+
 export const setIsLoggedIn = (isLoggedIn: boolean) => async () => {
   return ({
     type: 'SET_IS_LOGGED_IN',
@@ -108,3 +121,4 @@ export type UserActions =
   | ActionType<typeof setPhotoURL>
   | ActionType<typeof setHasSeenWelcome>
   | ActionType<typeof setHomeTimeTransition>
+  | ActionType<typeof setExpensesTimeTransition>

@@ -1,11 +1,15 @@
 import { Plugins } from '@capacitor/core';
+import {
+  DARK_MODE,
+  HAS_SEEN_WELCOME,
+  USER_PROFILE_SERVER,
+  HOME_TIME_TRANSITION,
+  EXPENSES_TIME_TRANSITION
+} from '../../constants/Storage';
+import { Period } from '../../models/Period';
 import { UserProfileServer } from '../../models/UserProfileServer';
 
 const { Storage } = Plugins;
-const DARK_MODE = 'darkMode';
-const HAS_SEEN_WELCOME = 'hasSeenWelcome';
-const USER_PROFILE_SERVER = 'userProfile';
-const HOME_TIME_TRANSITION = 'homeTimeTransition';
 
 /**
  * Not in use
@@ -70,3 +74,7 @@ export const getStorageHomeTimeTransition = async () => {
 export const setStorageHomeTimeTransition = async (homeTimeTransition: number) => {
   await Storage.set({ key: HOME_TIME_TRANSITION, value: JSON.stringify(homeTimeTransition)});
 }
+
+export const setStorageExpensesTimeTransition = async (expensesTimeTransition: Period) => {
+  await Storage.set({ key: EXPENSES_TIME_TRANSITION, value: JSON.stringify(expensesTimeTransition)});
+} 

@@ -1,3 +1,5 @@
+import { Period } from "../../models/Period";
+
 export interface UserState {
   darkMode: boolean;
   isLoggedIn: boolean;
@@ -8,4 +10,5 @@ export interface UserState {
   favouriteNewsId: number[] | null | undefined;
   userProfile: any;
   homeTimeTransition: number;
+  expensesTimeTransition: Period;
 }

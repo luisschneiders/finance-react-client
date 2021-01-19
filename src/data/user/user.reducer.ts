@@ -17,5 +17,7 @@ export function userReducer(state: UserState, action: UserActions): UserState {
       return { ...state, userProfile: action.userProfileServer };
     case 'SET_HOME_TIME_TRANSITON':
       return { ...state, homeTimeTransition: action.homeTimeTransition };
+    case 'SET_EXPENSES_TIME_TRANSITON':
+      return { ...state, expensesTimeTransition: action.expensesTimeTransition };
   }
 }

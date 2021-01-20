@@ -11,33 +11,6 @@ import { UserProfileServer } from '../../models/UserProfileServer';
 
 const { Storage } = Plugins;
 
-/**
- * Not in use
- */
-
-// export const getStorageUser = async () => {
-//   const response: any = await Promise.all([
-//     Storage.get({ key: DARK_MODE }),
-//     Storage.get({ key: HAS_SEEN_WELCOME }),
-//     Storage.get({ key: USER_PROFILE_SERVER }),
-//     Storage.get({ key: HOME_TIME_TRANSITION }),
-//   ]);
-
-//   const darkMode = await response[0].value === 'true';
-//   const hasSeenWelcome = await response[1].value === 'true';
-//   const userProfile = await response[2].value;
-//   const homeTimeTransition = await response[3].value;
-
-//   const data: any = {
-//     darkMode,
-//     hasSeenWelcome,
-//     userProfile,
-//     homeTimeTransition
-//   }
-
-//   return data;
-// }
-
 export const getStorageDarkMode = async () => {
   const response: any = await Storage.get({ key: DARK_MODE });
   return response.value === 'true';
@@ -68,10 +41,10 @@ export const setStorageUserProfileServer = async (data: UserProfileServer) => {
 
 export const getStorageHomeTimeTransition = async () => {
   const response: any = await Storage.get({ key: HOME_TIME_TRANSITION });
-  return parseInt(response.value);
+  return response.value;
 }
 
-export const setStorageHomeTimeTransition = async (homeTimeTransition: number) => {
+export const setStorageHomeTimeTransition = async (homeTimeTransition: string) => {
   await Storage.set({ key: HOME_TIME_TRANSITION, value: JSON.stringify(homeTimeTransition)});
 }
 

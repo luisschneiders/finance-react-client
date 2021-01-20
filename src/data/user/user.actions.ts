@@ -34,7 +34,7 @@ const userProfileServerAction = (userProfileServer: UserProfileServer) => {
   } as const);
 }
 
-const homeTimeTransitionAction = (homeTimeTransition: number) => {
+const homeTimeTransitionAction = (homeTimeTransition: string) => {
   return ({
     type: 'SET_HOME_TIME_TRANSITON',
     homeTimeTransition
@@ -77,13 +77,13 @@ export const getUserProfileServer = () => async (dispatch: React.Dispatch<any>) 
   dispatch(userProfileServerAction(userProfileServer));
 }
 
-export const setHomeTimeTransition = (homeTimeTransition: number) => async () => {
+export const setHomeTimeTransition = (homeTimeTransition: string) => async () => {
   await setStorageHomeTimeTransition(homeTimeTransition);
   return homeTimeTransitionAction(homeTimeTransition);
 }
 
 export const getHomeTimeTransition = () => async (dispatch: React.Dispatch<any>) => {
-  const homeTimeTransition: number = await getStorageHomeTimeTransition();
+  const homeTimeTransition: string = await getStorageHomeTimeTransition();
   dispatch(homeTimeTransitionAction(homeTimeTransition));
 }
 

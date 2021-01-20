@@ -9,6 +9,6 @@ export interface UserState {
   hasSeenWelcome: boolean;
   favouriteNewsId: number[] | null | undefined;
   userProfile: any;
-  homeTimeTransition: number;
+  homeTimeTransition: string;
   expensesTimeTransition: Period;
 }

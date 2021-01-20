@@ -42,7 +42,7 @@ import {
   setPhotoURL,
   setHasSeenWelcome,
   getDarkMode,
-  getUserProfileServer,
+  // getUserProfileServer,
 } from './data/user/user.actions';
 
 import LsMainTabs from './components/tabs/MainTabs';
@@ -59,7 +59,9 @@ import { StatusColor } from './enum/StatusColor';
 import { getAvatar } from './util/getAvatar';
 import * as ROUTES  from './constants/Routes';
 import Dashboard from './pages/dashboard/Dashboard';
-import { setAppClearStore } from './data/app/app.actions';
+import { setResetAppStore } from './data/app/app.actions';
+import { initialState } from './data/app/app.state';
+import { getUserProfileServer } from './data/sessions/sessions.actions';
 // import { getNews } from './data/news/news.actions';
 
 const App: React.FC = () => {
@@ -81,7 +83,7 @@ interface DispatchProps {
   setIsLoggedIn: typeof setIsLoggedIn;
   setDisplayName: typeof setDisplayName;
   setPhotoURL: typeof setPhotoURL;
-  setAppClearStore: typeof setAppClearStore;
+  setResetAppStore: typeof setResetAppStore;
   setHasSeenWelcome: typeof setHasSeenWelcome;
 }
 
@@ -96,7 +98,7 @@ const IonicApp: React.FC<IonicAppProps> = ({
     setHasSeenWelcome,
     setDisplayName,
     setPhotoURL,
-    setAppClearStore,
+    setResetAppStore,
   }) => {
 
   const [busy, setBusy] = useState(true);
@@ -124,7 +126,7 @@ const IonicApp: React.FC<IonicAppProps> = ({
       setHasSeenWelcome,
       setDisplayName,
       setPhotoURL,
-      setAppClearStore,
+      setResetAppStore,
     ]);
 
   return (
@@ -145,7 +147,7 @@ const IonicApp: React.FC<IonicAppProps> = ({
                       logoutUser().then(() => {
                         toast('Successfully logged out!', StatusColor.DEFAULT);
                         setIsLoggedIn(false);
-                        // setAppClearStore();
+                        setResetAppStore(initialState);
                       }, (error) => {
                         toast(error.message, StatusColor.ERROR, 4000);
                       });
@@ -173,7 +175,7 @@ const IonicAppConnected = connect<{}, StateProps, DispatchProps>({
     setHasSeenWelcome,
     setDisplayName,
     setPhotoURL,
-    setAppClearStore,
+    setResetAppStore,
   },
   component: IonicApp
 });

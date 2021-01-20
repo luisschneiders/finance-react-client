@@ -7,7 +7,6 @@ const getIdParam = (_state: AppState, props: any) => {
 };
 const getHomeTimeTransitionData = (state: AppState) => state.userReducer.homeTimeTransition;
 const getExpensesTimeTransitionData = (state: AppState) => state.userReducer.expensesTimeTransition;
-const getUserProfileServerData = (state: AppState) => state.userReducer.userProfile;
 const getIsLoggedInData = (state: AppState) => state.userReducer.isLoggedIn;
 const getHasSeenWelcomeData = (state: AppState) => state.userReducer.hasSeenWelcome;
 
@@ -36,13 +35,6 @@ export const getExpensesTimeTransition = createSelector(
   getExpensesTimeTransitionData,
   (expensesTimeTransition: Period) => {
     return expensesTimeTransition;
-  }
-);
-
-export const getUserProfileServer = createSelector(
-  getUserProfileServerData,
-  (userProfile: any) => {
-    return userProfile;
   }
 );
 

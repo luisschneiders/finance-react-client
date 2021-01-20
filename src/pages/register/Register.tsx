@@ -24,13 +24,14 @@ import { StatusColor } from '../../enum/StatusColor';
 import {
   setIsLoggedIn,
   setPhotoURL,
-  setUserProfileServer
+  // setUserProfileServer
 } from '../../data/user/user.actions';
 import { connect } from '../../data/connect';
 import { getAvatar } from '../../util/getAvatar';
 import * as ROUTES from '../../constants/Routes';
 import { setUserCredentialsServer } from '../../data/api/User';
 import { AppColor } from '../../enum/AppColor';
+import { setUserProfileServer } from '../../data/sessions/sessions.actions';
 
 interface OwnProps extends RouteComponentProps {}
 interface DispatchProps {

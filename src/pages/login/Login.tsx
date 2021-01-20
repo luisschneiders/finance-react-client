@@ -24,12 +24,12 @@ import {
   setIsLoggedIn,
   setDisplayName,
   setPhotoURL,
-  setUserProfileServer
+  // setUserProfileServer
 } from '../../data/user/user.actions';
 import { connect } from '../../data/connect';
 import { getAvatar } from '../../util/getAvatar';
 import * as ROUTES from '../../constants/Routes';
-import { setMenuEnabled } from '../../data/sessions/sessions.actions';
+import { setMenuEnabled, setUserProfileServer } from '../../data/sessions/sessions.actions';
 import { getUserCredentialsServer } from '../../data/api/User';
 import { AppColor } from '../../enum/AppColor';
 

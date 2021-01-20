@@ -1,16 +1,13 @@
 import {
   setStorageDarkMode,
   setStorageHasSeenWelcome,
-  setStorageUserProfileServer,
   setStorageHomeTimeTransition,
   getStorageDarkMode,
   getStorageHasSeenWelcome,
-  getStorageUserProfileServer,
   getStorageHomeTimeTransition,
   setStorageExpensesTimeTransition
 } from '../user/data';
 import { ActionType } from '../../util/types';
-import { UserProfileServer } from '../../models/UserProfileServer';
 import { Period } from '../../models/Period';
 
 const darkModeAction = (darkMode: boolean) => {
@@ -24,13 +21,6 @@ const hasSeenWelcomeAction = (hasSeenWelcome: boolean) => {
   return ({
     type: 'SET_HAS_SEEN_WELCOME',
     hasSeenWelcome
-  } as const);
-}
-
-const userProfileServerAction = (userProfileServer: UserProfileServer) => {
-  return ({
-    type: 'SET_USER_PROFILE_SERVER',
-    userProfileServer
   } as const);
 }
 
@@ -65,16 +55,6 @@ export const setHasSeenWelcome = (hasSeenWelcome: boolean) => async () => {
 export const getHasSeenWelcome = () => async (dispatch: React.Dispatch<any>) => {
   const hasSeenWelcome: boolean = await getStorageHasSeenWelcome();
   dispatch(hasSeenWelcomeAction(hasSeenWelcome));
-}
-
-export const setUserProfileServer = (userProfileServer: UserProfileServer) => async () => {
-  await setStorageUserProfileServer(userProfileServer);
-  return userProfileServerAction(userProfileServer);
-}
-
-export const getUserProfileServer = () => async (dispatch: React.Dispatch<any>) => {
-  const userProfileServer: UserProfileServer = await getStorageUserProfileServer();
-  dispatch(userProfileServerAction(userProfileServer));
 }
 
 export const setHomeTimeTransition = (homeTimeTransition: string) => async () => {
@@ -114,7 +94,6 @@ export const setPhotoURL = (photoURL: string | null | undefined) => async (dispa
 }
 
 export type UserActions =
-  | ActionType<typeof setUserProfileServer>
   | ActionType<typeof setIsLoggedIn>
   | ActionType<typeof setDarkMode>
   | ActionType<typeof setDisplayName>

@@ -6,22 +6,16 @@ import { summaryReducer } from '../summary/summary.reducer';
 import { transactionsReducer } from '../transactions/transactions.reducer';
 
 export const initialState: AppState = {
-  // An example of reducer
-  // exampleReducer: {
-  //   example: null
-  // }
   sessionsReducer: {
-    loading: false,
     menuEnabled: true,
+    userProfile: null,
   },
   userReducer: {
     darkMode: false,
     hasSeenWelcome: false,
     isLoggedIn: false,
-    loading: false,
     favouriteNewsId: null,
-    userProfile: null,
-    homeTimeTransition: 0,
+    homeTimeTransition: '0',
     expensesTimeTransition: { startDate: '', endDate: '' },
   },
   newsReducer: {
@@ -37,7 +31,6 @@ export const initialState: AppState = {
 };
 
 export const rootReducer = combineReducers({
-  // exampleReducer: exampleReducer,
   sessionsReducer,
   userReducer,
   summaryReducer,
@@ -46,7 +39,8 @@ export const rootReducer = combineReducers({
 });
 
 export const reducers = (state: any, action: any) => {
-  if (action.type === 'SET_APP_CLEAR_STORE') {
+  // TODO: reset partial store
+  if (action.type === 'SET_RESET_APP_STORE') {
     state = initialState;
   }
 

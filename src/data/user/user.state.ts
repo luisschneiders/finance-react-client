@@ -7,6 +7,4 @@ export interface UserState {
   photoURL?: string | null | undefined;
   hasSeenWelcome: boolean;
   favouriteNewsId: number[] | null | undefined;
-  homeTimeTransition: string;
-  expensesTimeTransition: Period;
 }

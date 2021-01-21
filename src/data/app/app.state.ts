@@ -9,14 +9,16 @@ export const initialState: AppState = {
   sessionsReducer: {
     menuEnabled: true,
     userProfile: null,
+    homeTimeTransition: '0',
+    expensesTimeTransition: { startDate: '', endDate: '' },
   },
   userReducer: {
     darkMode: false,
     hasSeenWelcome: false,
     isLoggedIn: false,
     favouriteNewsId: null,
-    homeTimeTransition: '0',
-    expensesTimeTransition: { startDate: '', endDate: '' },
+    // homeTimeTransition: '0',
+    // expensesTimeTransition: { startDate: '', endDate: '' },
   },
   newsReducer: {
     news: null,

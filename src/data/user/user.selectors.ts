@@ -1,12 +1,9 @@
 import { createSelector } from 'reselect';
-import { Period } from '../../models/Period';
 import { AppState } from '../app/app.state';
 
 const getIdParam = (_state: AppState, props: any) => {
   return props.match.params['id'];
 };
-const getHomeTimeTransitionData = (state: AppState) => state.userReducer.homeTimeTransition;
-const getExpensesTimeTransitionData = (state: AppState) => state.userReducer.expensesTimeTransition;
 const getIsLoggedInData = (state: AppState) => state.userReducer.isLoggedIn;
 const getHasSeenWelcomeData = (state: AppState) => state.userReducer.hasSeenWelcome;
 
@@ -21,20 +18,6 @@ export const getFavouriteNewsId = createSelector(
     } else {
       return false
     }
-  }
-);
-
-export const getHomeTimeTransition = createSelector(
-  getHomeTimeTransitionData,
-  (homeTimeTransition: string) => {
-    return homeTimeTransition;
-  }
-);
-
-export const getExpensesTimeTransition = createSelector(
-  getExpensesTimeTransitionData,
-  (expensesTimeTransition: Period) => {
-    return expensesTimeTransition;
   }
 );
 

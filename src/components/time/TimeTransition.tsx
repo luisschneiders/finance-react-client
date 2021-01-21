@@ -23,15 +23,15 @@ const LsTimeTransition: React.FC<ContainerProps> = ({formatPeriod, decreasePerio
   return (
     <IonGrid>
       <IonRow>
-        <IonCol className="ion-text-right">
+        <IonCol className="ion-text-right ion-no-padding">
           <IonButton color={AppColor.LIGHT} size="small" onClick={() => decreasePeriod()}>
             <IonIcon icon={arrowBackOutline}/>
           </IonButton>
         </IonCol>
-        <IonCol className="ion-text-center">
+        <IonCol className="ion-text-center ion-no-padding">
           <IonButton color={AppColor.LIGHT} size="small" onClick={() => currentPeriod()}>{formatPeriod}</IonButton>
         </IonCol>
-        <IonCol className="ion-text-left">
+        <IonCol className="ion-text-left ion-no-padding">
           <IonButton color={AppColor.LIGHT} size="small" onClick={() => increasePeriod()}>
             <IonIcon icon={arrowForwardOutline}/>
           </IonButton>

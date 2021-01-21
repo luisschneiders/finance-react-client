@@ -1,5 +1,3 @@
-import { Period } from "../../models/Period";
-
 export interface UserState {
   darkMode: boolean;
   isLoggedIn: boolean;

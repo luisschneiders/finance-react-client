@@ -52,6 +52,14 @@ export const dateFormatDDMMYYYY = (date: string) => {
   return moment(date).format('DD/MM/YYYY');
 };
 
+/**
+ * Format DD/MM/YY
+ * 01/01/2021
+ */
+export const dateFormatDDMMYY = (date: string) => {
+  return moment(date).format('DD/MM/YY');
+};
+
 export const dateFormatM = (date: string) => {
   return moment(date).format('M');
 };

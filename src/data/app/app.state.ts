@@ -16,9 +16,6 @@ export const initialState: AppState = {
     darkMode: false,
     hasSeenWelcome: false,
     isLoggedIn: false,
-    favouriteNewsId: null,
-    // homeTimeTransition: '0',
-    // expensesTimeTransition: { startDate: '', endDate: '' },
   },
   newsReducer: {
     news: null,
@@ -41,9 +38,10 @@ export const rootReducer = combineReducers({
 });
 
 export const reducers = (state: any, action: any) => {
-  // TODO: reset partial store
+
   if (action.type === 'SET_RESET_APP_STORE') {
-    state = initialState;
+    const { userReducer } = state;
+    state = { ...initialState, userReducer };
   }
 
   return rootReducer(state, action)

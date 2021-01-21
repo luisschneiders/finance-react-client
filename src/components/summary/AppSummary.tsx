@@ -5,7 +5,12 @@ import {
   IonCol,
 } from '@ionic/react';
 import './AppSummary.scss'
-import {Bar, Doughnut, HorizontalBar, Pie} from 'react-chartjs-2';
+import {
+  Bar,
+  Doughnut,
+  HorizontalBar,
+  Pie
+} from 'react-chartjs-2';
 import { connect } from '../../data/connect';
 import {
   setTransactionsChart,
@@ -13,24 +18,28 @@ import {
   setBanksChart,
   setDailyTransactionsChart,
 } from '../charts/AppCharts';
-import * as selectorsUser from '../../data/user/user.selectors';
 import * as selectorsSummary from '../../data/summary/summary.selectors';
+import * as selectorsSessions from '../../data/sessions/sessions.selectors';
 import {
   setAppSummary
 } from '../../data/summary/summary.actions';
 import { UserProfileServer } from '../../models/UserProfileServer';
-import LsTimeTransition from '../../components/time/TimeTransition';
 import LsMainCard from '../card/MainCard';
 import { StatusColor } from '../../enum/StatusColor';
 import LsMainChip from '../chip/MainChip';
 import { AppColor } from '../../enum/AppColor';
+import { setHomeTimeTransition } from '../../data/sessions/sessions.actions';
+import * as MOMENT  from '../../util/moment';
+import { dateFormatYYYY } from '../../util/moment';
+import LsTimeTransition from '../time/TimeTransition';
 
 interface StateProps {
   userProfileServer: UserProfileServer;
-  homeTimeTransition: number;
+  homeTimeTransition: string;
   summary: any;
 }
 interface DispatchProps {
+  setHomeTimeTransition: typeof setHomeTimeTransition;
   setAppSummary: typeof setAppSummary;
 }
 
@@ -40,20 +49,24 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
     userProfileServer,
     homeTimeTransition,
     summary,
-    setAppSummary
+    setAppSummary,
+    setHomeTimeTransition
   }) => {
 
+  const [currentYear, setCurrentYear] = useState<string>('0');
   const [hasSummary, setHasSummary] = useState<boolean>(false);
-  const [currentYear, setCurrentYear] = useState<number>(0);
   const [transactionsData, setTransactionsData] = useState<any>();
   const [incomeOutcomeData, setIncomeOutcomeData] = useState<any>();
   const [banksData, setBanksData] = useState<any>();
   const [dailyTransactionsData, setDailyTransactionsData] = useState<any>();
 
+  const [period, setPeriod] = useState<string>(MOMENT.currentYearYYYY);
+  const [periodFormat, setPeriodFormat] = useState<string>(dateFormatYYYY(MOMENT.currentYearYYYY));
+
   useEffect(() => {
-    if (userProfileServer && (homeTimeTransition > 0)) {
-      if (!hasSummary || (currentYear !== homeTimeTransition)) {
-        setAppSummary(userProfileServer.userId, homeTimeTransition);
+    if (userProfileServer) {
+      if (!hasSummary || (parseInt(currentYear) !== parseInt(homeTimeTransition))) {
+        setAppSummary(userProfileServer.userId, parseInt(period));
         setHasSummary(true);
         setCurrentYear(homeTimeTransition);
       } else {
@@ -69,18 +82,21 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
           setTransactionsData(pieChart.Data);
         }
       }
+
       if (summary && (summary.purchases.length > 0 || summary.transactions.length > 0)) {
         const barChart: any = setIncomeOutcomeChart([summary.purchases, summary.transactions]);
         if (barChart.Data) {
           setIncomeOutcomeData(barChart.Data);
         }
       }
+
       if (summary && summary.banks.length > 0) {
         const doughnutChart: any = setBanksChart(summary.banks);
         if (doughnutChart && doughnutChart.Data) {
           setBanksData(doughnutChart.Data);
         }
       }
+
       if (summary && summary.incomesOutcomesTransfers.length > 0) {
         const horizontalBarChart: any = setDailyTransactionsChart([summary.incomesOutcomesTransfers, homeTimeTransition]);
         if (horizontalBarChart && horizontalBarChart.Data) {
@@ -89,19 +105,47 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
       }
     }
 
+
   }, [
     userProfileServer,
     homeTimeTransition,
     summary,
     setAppSummary,
-    currentYear,
     hasSummary,
+    currentYear,
+    period
   ]);
 
+  const decreasePeriod = (date: string = period) => {
+    let newDate: number = parseInt(date);
+    --newDate;
+    setPeriod(newDate.toString());
+    setPeriodFormat(dateFormatYYYY(newDate.toString()));
+    setHomeTimeTransition(newDate.toString());
+  };
+
+  const increasePeriod = (date: string = period) => {
+    let newDate: number = parseInt(date);
+    ++newDate;
+    setPeriod(newDate.toString());
+    setPeriodFormat(dateFormatYYYY(newDate.toString()));
+    setHomeTimeTransition(newDate.toString());
+  };
+
+  const currentPeriod = () => {
+    setPeriod(MOMENT.currentYearYYYY);
+    setPeriodFormat(dateFormatYYYY(MOMENT.currentYearYYYY));
+    setHomeTimeTransition(MOMENT.currentYearYYYY);
+  };
+
   return (
-    <IonGrid id="app-summary">
-      <LsTimeTransition />
-      <IonRow className="min-height min-height--300">
+    <IonGrid id="app-summary" className="ion-padding-top">
+      <LsTimeTransition
+          formatPeriod={`${periodFormat}`}
+          decreasePeriod={decreasePeriod}
+          currentPeriod={currentPeriod}
+          increasePeriod={increasePeriod} />
+      <IonRow className="min-height min-height--330">
         <IonCol size="12" size-sm="6">
           <LsMainChip color={AppColor.PRIMARY} text='Transactions' />
           { transactionsData && transactionsData.datasets.length > 0 ?
@@ -126,7 +170,7 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
           <LsMainCard color={StatusColor.WARNING} message='No data available'/>}
         </IonCol>
       </IonRow>
-      <IonRow className="min-height min-height--300">
+      <IonRow className="min-height min-height--330">
         <IonCol size="12" size-sm="6">
           <LsMainChip color={AppColor.SUCCESS} text='Day by day' />
           { dailyTransactionsData && dailyTransactionsData.datasets.length > 0 ?
@@ -157,11 +201,12 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
 
 export default connect<{}, StateProps, DispatchProps> ({
   mapStateToProps: (state) => ({
-    userProfileServer: selectorsUser.getUserProfileServer(state),
-    homeTimeTransition: selectorsUser.getHomeTimeTransition(state),
+    userProfileServer: selectorsSessions.getUserProfileServer(state),
+    homeTimeTransition: selectorsSessions.getHomeTimeTransition(state),
     summary: selectorsSummary.getSummary(state),
   }),
   mapDispatchToProps: ({
+    setHomeTimeTransition,
     setAppSummary,
   }),
   component: React.memo(LsAppSummary)

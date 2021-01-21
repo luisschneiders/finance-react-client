@@ -61,7 +61,6 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
   const [dailyTransactionsData, setDailyTransactionsData] = useState<any>();
 
   const [period, setPeriod] = useState<string>(MOMENT.currentYearYYYY);
-  const [periodFormat, setPeriodFormat] = useState<string>(dateFormatYYYY(MOMENT.currentYearYYYY));
 
   useEffect(() => {
     if (userProfileServer) {
@@ -120,7 +119,6 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
     let newDate: number = parseInt(date);
     --newDate;
     setPeriod(newDate.toString());
-    setPeriodFormat(dateFormatYYYY(newDate.toString()));
     setHomeTimeTransition(newDate.toString());
   };
 
@@ -128,20 +126,18 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
     let newDate: number = parseInt(date);
     ++newDate;
     setPeriod(newDate.toString());
-    setPeriodFormat(dateFormatYYYY(newDate.toString()));
     setHomeTimeTransition(newDate.toString());
   };
 
   const currentPeriod = () => {
     setPeriod(MOMENT.currentYearYYYY);
-    setPeriodFormat(dateFormatYYYY(MOMENT.currentYearYYYY));
     setHomeTimeTransition(MOMENT.currentYearYYYY);
   };
 
   return (
     <IonGrid id="app-summary" className="ion-padding-top">
       <LsTimeTransition
-          formatPeriod={`${periodFormat}`}
+          formatPeriod={`${dateFormatYYYY(period)}`}
           decreasePeriod={decreasePeriod}
           currentPeriod={currentPeriod}
           increasePeriod={increasePeriod} />

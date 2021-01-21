@@ -1,4 +1,4 @@
-import { isLeapYear, monthFormatM } from '../../util/moment';
+import { isLeapYear, dateFormatM } from '../../util/moment';
 
 const transactionTypeLabel = (data: any[]) => {
   return data.map((value) => {
@@ -81,14 +81,14 @@ export const setIncomeOutcomeChart = (data: any[]) => {
 
   incomeAndOutcome.income.forEach((item: any, index: number) => {
     if (income[index]) {
-      month = parseInt(monthFormatM(income[index].transactionDate));
+      month = parseInt(dateFormatM(income[index].transactionDate));
       incomeAndOutcome.income[month - 1] = income[index].TotalIncomeByMonth;
     }
   });
 
   incomeAndOutcome.outcome.forEach((item: any, index:number) => {
     if (outcome[index]) {
-      month = parseInt(monthFormatM(outcome[index].purchaseDate));
+      month = parseInt(dateFormatM(outcome[index].purchaseDate));
       incomeAndOutcome.outcome[month - 1] = outcome[index].TotalAmountByMonth;
     }
   });

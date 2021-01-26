@@ -6,7 +6,6 @@ import {
   IonFabButton,
   IonFooter,
   IonIcon,
-  IonList,
   IonLoading,
   IonToolbar
 } from '@ionic/react';
@@ -63,16 +62,12 @@ const LsMainExpenses: React.FC<MainExpensesProps> = ({
           <LsGroupExpenses data={expenses} groupBy="expenseTypeDescription"></LsGroupExpenses>
         }
         {!hasRecord &&
-          <IonList>
           <LsMainCard color={StatusColor.WARNING} message="No records found!"></LsMainCard>
-        </IonList>}
+        }
       </IonContent>
       <IonFooter color={AppColor.TERTIARY}>
         <IonToolbar>
-          {expenses && expenses.groups && expenses.groups.length > 0 ? 
-            <LsMainChip color={AppColor.PRIMARY} text={`Total: $${expenses.totalAmount.toFixed(2)}`} /> :
-            <LsMainChip color={AppColor.PRIMARY} text={`Total: $${0}`} />
-          }
+          <LsMainChip color={AppColor.PRIMARY} text={`Total: $${expenses?.totalAmount.toFixed(2)}`} />
         </IonToolbar>
       </IonFooter>
     </>

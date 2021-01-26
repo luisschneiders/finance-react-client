@@ -21,7 +21,7 @@ interface ContainerProps {
 
 const LsTimeTransition: React.FC<ContainerProps> = ({formatPeriod, decreasePeriod, currentPeriod, increasePeriod}) => {
   return (
-    <IonGrid>
+    <IonGrid className="ion-no-padding">
       <IonRow>
         <IonCol className="ion-text-right ion-no-padding">
           <IonButton color={AppColor.LIGHT} size="small" onClick={() => decreasePeriod()}>

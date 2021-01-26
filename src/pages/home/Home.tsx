@@ -14,22 +14,24 @@ import './Home.scss';
 import { connect } from '../../data/connect';
 import * as selectorsUser from '../../data/user/user.selectors';
 import LsAppSummary from '../../components/summary/AppSummary';
-import LsGroupList from '../../components/list/GroupList';
+import LsGroupThumbnail from '../../components/list/GroupThumbnail';
 import { News } from '../../models/News';
 import * as selectorsNews from '../../data/news/news.selectors';
+import { setNews } from '../../data/news/news.actions';
 
 interface StateProps {
   isLoggedIn: boolean;
   news: News | null;
 }
 interface DispatchProps {
-
+  setNews: typeof setNews;
 }
 interface HomeProps extends StateProps, DispatchProps {}
 
-const Home: React.FC<HomeProps> = ({
+const HomePage: React.FC<HomeProps> = ({
     isLoggedIn,
     news,
+    setNews
   }) => {
 
   const [isError, setError] = useState<boolean>(false);
@@ -41,6 +43,7 @@ const Home: React.FC<HomeProps> = ({
     setIsLoaded(true);
 
     if (isLoggedIn) {
+      setNews();
       setError(false);
       setTimeout(() => {
         setIsLoaded(false);
@@ -60,6 +63,7 @@ const Home: React.FC<HomeProps> = ({
   },[
     isLoggedIn,
     news,
+    setNews,
   ]);
 
   return (
@@ -82,7 +86,7 @@ const Home: React.FC<HomeProps> = ({
         {isNewsError && <IonList>
           <p className="ion-text-center">No news found! <span role="img" aria-label="sad-face">😢</span></p>
         </IonList>}
-        {newsList && <LsGroupList data={newsList}></LsGroupList>}
+        {newsList && <LsGroupThumbnail data={newsList} groupBy="category"></LsGroupThumbnail>}
       </IonContent>
     </IonPage>
   );
@@ -94,7 +98,7 @@ export default connect<{}, StateProps, DispatchProps>({
     news: selectorsNews.getNewsByGroup(state),
   }),
   mapDispatchToProps: ({
-
+    setNews,
   }),
-  component: React.memo(Home)
+  component: React.memo(HomePage)
 });

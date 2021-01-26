@@ -1,3 +1,8 @@
+export interface ExpensesGroup {
+  groups: Expenses[];
+  totalAmount: number;
+}
+
 export interface Expenses {
   expenseId: number;
   expenseBankDescription: string;

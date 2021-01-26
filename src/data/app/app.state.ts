@@ -4,6 +4,7 @@ import { userReducer } from '../user/user.reducer';
 import { newsReducer } from '../news/news.reducer';
 import { summaryReducer } from '../summary/summary.reducer';
 import { transactionsReducer } from '../transactions/transactions.reducer';
+import { expensesReducer } from '../expenses/expenses.reducer';
 
 export const initialState: AppState = {
   sessionsReducer: {
@@ -19,13 +20,15 @@ export const initialState: AppState = {
   },
   newsReducer: {
     news: null,
-    newsCategory: null,
   },
   summaryReducer: {
     summary: null,
   },
   transactionsReducer: {
     transactions: null,
+  },
+  expensesReducer: {
+    expenses: null,
   }
 };
 
@@ -35,6 +38,7 @@ export const rootReducer = combineReducers({
   summaryReducer,
   transactionsReducer,
   newsReducer,
+  expensesReducer,
 });
 
 export const reducers = (state: any, action: any) => {

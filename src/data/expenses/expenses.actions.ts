@@ -1,0 +1,19 @@
+import { Expenses } from '../../models/Expenses';
+import { Period } from '../../models/Period';
+import { ActionType } from '../../util/types';
+import { fetchExpensesData } from './data';
+
+const setExpensesAction = (data: Expenses) => {
+  return ({
+    type: 'SET_EXPENSES',
+    data
+  } as const);
+}
+
+export const setExpenses = (id: number, period: Period, params: any) => async (dispatch: React.Dispatch<any>) => {
+  const data = await fetchExpensesData(id, period, params);
+  return setExpensesAction(data);
+}
+
+export type ExpensesActions =
+  | ActionType<typeof setExpenses>

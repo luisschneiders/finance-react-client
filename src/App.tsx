@@ -42,7 +42,6 @@ import {
   setPhotoURL,
   setHasSeenWelcome,
   getDarkMode,
-  // getUserProfileServer,
 } from './data/user/user.actions';
 
 import LsMainTabs from './components/tabs/MainTabs';

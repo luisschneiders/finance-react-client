@@ -11,7 +11,7 @@ export function getNews(category: string = NewsType.CRYPTO, minId: number = 10) 
     .then(
       (result: any[]) => {
         const customList: List[] = [];
-        result.forEach((item: any) => {
+        result.forEach((item: any, index) => {
           const list: List = Object.assign({}, {
             category: item.category,
             id: item.id,
@@ -21,7 +21,15 @@ export function getNews(category: string = NewsType.CRYPTO, minId: number = 10) 
             summary: item.summary,
             url: item.url
           })
-          customList.push(list);
+
+          /**
+           * Limit the list to 10 items
+           * TODO: set limit via the app
+           */
+          if (index <= 9) {
+            customList.push(list);
+          }
+
         });
 
         return customList;

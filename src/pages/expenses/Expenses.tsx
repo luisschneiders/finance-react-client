@@ -65,11 +65,12 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
     }
 
   },[
-    isLoggedIn,
-    userProfileServer,
     period,
     params,
+    isLoggedIn,
+    userProfileServer,
     expensesTimeTransition,
+    setExpenses,
   ]);
 
   const decreasePeriod = (date: Period = period) => {

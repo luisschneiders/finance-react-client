@@ -6,7 +6,7 @@ import { NewsType } from '../../enum/NewsType';
 import { News, NewsCategory } from '../../models/News';
 import { addNewsFirestore} from '../api/Firebase';
 
-const newsData = getNews(NewsType.CRYPTO, 0);
+const newsData = getNews(NewsType.GENERAL, 0);
 
 export const loadNewsData = async () => {
   const response: any = await Promise.all([

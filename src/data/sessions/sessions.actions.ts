@@ -22,6 +22,7 @@ const homeTimeTransitionAction = (homeTimeTransition: string) => {
     homeTimeTransition
   } as const);
 }
+
 const expensesTimeTransitionAction = (expensesTimeTransition: Period) => {
   return ({
     type: 'SET_EXPENSES_TIME_TRANSITON',

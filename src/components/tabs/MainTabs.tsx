@@ -12,9 +12,10 @@ import { AppPage } from '../../models/AppPage';
 import { appTabs } from './AppTabs';
 import { connect } from '../../data/connect';
 import * as ROUTES from '../../constants/Routes';
-import Home from '../../pages/home/Home';
-import NewsDetails from '../../pages/home/NewsDetails';
-import Expenses from '../../pages/expenses/Expenses';
+import HomePage from '../../pages/home/Home';
+import NewsDetailsPage from '../../pages/home/NewsDetails';
+import ExpensesPage from '../../pages/expenses/Expenses';
+import TransactionsPage from '../../pages/transactions/Transactions';
 
 interface StateProps {
   isAuthenticated: boolean;
@@ -36,10 +37,11 @@ const LsMainTabs: React.FC<StateProps> = ({isAuthenticated}) => {
     <IonTabs>
       <IonRouterOutlet>
         <Redirect path={ROUTES.TABS} to={ROUTES.TABS_HOME} exact={true} />
-        <Route path={ROUTES.TABS_HOME} render={() => <Home></Home>} exact={true} />
-        <Route path={ROUTES.TABS_EXPENSES} render={() => <Expenses></Expenses>} exact={true} />
+        <Route path={ROUTES.TABS_HOME} render={() => <HomePage></HomePage>} exact={true} />
+        <Route path={ROUTES.TABS_EXPENSES} render={() => <ExpensesPage></ExpensesPage>} exact={true} />
+        <Route path={ROUTES.TABS_TRANSACTIONS} render={() => <TransactionsPage></TransactionsPage>} exact={true} />
         {/* <Route path={ROUTES.TAB2} render={() => <Tab2></Tab2>} exact={true} /> */}
-        <Route path={`${ROUTES.TABS_NEWS_DETAILS}/:id`} component={NewsDetails} />
+        <Route path={`${ROUTES.TABS_NEWS_DETAILS}/:id`} component={NewsDetailsPage} />
         <Route path='/' render={() => <Redirect to={ROUTES.TABS_HOME} />} exact={true} />
       </IonRouterOutlet>
       <IonTabBar slot="bottom">

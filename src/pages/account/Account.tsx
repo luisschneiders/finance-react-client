@@ -49,7 +49,7 @@ interface DispatchProps {
 
 interface AccountProps extends OwnProps, StateProps, DispatchProps {}
 
-const Account: React.FC<AccountProps> = ({
+const AccountPage: React.FC<AccountProps> = ({
     setDisplayName,
     displayName,
     setPhotoURL,
@@ -158,5 +158,5 @@ export default connect<OwnProps, StateProps, DispatchProps>({
     setDisplayName,
     setPhotoURL,
   },
-  component: Account
+  component: AccountPage
 });

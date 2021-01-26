@@ -41,7 +41,7 @@ interface DispatchProps {
 }
 interface RegisterProps extends OwnProps, DispatchProps { }
 
-const Register: React.FC<RegisterProps> = ({
+const RegisterPage: React.FC<RegisterProps> = ({
     setIsLoggedIn,
     history,
     setPhotoURL: setPhotoURLAction,
@@ -143,5 +143,5 @@ export default connect<OwnProps, {}, DispatchProps>({
     setPhotoURL,
     setUserProfileServer,
   },
-  component: Register
+  component: RegisterPage
 });

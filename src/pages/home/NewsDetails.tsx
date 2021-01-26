@@ -34,7 +34,7 @@ interface DispatchProps {
 
 interface NewsDetailsProps extends OwnProps, StateProps, DispatchProps {};
 
-const Tab1Detail: React.FC<NewsDetailsProps> = ({
+const NewsDetailsPage: React.FC<NewsDetailsProps> = ({
     news,
   }) => {
 
@@ -72,5 +72,5 @@ export default connect<OwnProps, StateProps, DispatchProps>({
   }),
   mapDispatchToProps: {
   },
-  component: withRouter(Tab1Detail)
+  component: withRouter(NewsDetailsPage)
 });

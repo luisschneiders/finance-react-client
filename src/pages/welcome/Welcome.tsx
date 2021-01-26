@@ -29,7 +29,7 @@ interface DispatchProps {
 
 interface WelcomeProps extends OwnProps, DispatchProps {};
 
-const Welcome: React.FC<WelcomeProps> = ({ history, setHasSeenWelcome, setMenuEnabled }) => {
+const WelcomePage: React.FC<WelcomeProps> = ({ history, setHasSeenWelcome, setMenuEnabled }) => {
   const [showSkip, setShowSkip] = useState(true);
   const slideRef = useRef<HTMLIonSlidesElement>(null);
 
@@ -103,5 +103,5 @@ export default connect<OwnProps, {}, DispatchProps>({
     setHasSeenWelcome,
     setMenuEnabled
   }),
-  component: Welcome
+  component: WelcomePage
 });

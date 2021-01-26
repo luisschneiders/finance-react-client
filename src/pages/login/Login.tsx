@@ -43,7 +43,7 @@ interface DispatchProps {
 }
 interface LoginProps extends OwnProps, DispatchProps {}
 
-const Login: React.FC<LoginProps> = ({
+const LoginPage: React.FC<LoginProps> = ({
     setUserProfileServer,
     setIsLoggedIn,
     history,
@@ -146,5 +146,5 @@ export default connect<OwnProps, {}, DispatchProps>({
     setPhotoURL,
     setMenuEnabled,
   },
-  component: Login
+  component: LoginPage
 });

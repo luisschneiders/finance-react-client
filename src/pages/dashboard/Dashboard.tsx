@@ -14,7 +14,7 @@ import './Dashboard.scss';
 import * as ROUTES from '../../constants/Routes';
 import { AppColor } from '../../enum/AppColor';
 
-const Dashboard: React.FC = () => {
+const DashboardPage: React.FC = () => {
   return (
     <IonPage>
       <IonHeader class="ion-text-center">
@@ -54,4 +54,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardPage;

@@ -24,7 +24,6 @@ import {
   setIsLoggedIn,
   setDisplayName,
   setPhotoURL,
-  // setUserProfileServer
 } from '../../data/user/user.actions';
 import { connect } from '../../data/connect';
 import { getAvatar } from '../../util/getAvatar';
@@ -34,6 +33,7 @@ import { getUserCredentialsServer } from '../../data/api/User';
 import { AppColor } from '../../enum/AppColor';
 
 interface OwnProps extends RouteComponentProps {}
+
 interface DispatchProps {
   setUserProfileServer: typeof setUserProfileServer;
   setIsLoggedIn: typeof setIsLoggedIn;
@@ -41,6 +41,7 @@ interface DispatchProps {
   setPhotoURL: typeof setPhotoURL;
   setMenuEnabled: typeof setMenuEnabled;
 }
+
 interface LoginProps extends OwnProps, DispatchProps {}
 
 const LoginPage: React.FC<LoginProps> = ({

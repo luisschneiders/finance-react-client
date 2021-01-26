@@ -56,22 +56,11 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
 
   const [params, setParams] = useState<string>('all');
 
-  useEffect(() => {
-
-    if (isLoggedIn && userProfileServer) {
-      if (period !== expensesTimeTransition) {
-        setExpenses(userProfileServer.userId, period, params);
-      }
+  if (isLoggedIn && userProfileServer) {
+    if (period !== expensesTimeTransition) {
+      setExpenses(userProfileServer.userId, period, params);
     }
-
-  },[
-    period,
-    params,
-    isLoggedIn,
-    userProfileServer,
-    expensesTimeTransition,
-    setExpenses,
-  ]);
+  }
 
   const decreasePeriod = (date: Period = period) => {
     const newDate: Period = Object.assign({}, {

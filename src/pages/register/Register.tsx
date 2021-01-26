@@ -34,11 +34,13 @@ import { AppColor } from '../../enum/AppColor';
 import { setUserProfileServer } from '../../data/sessions/sessions.actions';
 
 interface OwnProps extends RouteComponentProps {}
+
 interface DispatchProps {
   setIsLoggedIn: typeof setIsLoggedIn;
   setPhotoURL: typeof setPhotoURL;
   setUserProfileServer: typeof setUserProfileServer;
 }
+
 interface RegisterProps extends OwnProps, DispatchProps { }
 
 const RegisterPage: React.FC<RegisterProps> = ({

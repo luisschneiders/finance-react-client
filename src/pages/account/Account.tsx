@@ -38,10 +38,12 @@ import { SIZE_64, BORDER_RADIUS_50, SIZE_48 } from '../../constants/Images';
 import { AppColor } from '../../enum/AppColor';
 
 interface OwnProps extends RouteComponentProps {}
+
 interface StateProps {
   displayName?: string | null | undefined,
   photoURL?: string | null | undefined
 }
+
 interface DispatchProps {
   setDisplayName: typeof setDisplayName;
   setPhotoURL: typeof setPhotoURL;

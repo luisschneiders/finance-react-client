@@ -12,9 +12,10 @@ import { AppColor } from '../../enum/AppColor';
 
 interface ContainerProps {
   data: any;
+  groupBy: string;
 }
 
-const LsGroupList: React.FC<ContainerProps> = ({data}) => {
+const LsGroupThumbnail: React.FC<ContainerProps> = ({data, groupBy}) => {
   return (
     <>
       <IonList lines="full">
@@ -23,7 +24,7 @@ const LsGroupList: React.FC<ContainerProps> = ({data}) => {
             <IonItemDivider sticky>
               <IonLabel>
                 <IonText color={AppColor.PRIMARY}>
-                  <h3 className="ion-text-uppercase">{group[0].category}</h3>
+                  <h3 className="ion-text-uppercase">{group[0][groupBy]}</h3>
                 </IonText>
               </IonLabel>
             </IonItemDivider>
@@ -40,4 +41,4 @@ const LsGroupList: React.FC<ContainerProps> = ({data}) => {
   );
 };
 
-export default LsGroupList;
+export default LsGroupThumbnail;

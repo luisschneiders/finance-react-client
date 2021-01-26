@@ -7,7 +7,7 @@ import {
   IonText
 } from '@ionic/react';
 import LsListItemThumbnail from './ListItemThumbnail';
-import { List } from './List';
+import { List } from '../../models/List';
 import { AppColor } from '../../enum/AppColor';
 
 interface ContainerProps {

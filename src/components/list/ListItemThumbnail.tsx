@@ -7,7 +7,7 @@ import {
   IonItemSliding
 } from '@ionic/react';
 import * as ROUTES from '../../constants/Routes';
-import { List } from './List';
+import { List } from '../../models/List';
 import LsImgPlaceholder from '../img/ImgPlaceholder';
 import { SIZE_56 } from '../../constants/Images';
 

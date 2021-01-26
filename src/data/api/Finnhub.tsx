@@ -2,7 +2,7 @@ import { Finnhub } from '../../credentials/Finnhub';
 import { toast } from '../../components/toast/Toast';
 import { StatusColor } from '../../enum/StatusColor';
 import { NewsType } from '../../enum/NewsType';
-import { List } from '../../components/list/List';
+import { List } from '../../models/List';
 
 // To use this one...
 export function getNews(category: string = NewsType.CRYPTO, minId: number = 10) {

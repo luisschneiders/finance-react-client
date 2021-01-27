@@ -12,6 +12,7 @@ export const initialState: AppState = {
     userProfile: null,
     homeTimeTransition: '0',
     expensesTimeTransition: { startDate: '', endDate: '' },
+    transactionsTimeTransition: { startDate: '', endDate: '' },
   },
   userReducer: {
     darkMode: false,

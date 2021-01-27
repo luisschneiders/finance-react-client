@@ -2,6 +2,7 @@ import { Plugins } from '@capacitor/core';
 import {
   EXPENSES_TIME_TRANSITION,
   HOME_TIME_TRANSITION,
+  TRANSACTIONS_TIME_TRANSITION,
   USER_PROFILE_SERVER
 } from '../../constants/Storage';
 import { Period } from '../../models/Period';
@@ -30,4 +31,7 @@ export const setStorageHomeTimeTransition = async (homeTimeTransition: string) =
 
 export const setStorageExpensesTimeTransition = async (expensesTimeTransition: Period) => {
   await Storage.set({ key: EXPENSES_TIME_TRANSITION, value: JSON.stringify(expensesTimeTransition)});
+}
+export const setStorageTransactionsTimeTransition = async (transactionsTimeTransition: Period) => {
+  await Storage.set({ key: TRANSACTIONS_TIME_TRANSITION, value: JSON.stringify(transactionsTimeTransition)});
 }

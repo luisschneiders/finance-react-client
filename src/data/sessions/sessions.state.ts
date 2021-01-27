@@ -5,4 +5,5 @@ export interface SessionsState {
   userProfile: any;
   homeTimeTransition: string;
   expensesTimeTransition: Period;
+  transactionsTimeTransition: Period;
 }

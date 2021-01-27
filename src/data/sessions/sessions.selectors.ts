@@ -5,6 +5,7 @@ import { AppState } from '../app/app.state';
 const getUserProfileServerData = (state: AppState) => state.sessionsReducer.userProfile;
 const getHomeTimeTransitionData = (state: AppState) => state.sessionsReducer.homeTimeTransition;
 const getExpensesTimeTransitionData = (state: AppState) => state.sessionsReducer.expensesTimeTransition;
+const getTransactionsTimeTransitionData = (state: AppState) => state.sessionsReducer.transactionsTimeTransition;
 
 export const getUserProfileServer = createSelector(
   getUserProfileServerData,
@@ -24,5 +25,12 @@ export const getExpensesTimeTransition = createSelector(
   getExpensesTimeTransitionData,
   (expensesTimeTransition: Period) => {
     return expensesTimeTransition;
+  }
+);
+
+export const getTransactionsTimeTransition = createSelector(
+  getTransactionsTimeTransitionData,
+  (transactionsTimeTransition: Period) => {
+    return transactionsTimeTransition;
   }
 );

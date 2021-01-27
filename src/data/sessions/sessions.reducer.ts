@@ -12,5 +12,7 @@ export const sessionsReducer = (state: SessionsState, action: SessionsActions): 
       return { ...state, homeTimeTransition: action.homeTimeTransition };
     case 'SET_EXPENSES_TIME_TRANSITON':
       return { ...state, expensesTimeTransition: action.expensesTimeTransition };
+    case 'SET_TRANSACTIONS_TIME_TRANSITON':
+      return { ...state, transactionsTimeTransition: action.transactionsTimeTransition };
   }
 }

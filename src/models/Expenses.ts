@@ -5,13 +5,21 @@ export interface ExpensesGroup {
 
 export interface Expenses {
   expenseId: number;
-  expenseBankDescription: string;
-  expenseTypeDescription: string;
-  expenseAddress: string;
+  expenseDate: string;
+  expenseBank: number;
+  expenseTypeId: number;
   expenseAmount:number;
   expenseComments: string;
-  expenseDate: string;
-  expenseTypeId: number;
+  expenseTransactionTypeId: number;
+  expenseInsertedBy: number;
+  expenseFlag:  string;
+  expenseCreatedAt: string;
+  expenseUpdatedAt: string;
+  expenseAddress: string;
   expenseLatitude: number;
   expenseLongitude: number;
+
+  // TODO: Get info from selectors
+  expenseBankDescription: string;
+  expenseTypeDescription: string;
 }

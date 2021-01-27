@@ -56,12 +56,6 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
 
   const [params, setParams] = useState<string>('all');
 
-  if (isLoggedIn && userProfileServer) {
-    if (period !== expensesTimeTransition) {
-      setExpenses(userProfileServer.userId, period, params);
-    }
-  }
-
   const decreasePeriod = (date: Period = period) => {
     const newDate: Period = Object.assign({}, {
       startDate: subtractStartPeriod(date.startDate),
@@ -88,6 +82,12 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
     setPeriod(newDate);
     setExpensesTimeTransition(newDate);
   };
+
+  if (isLoggedIn && userProfileServer) {
+    if (period !== expensesTimeTransition) {
+      setExpenses(userProfileServer.userId, period, params);
+    }
+  }
 
   return (
     <IonPage id="expenses-page">

@@ -12,15 +12,23 @@ export function fetchExpenses(id: number, period: Period, params: string) {
             result.forEach((item: any) => {
               const list: Expenses = Object.assign({}, {
                 expenseId: item.id,
-                expenseBankDescription: item.bankDescription,
-                expenseTypeDescription: item.expenseTypeDescription,
-                expenseAddress: item.purchaseAddress,
+                expenseDate: item.purchaseDate,
+                expenseBank: item.purchaseBank,
+                expenseTypeId: item.purchaseExpenseId,
                 expenseAmount: item.purchaseAmount,
                 expenseComments: item.purchaseComments,
-                expenseDate: item.purchaseDate,
-                expenseTypeId: item.purchaseExpenseId,
+                expenseTransactionTypeId: item.purchaseTransactionId,
+                expenseInsertedBy: item.purchaseInsertedBy,
+                expenseFlag: item.purchaseFlag,
+                expenseCreatedAt: item.created_at,
+                expenseUpdatedAt: item.updated_at,
+                expenseAddress: item.purchaseAddress,
                 expenseLatitude: item.purchaseLatitude,
                 expenseLongitude: item.purchaseLongitude,
+
+                // TODO: Get info from selectors
+                expenseBankDescription: item.bankDescription,
+                expenseTypeDescription: item.expenseTypeDescription,
               })
               customList.push(list);
             });

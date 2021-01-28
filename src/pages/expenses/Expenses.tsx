@@ -96,7 +96,7 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
           <IonButtons slot="start">
             <IonMenuButton auto-hide="true"></IonMenuButton>
           </IonButtons>
-          <IonTitle>Expenses</IonTitle>
+          <IonTitle className="ion-text-center">Expenses</IonTitle>
         </IonToolbar>
         <IonToolbar>
           <LsTimeTransition

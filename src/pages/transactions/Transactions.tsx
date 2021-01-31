@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
+import './Transactions.scss';
 import {
+  IonButton,
   IonButtons,
+  IonFab,
+  IonFabButton,
+  IonFabList,
   IonHeader,
+  IonIcon,
   IonMenuButton,
   IonPage,
   IonTitle,
@@ -26,6 +32,8 @@ import * as selectorsUser from '../../data/user/user.selectors';
 import * as selectorsSessions from '../../data/sessions/sessions.selectors';
 import { setTransactions } from '../../data/transactions/transactions.actions';
 import LsMainTransactions from '../../components/transactions/MainTransactions';
+import { add, ellipsisVertical, search } from 'ionicons/icons';
+import { AppColor } from '../../enum/AppColor';
 
 interface StateProps {
   isLoggedIn: boolean;
@@ -88,13 +96,22 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
   }
 
   return (
-    <IonPage  id="transactions-page">
+    <IonPage id="transactions-page">
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
             <IonMenuButton auto-hide="true"></IonMenuButton>
           </IonButtons>
-          <IonTitle className="ion-text-center">Transactions</IonTitle>
+          <IonTitle>Transactions</IonTitle>
+          <IonFab vertical="center" horizontal="end">
+            <IonFabButton color={AppColor.TERTIARY} size="small">
+              <IonIcon icon={ellipsisVertical} />
+            </IonFabButton>
+            <IonFabList side="start">
+              <IonFabButton><IonIcon color={AppColor.TERTIARY} icon={search} /></IonFabButton>
+              <IonFabButton><IonIcon color={AppColor.SUCCESS} icon={add} /></IonFabButton>
+            </IonFabList>
+          </IonFab>
         </IonToolbar>
         <IonToolbar>
           <LsTimeTransition

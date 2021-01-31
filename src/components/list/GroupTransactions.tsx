@@ -8,7 +8,6 @@ import {
 } from '@ionic/react';
 import LsListItemTransactions from './ListItemTransactions';
 import { AppColor } from '../../enum/AppColor';
-import { Expenses } from '../../models/Expenses';
 import LsMainChip from '../chip/MainChip';
 import { amountByGroup } from '../../util/amountByGroup';
 import { Transactions } from '../../models/Transactions';

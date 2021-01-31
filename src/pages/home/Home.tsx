@@ -73,7 +73,7 @@ const HomePage: React.FC<HomeProps> = ({
           <IonButtons slot="start">
             <IonMenuButton auto-hide="true"></IonMenuButton>
           </IonButtons>
-          <IonTitle className="ion-text-center">Home</IonTitle>
+          <IonTitle>Home</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonLoading message="Fetching data..." duration={0} isOpen={isLoaded}></IonLoading>

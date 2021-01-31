@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from '../../data/connect';
 import {
   IonContent,
-  IonFab,
-  IonFabButton,
   IonFooter,
-  IonIcon,
   IonLoading,
   IonToolbar
 } from '@ionic/react';
@@ -15,7 +12,6 @@ import LsGroupExpenses from '../list/GroupExpenses';
 import LsMainCard from '../card/MainCard';
 import LsMainChip from '../chip/MainChip';
 import * as selectorsExpenses from '../../data/expenses/expenses.selectors';
-import { add } from 'ionicons/icons';
 import { AppColor } from '../../enum/AppColor';
 
 interface StateProps {
@@ -47,17 +43,12 @@ const LsMainExpenses: React.FC<MainExpensesProps> = ({
     }
   }, [
     expenses,
-  ])
+  ]);
 
   return (
     <>
       <IonLoading message="Fetching expenses..." duration={0} isOpen={isLoaded}></IonLoading>
       <IonContent>
-        <IonFab vertical="bottom" horizontal="end" edge slot="fixed">
-          <IonFabButton color={AppColor.TERTIARY} size="small">
-            <IonIcon icon={add} />
-          </IonFabButton>
-        </IonFab>
         {expenses && expenses.groups && expenses.groups.length > 0 &&
           <LsGroupExpenses data={expenses} groupBy="expenseTypeDescription"></LsGroupExpenses>
         }

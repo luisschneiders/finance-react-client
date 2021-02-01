@@ -49,15 +49,16 @@ import LsMenu from './components/menu/Menu';
 import { toast } from './components/toast/Toast';
 import HomeOrWelcome from './components/HomeOrWelcome';
 
-import Login from './pages/login/Login';
-import Register from './pages/register/Register';
-import Account from './pages/account/Account';
-import Welcome from './pages/welcome/Welcome';
+import LoginPage from './pages/login/Login';
+import RegisterPage from './pages/register/Register';
+import AccountPage from './pages/account/Account';
+import WelcomePage from './pages/welcome/Welcome';
+import DashboardPage from './pages/dashboard/Dashboard';
+import SetupPage from './pages/setup/Setup';
 
 import { StatusColor } from './enum/StatusColor';
 import { getAvatar } from './util/getAvatar';
 import * as ROUTES  from './constants/Routes';
-import Dashboard from './pages/dashboard/Dashboard';
 import { setResetAppStore } from './data/app/app.actions';
 import { initialState } from './data/app/app.state';
 import { getUserProfileServer } from './data/sessions/sessions.actions';
@@ -137,11 +138,12 @@ const IonicApp: React.FC<IonicAppProps> = ({
                   <IonRouterOutlet id="main">
                     <Route path='/' component={HomeOrWelcome} exact={true} />
                     <Route path={ROUTES.TABS} component={LsMainTabs} />
-                    <Route path={ROUTES.ACCOUNT} component={Account} exact={true} />
-                    <Route path={ROUTES.DASHBOARD} component={Dashboard} exact={true} />
-                    <Route path={ROUTES.LOGIN} component={Login} exact={true} />
-                    <Route path={ROUTES.REGISTER} component={Register} exact={true} />
-                    <Route path={ROUTES.WELCOME} component={Welcome} exact={true} />
+                    <Route path={ROUTES.ACCOUNT} component={AccountPage} exact={true} />
+                    <Route path={ROUTES.SETUP} component={SetupPage} exact={true} />
+                    <Route path={ROUTES.DASHBOARD} component={DashboardPage} exact={true} />
+                    <Route path={ROUTES.LOGIN} component={LoginPage} exact={true} />
+                    <Route path={ROUTES.REGISTER} component={RegisterPage} exact={true} />
+                    <Route path={ROUTES.WELCOME} component={WelcomePage} exact={true} />
                     <Route path={ROUTES.LOGOUT} render={() => {
                       logoutUser().then(() => {
                         toast('Successfully logged out!', StatusColor.DEFAULT);

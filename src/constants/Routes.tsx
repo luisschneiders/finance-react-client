@@ -13,6 +13,14 @@ export const REGISTER = '/register';
 
 export const SERVER = 'http://local.developing:3030';
 
+export const SETUP = '/setup';
+
+export const SETUP_BANKS = `${SETUP}/banks`;
+export const SETUP_EXPENSES_TYPE = `${SETUP}/expenses-type`;
+export const SETUP_TRANSACTIONS_TYPE = `${SETUP}/transactions-type`;
+export const SETUP_USERS = `${SETUP}/users`;
+export const SETUP_VEHICLES = `${SETUP}/vehicles`;
+
 export const TABS = '/tabs';
 
 export const TABS_HOME = `${TABS}/home`;

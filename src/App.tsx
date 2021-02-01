@@ -55,6 +55,7 @@ import AccountPage from './pages/account/Account';
 import WelcomePage from './pages/welcome/Welcome';
 import DashboardPage from './pages/dashboard/Dashboard';
 import SetupPage from './pages/setup/Setup';
+import ExpensesTypePage from './pages/expenses-type/ExpensesType';
 
 import { StatusColor } from './enum/StatusColor';
 import { getAvatar } from './util/getAvatar';
@@ -139,10 +140,11 @@ const IonicApp: React.FC<IonicAppProps> = ({
                     <Route path='/' component={HomeOrWelcome} exact={true} />
                     <Route path={ROUTES.TABS} component={LsMainTabs} />
                     <Route path={ROUTES.ACCOUNT} component={AccountPage} exact={true} />
-                    <Route path={ROUTES.SETUP} component={SetupPage} exact={true} />
                     <Route path={ROUTES.DASHBOARD} component={DashboardPage} exact={true} />
                     <Route path={ROUTES.LOGIN} component={LoginPage} exact={true} />
                     <Route path={ROUTES.REGISTER} component={RegisterPage} exact={true} />
+                    <Route path={ROUTES.SETUP} component={SetupPage} exact={true} />
+                    <Route path={ROUTES.SETUP_EXPENSES_TYPE} component={ExpensesTypePage} exact={true} />
                     <Route path={ROUTES.WELCOME} component={WelcomePage} exact={true} />
                     <Route path={ROUTES.LOGOUT} render={() => {
                       logoutUser().then(() => {

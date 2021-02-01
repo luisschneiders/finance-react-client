@@ -21,18 +21,25 @@ import {
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { connect } from '../../data/connect';
-import * as ROUTES from '../../constants/Routes'
+import * as ROUTES from '../../constants/Routes';
+import * as selectorsUser from '../../data/user/user.selectors';
+import * as selectorsSessions from '../../data/sessions/sessions.selectors';
+import { UserProfileServer } from '../../models/UserProfileServer';
 
 interface OwnProps extends RouteComponentProps {}
 
-interface StateProps {}
+interface StateProps {
+  isLoggedIn: boolean;
+  userProfileServer: UserProfileServer;
+}
 
 interface DispatchProps {}
 
 interface SetupProps extends OwnProps, StateProps, DispatchProps {}
 
 const SetupPage: React.FC<SetupProps> = ({
-
+  isLoggedIn,
+  userProfileServer,
 }) => {
   return (
     <IonPage id="setup-page">
@@ -46,23 +53,23 @@ const SetupPage: React.FC<SetupProps> = ({
       </IonHeader>
       <IonContent fullscreen>
         <IonList lines="full">
-          <IonItem disabled detail={true} routerLink={ROUTES.SETUP_BANKS}>
+          <IonItem disabled detail={true} routerLink={ROUTES.SETUP_BANKS} routerDirection="none">
             <IonIcon slot="start" icon={businessOutline} />
             <IonLabel>Banks</IonLabel>
           </IonItem>
-          <IonItem detail={true} routerLink={ROUTES.SETUP_EXPENSES_TYPE}>
+          <IonItem detail={true} routerLink={ROUTES.SETUP_EXPENSES_TYPE} routerDirection="none">
             <IonIcon slot="start" icon={pricetagOutline} />
             <IonLabel>Expense Categories</IonLabel>
           </IonItem>
-          <IonItem disabled detail={true} routerLink={ROUTES.SETUP_TRANSACTIONS_TYPE}>
+          <IonItem disabled detail={true} routerLink={ROUTES.SETUP_TRANSACTIONS_TYPE} routerDirection="none">
             <IonIcon slot="start" icon={repeatOutline} />
             <IonLabel>Transaction Categories</IonLabel>
           </IonItem>
-          <IonItem disabled detail={true} routerLink={ROUTES.SETUP_USERS}>
+          <IonItem disabled detail={true} routerLink={ROUTES.SETUP_USERS} routerDirection="none">
             <IonIcon slot="start" icon={peopleOutline} />
             <IonLabel>Users</IonLabel>
           </IonItem>
-          <IonItem disabled detail={true} routerLink={ROUTES.SETUP_VEHICLES}>
+          <IonItem disabled detail={true} routerLink={ROUTES.SETUP_VEHICLES} routerDirection="none">
             <IonIcon slot="start" icon={carOutline} />
             <IonLabel>Vehicles</IonLabel>
           </IonItem>
@@ -73,7 +80,10 @@ const SetupPage: React.FC<SetupProps> = ({
 };
 
 export default connect<OwnProps, StateProps, DispatchProps>({
-  mapStateToProps: () => ({}),
+  mapStateToProps: (state) => ({
+    isLoggedIn: selectorsUser.getIsLoggedIn(state),
+    userProfileServer: selectorsSessions.getUserProfileServer(state),
+  }),
   mapDispatchToProps: {},
   component: SetupPage
 });

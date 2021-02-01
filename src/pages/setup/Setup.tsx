@@ -46,23 +46,23 @@ const SetupPage: React.FC<SetupProps> = ({
       </IonHeader>
       <IonContent fullscreen>
         <IonList lines="full">
-          <IonItem detail={true} routerLink={ROUTES.SETUP_BANKS}>
+          <IonItem disabled detail={true} routerLink={ROUTES.SETUP_BANKS}>
             <IonIcon slot="start" icon={businessOutline} />
             <IonLabel>Banks</IonLabel>
           </IonItem>
           <IonItem detail={true} routerLink={ROUTES.SETUP_EXPENSES_TYPE}>
             <IonIcon slot="start" icon={pricetagOutline} />
-            <IonLabel>Expenses</IonLabel>
+            <IonLabel>Expense Categories</IonLabel>
           </IonItem>
-          <IonItem detail={true} routerLink={ROUTES.SETUP_TRANSACTIONS_TYPE}>
+          <IonItem disabled detail={true} routerLink={ROUTES.SETUP_TRANSACTIONS_TYPE}>
             <IonIcon slot="start" icon={repeatOutline} />
-            <IonLabel>Transactions</IonLabel>
+            <IonLabel>Transaction Categories</IonLabel>
           </IonItem>
-          <IonItem detail={true} routerLink={ROUTES.SETUP_USERS}>
+          <IonItem disabled detail={true} routerLink={ROUTES.SETUP_USERS}>
             <IonIcon slot="start" icon={peopleOutline} />
             <IonLabel>Users</IonLabel>
           </IonItem>
-          <IonItem detail={true} routerLink={ROUTES.SETUP_VEHICLES}>
+          <IonItem disabled detail={true} routerLink={ROUTES.SETUP_VEHICLES}>
             <IonIcon slot="start" icon={carOutline} />
             <IonLabel>Vehicles</IonLabel>
           </IonItem>

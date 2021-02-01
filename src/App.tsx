@@ -63,7 +63,7 @@ import * as ROUTES  from './constants/Routes';
 import { setResetAppStore } from './data/app/app.actions';
 import { initialState } from './data/app/app.state';
 import { getUserProfileServer } from './data/sessions/sessions.actions';
-// import { getNews } from './data/news/news.actions';
+// import { setNews } from './data/news/news.actions';
 
 const App: React.FC = () => {
   return (
@@ -80,7 +80,7 @@ interface StateProps {
 interface DispatchProps {
   getDarkMode: typeof getDarkMode;
   getUserProfileServer: typeof getUserProfileServer;
-  // getNews: typeof getNews;
+  // setNews: typeof setNews;
   setIsLoggedIn: typeof setIsLoggedIn;
   setDisplayName: typeof setDisplayName;
   setPhotoURL: typeof setPhotoURL;
@@ -94,7 +94,7 @@ const IonicApp: React.FC<IonicAppProps> = ({
     darkMode,
     getDarkMode,
     getUserProfileServer,
-    // getNews,
+    // setNews,
     setIsLoggedIn,
     setHasSeenWelcome,
     setDisplayName,
@@ -106,7 +106,7 @@ const IonicApp: React.FC<IonicAppProps> = ({
 
   useEffect(() => {
     getDarkMode();
-    // getNews();
+    // setNews();
     getCurrentUser().then((user: any) => {
       if (user) {
         getUserProfileServer();
@@ -122,7 +122,7 @@ const IonicApp: React.FC<IonicAppProps> = ({
   }, [
       getDarkMode,
       getUserProfileServer,
-      // getNews,
+      // setNews,
       setIsLoggedIn,
       setHasSeenWelcome,
       setDisplayName,
@@ -173,7 +173,7 @@ const IonicAppConnected = connect<{}, StateProps, DispatchProps>({
   mapDispatchToProps: {
     getDarkMode,
     getUserProfileServer,
-    // getNews,
+    // setNews,
     setIsLoggedIn,
     setHasSeenWelcome,
     setDisplayName,

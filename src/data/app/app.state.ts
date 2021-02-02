@@ -5,6 +5,7 @@ import { newsReducer } from '../news/news.reducer';
 import { summaryReducer } from '../summary/summary.reducer';
 import { transactionsReducer } from '../transactions/transactions.reducer';
 import { expensesReducer } from '../expenses/expenses.reducer';
+import { APP_STORE_RESET } from '../actionTypes';
 
 export const initialState: AppState = {
   sessionsReducer: {
@@ -44,7 +45,7 @@ export const rootReducer = combineReducers({
 
 export const reducers = (state: any, action: any) => {
 
-  if (action.type === 'SET_RESET_APP_STORE') {
+  if (action.type === APP_STORE_RESET) {
     const { userReducer } = state;
     state = { ...initialState, userReducer };
   }

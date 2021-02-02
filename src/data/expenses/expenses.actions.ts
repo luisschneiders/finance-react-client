@@ -1,11 +1,12 @@
 import { Expenses } from '../../models/Expenses';
 import { Period } from '../../models/Period';
 import { ActionType } from '../../util/types';
+import { EXPENSES_SET } from '../actionTypes';
 import { fetchExpensesData } from './data';
 
 const setExpensesAction = (data: Expenses) => {
   return ({
-    type: 'SET_EXPENSES',
+    type: EXPENSES_SET,
     data
   } as const);
 }

@@ -2,6 +2,13 @@ import { Period } from '../../models/Period';
 import { UserProfileServer } from '../../models/UserProfileServer';
 import { ActionType } from '../../util/types';
 import {
+  SESSION_EXPENSES_TIME_TRANSITON_SET,
+  SESSION_HOME_TIME_TRANSITON_SET,
+  SESSION_MENU_ENABLED_SET,
+  SESSION_TRANSACTIONS_TIME_TRANSITON_SET,
+  SESSION_USER_PROFILE_SERVER_SET
+} from '../actionTypes';
+import {
   getStorageHomeTimeTransition,
   getStorageUserProfileServer,
   setStorageExpensesTimeTransition,
@@ -12,34 +19,34 @@ import {
 
 const userProfileServerAction = (userProfileServer: UserProfileServer) => {
   return ({
-    type: 'SET_USER_PROFILE_SERVER',
+    type: SESSION_USER_PROFILE_SERVER_SET,
     userProfileServer
   } as const);
 }
 
 const homeTimeTransitionAction = (homeTimeTransition: string) => {
   return ({
-    type: 'SET_HOME_TIME_TRANSITON',
+    type: SESSION_HOME_TIME_TRANSITON_SET,
     homeTimeTransition
   } as const);
 }
 
 const expensesTimeTransitionAction = (expensesTimeTransition: Period) => {
   return ({
-    type: 'SET_EXPENSES_TIME_TRANSITON',
+    type: SESSION_EXPENSES_TIME_TRANSITON_SET,
     expensesTimeTransition
   } as const);
 }
 
 const transactionsTimeTransitionAction = (transactionsTimeTransition: Period) => {
   return ({
-    type: 'SET_TRANSACTIONS_TIME_TRANSITON',
+    type: SESSION_TRANSACTIONS_TIME_TRANSITON_SET,
     transactionsTimeTransition
   } as const);
 }
 
 export const setMenuEnabled = (menuEnabled: boolean) => ({
-  type: 'SET_MENU_ENABLED',
+  type: SESSION_MENU_ENABLED_SET,
   menuEnabled
 } as const);
 

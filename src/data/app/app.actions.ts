@@ -1,9 +1,10 @@
 import { ActionType } from '../../util/types';
+import { APP_STORE_RESET } from '../actionTypes';
 import { AppState } from './app.state';
 
 export const setResetAppStore = (initialState: AppState) => async (dispatch: React.Dispatch<any>) => {
   return ({
-    type: 'SET_RESET_APP_STORE',
+    type: APP_STORE_RESET,
     initialState
   } as const);
 };

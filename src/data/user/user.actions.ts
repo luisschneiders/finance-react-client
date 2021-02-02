@@ -5,17 +5,24 @@ import {
   getStorageHasSeenWelcome,
 } from '../user/data';
 import { ActionType } from '../../util/types';
+import {
+  USER_DARK_MODE_SET,
+  USER_DISPLAY_NAME_SET,
+  USER_HAS_SEEN_WELCOME_SET,
+  USER_IS_LOGGED_IN_SET,
+  USER_PHOTO_URL_SET
+} from '../actionTypes';
 
 const darkModeAction = (darkMode: boolean) => {
   return ({
-    type: 'SET_DARK_MODE',
+    type: USER_DARK_MODE_SET,
     darkMode
   } as const);
 }
 
 const hasSeenWelcomeAction = (hasSeenWelcome: boolean) => {
   return ({
-    type: 'SET_HAS_SEEN_WELCOME',
+    type: USER_HAS_SEEN_WELCOME_SET,
     hasSeenWelcome
   } as const);
 }
@@ -42,21 +49,21 @@ export const getHasSeenWelcome = () => async (dispatch: React.Dispatch<any>) => 
 
 export const setIsLoggedIn = (isLoggedIn: boolean) => async () => {
   return ({
-    type: 'SET_IS_LOGGED_IN',
+    type: USER_IS_LOGGED_IN_SET,
     isLoggedIn
   } as const);
 }
 
 export const setDisplayName = (displayName: string | null | undefined) => async (dispatch: React.Dispatch<any>) => {
   return ({
-    type: 'SET_DISPLAY_NAME',
+    type: USER_DISPLAY_NAME_SET,
     displayName
   } as const);
 }
 
 export const setPhotoURL = (photoURL: string | null | undefined) => async (dispatch: React.Dispatch<any>) => {
   return ({
-    type: 'SET_PHOTO_URL',
+    type: USER_PHOTO_URL_SET,
     photoURL
   } as const);
 }

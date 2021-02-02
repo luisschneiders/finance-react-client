@@ -1,11 +1,12 @@
 import { Period } from '../../models/Period';
 import { Transactions } from '../../models/Transactions';
 import { ActionType } from '../../util/types';
+import { TRANSACTIONS_SET } from '../actionTypes';
 import { fetchTransactionsData } from './data';
 
 const setTransactionsAction = (data: Transactions) => {
   return ({
-    type: 'SET_TRANSACTIONS',
+    type: TRANSACTIONS_SET,
     data
   } as const);
 }

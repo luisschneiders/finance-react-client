@@ -1,9 +1,10 @@
 import { ActionType } from '../../util/types';
+import { NEWS_SET } from '../actionTypes';
 import { loadNewsData } from './data';
 import { NewsState } from './news.state';
 
 const setNewsAction = (data: Partial<NewsState>) => ({
-  type: 'SET_NEWS',
+  type: NEWS_SET,
   data
 } as const);
 

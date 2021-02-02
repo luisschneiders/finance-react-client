@@ -16,8 +16,8 @@ export const SERVER = 'http://local.developing:3030';
 export const SETUP = '/setup';
 
 export const SETUP_BANKS = `${SETUP}/banks`;
-export const SETUP_EXPENSES_TYPE = `${SETUP}/expenses-type`;
-export const SETUP_TRANSACTIONS_TYPE = `${SETUP}/transactions-type`;
+export const SETUP_EXPENSE_TYPE = `${SETUP}/expense-type`;
+export const SETUP_TRANSACTION_TYPE = `${SETUP}/transaction-type`;
 export const SETUP_USERS = `${SETUP}/users`;
 export const SETUP_VEHICLES = `${SETUP}/vehicles`;
 

@@ -1,5 +1,9 @@
 import { ExpenseType } from '../../models/ExpenseType';
 
+export function fetchExpenseType(id: number) {
+  return null;
+}
+
 export function saveExpenseType(data: Partial<ExpenseType>) {
   console.log('LFS - data: ', data);
   const requestOptions = {

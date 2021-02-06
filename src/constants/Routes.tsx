@@ -11,7 +11,7 @@ export const LOGOUT = '/logout';
 
 export const REGISTER = '/register';
 
-export const SERVER = 'http://local.developing:3030';
+export const SERVER = process.env.REACT_APP_SERVER_URL;
 
 export const SETUP = '/setup';
 

@@ -1,4 +1,4 @@
-import { ExpenseType } from '../../models/ExpenseType';
+import { ExpenseType, ExpenseTypeList } from '../../models/ExpenseType';
 import { ActionType } from '../../util/types';
 import {
   EXPENSE_TYPE_SAVE,
@@ -16,16 +16,16 @@ const saveExpenseTypeAction = (data: Partial<ExpenseType>) => {
   } as const);
 }
 
-const setExpenseTypeAction = (data: ExpenseType) => {
+const setExpenseTypeListAction = (data: ExpenseTypeList) => {
   return ({
     type: EXPENSE_TYPE_SET,
-    data
+    expenseType: {expensesType: data.expensesType, pagination: data.pagination}
   } as const);
 }
 
-export const setExpenseType = (id: number) => async () => {
-  const data = await fetchExpenseTypedData(id);
-  return setExpenseTypeAction(data);
+export const setExpenseTypeList = (id: number, page: number, pageSize: number) => async () => {
+  const data = await fetchExpenseTypedData(id, page, pageSize);
+  return setExpenseTypeListAction(data);
 }
 
 export const saveExpenseType = (data: Partial<ExpenseType>) => async (dispatch: React.Dispatch<any>) => {
@@ -35,3 +35,4 @@ export const saveExpenseType = (data: Partial<ExpenseType>) => async (dispatch: 
 
 export type ExpenseTypeAction = 
   | ActionType<typeof saveExpenseType>
+  | ActionType<typeof setExpenseTypeList>

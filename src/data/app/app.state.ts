@@ -5,6 +5,7 @@ import { newsReducer } from '../news/news.reducer';
 import { summaryReducer } from '../summary/summary.reducer';
 import { transactionsReducer } from '../transactions/transactions.reducer';
 import { expensesReducer } from '../expenses/expenses.reducer';
+import { expenseTypeReducer } from '../expenseType/expenseType.reducer';
 import { APP_STORE_RESET } from '../actionTypes';
 
 export const initialState: AppState = {
@@ -31,6 +32,9 @@ export const initialState: AppState = {
   },
   expensesReducer: {
     expenses: null,
+  },
+  expenseTypeReducer: {
+    expenseType: { expensesType: null, pagination: null },
   }
 };
 
@@ -41,6 +45,7 @@ export const rootReducer = combineReducers({
   transactionsReducer,
   newsReducer,
   expensesReducer,
+  expenseTypeReducer,
 });
 
 export const reducers = (state: any, action: any) => {

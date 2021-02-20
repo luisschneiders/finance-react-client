@@ -1,9 +1,10 @@
-import { ExpenseType } from '../../models/ExpenseType';
+import { ExpenseType, ExpenseTypeList } from '../../models/ExpenseType';
+
 import { fetchExpenseType, saveExpenseType } from '../api/ExpenseType';
 
-export const fetchExpenseTypedData = async (id: number) => {
-  const response: any = await fetchExpenseType(id);
-  const expenseType = response as ExpenseType;
+export const fetchExpenseTypedData = async (id: number, page: number, pageSize: number) => {
+  const response: any = await fetchExpenseType(id, page, pageSize);
+  const expenseType = response as ExpenseTypeList;
 
   return expenseType;
 }

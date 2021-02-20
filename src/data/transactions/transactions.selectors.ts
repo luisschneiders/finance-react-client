@@ -29,7 +29,7 @@ export const getTransactionsByGroup = createSelector(
     const group: TransactionsGroup = Object.assign({}, {
       groups,
     });
-    console.log('LFS - group: ', group);
+
     return group;
   }
 );

@@ -70,7 +70,6 @@ export default connect<OwnProps, StateProps, DispatchProps>({
   mapStateToProps: (state, OwnProps) => ({
     news: newsSelectors.getNewsById(state, OwnProps),
   }),
-  mapDispatchToProps: {
-  },
+  mapDispatchToProps: ({}),
   component: withRouter(NewsDetailsPage)
 });

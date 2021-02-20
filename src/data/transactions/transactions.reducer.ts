@@ -5,8 +5,6 @@ import { TransactionsState } from './transactions.state';
 export const transactionsReducer = (state: TransactionsState, action: TransactionsActions) : TransactionsState => {
   switch (action.type) {
     case TRANSACTIONS_SET:
-      {
-        return { ...state, ...action.data };
-      }
+      return { ...state, ...action.data };
   }
 }

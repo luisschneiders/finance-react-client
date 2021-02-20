@@ -5,8 +5,6 @@ import { SummaryState } from './summary.state';
 export const summaryReducer = (state: SummaryState, action: SummaryActions) : SummaryState => {
   switch (action.type) {
     case SUMMARY_APP_SET:
-      {
-        return { ...state, ...action.data };
-      }
+      return { ...state, ...action.data };
   }
 }

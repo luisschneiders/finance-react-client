@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './Transactions.scss';
 import {
-  IonButton,
   IonButtons,
   IonFab,
   IonFabButton,

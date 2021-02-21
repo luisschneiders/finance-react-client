@@ -2,7 +2,7 @@ import { ExpenseType, ExpenseTypeList } from '../../models/ExpenseType';
 import { ActionType } from '../../util/types';
 import {
   EXPENSE_TYPE_SAVE,
-  EXPENSE_TYPE_SET
+  EXPENSE_TYPE_LIST_SET
 } from '../actionTypes';
 import {
   fetchExpenseTypedData,
@@ -18,8 +18,8 @@ const saveExpenseTypeAction = (data: Partial<ExpenseType>) => {
 
 const setExpenseTypeListAction = (data: ExpenseTypeList) => {
   return ({
-    type: EXPENSE_TYPE_SET,
-    expenseType: {expensesType: data.expensesType, pagination: data.pagination}
+    type: EXPENSE_TYPE_LIST_SET,
+    expenseTypeList: data
   } as const);
 }
 

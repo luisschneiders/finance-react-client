@@ -3,10 +3,10 @@ import * as ROUTES from '../../constants/Routes';
 import { toast } from '../../components/toast/Toast';
 import { StatusColor } from '../../enum/StatusColor';
 
-export function fetchExpenseType(id: number, page: number, pageSize: number) {
+export function fetchExpenseTypeList(id: number, page: number, pageSize: number) {
   return fetch(`${ROUTES.SERVER}/get-all-expenses-type/id=${id}&page=${page}&pageSize=${pageSize}`)
           .then(response => response.json())
-          .then((result: ExpenseTypeList[]) => {
+          .then((result: ExpenseTypeList) => {
             return result;
           },
           (error) => {

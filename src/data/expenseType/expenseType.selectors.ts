@@ -1,12 +1,12 @@
 import { createSelector } from 'reselect';
-import { ExpenseType, ExpenseTypeList } from '../../models/ExpenseType';
+import { ExpenseTypeList } from '../../models/ExpenseType';
 import { AppState } from '../app/app.state';
 
-const getExpenseTypeData = (state: AppState) => state.expenseTypeReducer.expenseType;
+const getExpenseTypeListData = (state: AppState) => state.expenseTypeReducer.expenseTypeList;
 
 export const getExpenseTypeList = createSelector(
-  getExpenseTypeData,
-  (expenseType: ExpenseTypeList) => {
-    return expenseType;
+  getExpenseTypeListData,
+  (expenseTypeList: ExpenseTypeList) => {
+    return expenseTypeList;
   }
 );

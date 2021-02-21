@@ -5,9 +5,7 @@ import {
   IonHeader,
   IonInput,
   IonItem,
-  IonLabel,
   IonList,
-  IonListHeader,
   IonLoading,
   IonMenuButton,
   IonPage,
@@ -15,18 +13,20 @@ import {
   IonToolbar
 } from '@ionic/react';
 import React, { useEffect, useState } from 'react';
-import { RouteComponentProps } from 'react-router';
 import { toast } from '../../components/toast/Toast';
 import { connect } from '../../data/connect';
-import { saveExpenseType, setExpenseType } from '../../data/expenseType/expenseType.actions';
 import { AppColor } from '../../enum/AppColor';
 import { StatusColor } from '../../enum/StatusColor';
-import { ExpenseType } from '../../models/ExpenseType';
 import { UserProfileServer } from '../../models/UserProfileServer';
 import * as selectorsUser from '../../data/user/user.selectors';
 import * as selectorsSessions from '../../data/sessions/sessions.selectors';
-
-interface OwnProps extends RouteComponentProps {}
+import { PageSize } from '../../enum/PageSize';
+import LsListInfiniteScroll from '../../components/list/ListInfiniteScroll';
+import LsListItemExpenseType from '../../components/list/ListItemExpenseType';
+import {
+  saveExpenseType,
+  setExpenseTypeList
+} from '../../data/expenseType/expenseType.actions';
 
 interface StateProps {
   isLoggedIn: boolean;
@@ -34,20 +34,28 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  setExpenseType: typeof setExpenseType;
+  setExpenseTypeList: typeof setExpenseTypeList;
   saveExpenseType: typeof saveExpenseType;
 }
 
-interface ExpensesTypeProps extends OwnProps, StateProps, DispatchProps {}
+interface ExpensesTypeProps extends StateProps, DispatchProps {}
 
 const ExpenseTypePage: React.FC<ExpensesTypeProps> = ({
   isLoggedIn,
   userProfileServer,
-  setExpenseType,
+  setExpenseTypeList,
   saveExpenseType,
 }) => {
   const [busy, setBusy] = useState(false);
   const [expenseTypeDescription, setExpenseTypeDescription] = useState<string>('');
+  // const [page, setPage] = useState<number>(1);
+  // const [pageSize, setPageSize] = useState<PageSize>(PageSize.S_12);
+  
+  useEffect(() => {
+    if (isLoggedIn && userProfileServer) {
+      setExpenseTypeList(userProfileServer.userId, 1, PageSize.S_12);
+    }
+  }, [isLoggedIn, userProfileServer, setExpenseTypeList]);
 
   const expenseTypeForm = async(e: React.FormEvent) => {
     e.preventDefault();
@@ -61,10 +69,6 @@ const ExpenseTypePage: React.FC<ExpensesTypeProps> = ({
     setExpenseTypeDescription('');
   }
 
-  if (isLoggedIn && userProfileServer) {
-    setExpenseType(userProfileServer.userId);
-  }
-
   return (
     <IonPage>
       <IonHeader>
@@ -74,36 +78,42 @@ const ExpenseTypePage: React.FC<ExpensesTypeProps> = ({
           </IonButtons>
           <IonTitle>Expense Categories</IonTitle>
         </IonToolbar>
-      </IonHeader>
-      <IonLoading message="Please wait..." duration={0} isOpen={busy}></IonLoading>
-      <IonContent className="ion-padding">
-        <form noValidate onSubmit={expenseTypeForm}>
-          <IonList>
-            <IonListHeader lines="full">
-              <IonInput name="expenseTypeDescription"
+        <IonToolbar>
+          <form noValidate onSubmit={expenseTypeForm}>
+            <IonList>
+              <IonItem>
+                <IonInput name="expenseTypeDescription"
                         type="text"
-                        placeholder="Enter description" 
+                        placeholder="Add new expense here" 
                         value={expenseTypeDescription} spellCheck={false} autocapitalize="off"
                         onIonChange={(e: any) => setExpenseTypeDescription(e.detail.value!)}
                         required />
-              <IonButton type="submit" size="small" fill="solid" shape="round" color={AppColor.SUCCESS}>Save</IonButton>
-            </IonListHeader>
-            
-          </IonList>
-        </form>
+                <div slot="end">
+                  <IonButton type="submit" size="small" fill="solid" shape="round" color={AppColor.SUCCESS}>Save</IonButton>
+                </div>
+              </IonItem>
+            </IonList>
+          </form>
+        </IonToolbar>
+      </IonHeader>
+      <IonLoading message="Please wait..." duration={0} isOpen={busy}></IonLoading>
+      <IonContent className="ion-padding"> 
+        <LsListInfiniteScroll>
+          <LsListItemExpenseType />
+        </LsListInfiniteScroll>
       </IonContent>
     </IonPage>
   );
 };
 
-export default connect<OwnProps, StateProps, DispatchProps>({
+export default connect<{}, StateProps, DispatchProps>({
   mapStateToProps: (state) => ({
     isLoggedIn: selectorsUser.getIsLoggedIn(state),
     userProfileServer: selectorsSessions.getUserProfileServer(state),
   }),
-  mapDispatchToProps: {
-    setExpenseType,
+  mapDispatchToProps: ({
+    setExpenseTypeList,
     saveExpenseType,
-  },
-  component: ExpenseTypePage
+  }),
+  component: React.memo(ExpenseTypePage)
 });

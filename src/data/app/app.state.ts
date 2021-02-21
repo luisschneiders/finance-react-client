@@ -7,6 +7,7 @@ import { transactionsReducer } from '../transactions/transactions.reducer';
 import { expensesReducer } from '../expenses/expenses.reducer';
 import { expenseTypeReducer } from '../expenseType/expenseType.reducer';
 import { APP_STORE_RESET } from '../actionTypes';
+import { PageSize } from '../../enum/PageSize';
 
 export const initialState: AppState = {
   sessionsReducer: {
@@ -34,7 +35,7 @@ export const initialState: AppState = {
     expenses: null,
   },
   expenseTypeReducer: {
-    expenseType: { expensesType: null, pagination: null },
+    expenseTypeList: { expensesType: [], pagination: { page: 1, pageSize: PageSize.S_12, pageCount: 0, rowCount: 0} }
   }
 };
 

@@ -3,7 +3,7 @@ export const APP_STORE_RESET = 'APP_STORE_RESET';
 export const EXPENSES_SET = 'EXPENSES_SET';
 
 export const EXPENSE_TYPE_SAVE = 'EXPENSE_TYPE_SAVE';
-export const EXPENSE_TYPE_SET = 'EXPENSE_TYPE_SET';
+export const EXPENSE_TYPE_LIST_SET = 'EXPENSE_TYPE_LIST_SET';
 
 export const NEWS_SET = 'NEWS_SET';
 

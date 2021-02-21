@@ -1,3 +1,9 @@
+import { ExpenseType, ExpenseTypeList } from "../../models/ExpenseType";
+import { Pagination } from "../../models/Pagination";
+
 export interface ExpenseTypeState {
-  expenseType: any;
+  expenseTypeList: {
+    expensesType: ExpenseType[];
+    pagination: Pagination;
+  };
 }

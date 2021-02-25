@@ -24,6 +24,7 @@ import { PageSize } from '../../enum/PageSize';
 import LsListInfiniteScroll from '../../components/list/ListInfiniteScroll';
 import LsListItemExpenseType from '../../components/list/ListItemExpenseType';
 import {
+  isFetchingExpenseTypeList,
   saveExpenseType,
   setExpenseTypeList
 } from '../../data/expenseType/expenseType.actions';
@@ -34,6 +35,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
+  isFetchingExpenseTypeList: typeof isFetchingExpenseTypeList;
   setExpenseTypeList: typeof setExpenseTypeList;
   saveExpenseType: typeof saveExpenseType;
 }
@@ -43,6 +45,7 @@ interface ExpensesTypeProps extends StateProps, DispatchProps {}
 const ExpenseTypePage: React.FC<ExpensesTypeProps> = ({
   isLoggedIn,
   userProfileServer,
+  isFetchingExpenseTypeList,
   setExpenseTypeList,
   saveExpenseType,
 }) => {
@@ -53,9 +56,10 @@ const ExpenseTypePage: React.FC<ExpensesTypeProps> = ({
   
   useEffect(() => {
     if (isLoggedIn && userProfileServer) {
+      isFetchingExpenseTypeList(true);
       setExpenseTypeList(userProfileServer.userId, 1, PageSize.S_12);
     }
-  }, [isLoggedIn, userProfileServer, setExpenseTypeList]);
+  }, [isLoggedIn, userProfileServer, isFetchingExpenseTypeList, setExpenseTypeList]);
 
   const expenseTypeForm = async(e: React.FormEvent) => {
     e.preventDefault();
@@ -112,6 +116,7 @@ export default connect<{}, StateProps, DispatchProps>({
     userProfileServer: selectorsSessions.getUserProfileServer(state),
   }),
   mapDispatchToProps: ({
+    isFetchingExpenseTypeList,
     setExpenseTypeList,
     saveExpenseType,
   }),

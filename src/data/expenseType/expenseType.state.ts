@@ -1,4 +1,4 @@
-import { ExpenseType, ExpenseTypeList } from "../../models/ExpenseType";
+import { ExpenseType } from "../../models/ExpenseType";
 import { Pagination } from "../../models/Pagination";
 
 export interface ExpenseTypeState {
@@ -6,4 +6,5 @@ export interface ExpenseTypeState {
     expensesType: ExpenseType[];
     pagination: Pagination;
   };
+  isFetching: boolean;
 }

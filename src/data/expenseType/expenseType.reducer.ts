@@ -1,4 +1,8 @@
-import { EXPENSE_TYPE_SAVE, EXPENSE_TYPE_LIST_SET } from '../actionTypes';
+import {
+  EXPENSE_TYPE_SAVE,
+  EXPENSE_TYPE_LIST_SET,
+  EXPENSE_TYPE_LIST_IS_FETCHING
+} from '../actionTypes';
 import { ExpenseTypeAction } from './expenseType.actions';
 import { ExpenseTypeState } from './expenseType.state';
 
@@ -11,8 +15,13 @@ export const expenseTypeReducer = (state: ExpenseTypeState, action: ExpenseTypeA
         ...state,
         expenseTypeList: {
           expensesType: [...state.expenseTypeList.expensesType, ...action.expenseTypeList.expensesType],
-          pagination: {...state.expenseTypeList.pagination, ...action.expenseTypeList.pagination}
+          pagination: {...state.expenseTypeList.pagination, ...action.expenseTypeList.pagination},
         }
+      }
+    case EXPENSE_TYPE_LIST_IS_FETCHING:
+      return {
+        ...state,
+        isFetching: action.isFetching
       }
   }
 }

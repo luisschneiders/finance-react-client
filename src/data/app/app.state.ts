@@ -35,7 +35,11 @@ export const initialState: AppState = {
     expenses: null,
   },
   expenseTypeReducer: {
-    expenseTypeList: { expensesType: [], pagination: { page: 1, pageSize: PageSize.S_12, pageCount: 0, rowCount: 0} }
+    expenseTypeList: {
+      expensesType: [],
+      pagination: { page: 1, pageSize: PageSize.S_12, pageCount: 0, rowCount: 0 },
+    },
+    isFetching: false,
   }
 };
 

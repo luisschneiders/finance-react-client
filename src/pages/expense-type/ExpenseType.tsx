@@ -20,22 +20,22 @@ import { StatusColor } from '../../enum/StatusColor';
 import { UserProfileServer } from '../../models/UserProfileServer';
 import * as selectorsUser from '../../data/user/user.selectors';
 import * as selectorsSessions from '../../data/sessions/sessions.selectors';
+import * as selectorsExpenseType from '../../data/expenseType/expenseType.selectors';
 import { PageSize } from '../../enum/PageSize';
-import LsListInfiniteScroll from '../../components/list/ListInfiniteScroll';
 import LsListItemExpenseType from '../../components/list/ListItemExpenseType';
 import {
-  isFetchingExpenseTypeList,
   saveExpenseType,
   setExpenseTypeList
 } from '../../data/expenseType/expenseType.actions';
 
 interface StateProps {
   isLoggedIn: boolean;
+  isSaving: boolean;
+  isFetching: boolean;
   userProfileServer: UserProfileServer;
 }
 
 interface DispatchProps {
-  isFetchingExpenseTypeList: typeof isFetchingExpenseTypeList;
   setExpenseTypeList: typeof setExpenseTypeList;
   saveExpenseType: typeof saveExpenseType;
 }
@@ -44,22 +44,20 @@ interface ExpensesTypeProps extends StateProps, DispatchProps {}
 
 const ExpenseTypePage: React.FC<ExpensesTypeProps> = ({
   isLoggedIn,
+  isFetching,
+  isSaving,
   userProfileServer,
-  isFetchingExpenseTypeList,
   setExpenseTypeList,
   saveExpenseType,
 }) => {
-  const [busy, setBusy] = useState(false);
+
   const [expenseTypeDescription, setExpenseTypeDescription] = useState<string>('');
-  // const [page, setPage] = useState<number>(1);
-  // const [pageSize, setPageSize] = useState<PageSize>(PageSize.S_12);
   
   useEffect(() => {
     if (isLoggedIn && userProfileServer) {
-      isFetchingExpenseTypeList(true);
       setExpenseTypeList(userProfileServer.userId, 1, PageSize.S_12);
     }
-  }, [isLoggedIn, userProfileServer, isFetchingExpenseTypeList, setExpenseTypeList]);
+  }, [isLoggedIn, userProfileServer, setExpenseTypeList]);
 
   const expenseTypeForm = async(e: React.FormEvent) => {
     e.preventDefault();
@@ -67,9 +65,11 @@ const ExpenseTypePage: React.FC<ExpensesTypeProps> = ({
     if (!expenseTypeDescription) {
       return toast('Description is required!', StatusColor.WARNING);
     }
-    setBusy(true);
-    saveExpenseType({expenseTypeDescription});
-    setBusy(false);
+    saveExpenseType({
+      expenseTypeDescription,
+      expenseTypeInsertedBy: userProfileServer.userId,
+      expenseTypeIsActive: true
+    });
     setExpenseTypeDescription('');
   }
 
@@ -93,18 +93,19 @@ const ExpenseTypePage: React.FC<ExpensesTypeProps> = ({
                         onIonChange={(e: any) => setExpenseTypeDescription(e.detail.value!)}
                         required />
                 <div slot="end">
-                  <IonButton type="submit" size="small" fill="solid" shape="round" color={AppColor.SUCCESS}>Save</IonButton>
+                  <IonButton
+                    type="submit" size="small" fill="solid" shape="round" color={AppColor.SUCCESS}
+                    disabled={isSaving}>Save
+                  </IonButton>
                 </div>
               </IonItem>
             </IonList>
           </form>
         </IonToolbar>
       </IonHeader>
-      <IonLoading message="Please wait..." duration={0} isOpen={busy}></IonLoading>
-      <IonContent className="ion-padding"> 
-        <LsListInfiniteScroll>
-          <LsListItemExpenseType />
-        </LsListInfiniteScroll>
+      <IonLoading message="Please wait..." duration={0} isOpen={isFetching}></IonLoading>
+      <IonContent className="ion-padding">
+        <LsListItemExpenseType />
       </IonContent>
     </IonPage>
   );
@@ -113,10 +114,11 @@ const ExpenseTypePage: React.FC<ExpensesTypeProps> = ({
 export default connect<{}, StateProps, DispatchProps>({
   mapStateToProps: (state) => ({
     isLoggedIn: selectorsUser.getIsLoggedIn(state),
+    isSaving: selectorsExpenseType.isSavingExpenseType(state),
+    isFetching: selectorsExpenseType.isFetchingExpenseTypeList(state),
     userProfileServer: selectorsSessions.getUserProfileServer(state),
   }),
   mapDispatchToProps: ({
-    isFetchingExpenseTypeList,
     setExpenseTypeList,
     saveExpenseType,
   }),

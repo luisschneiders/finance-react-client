@@ -40,6 +40,7 @@ export const initialState: AppState = {
       pagination: { page: 1, pageSize: PageSize.S_12, pageCount: 0, rowCount: 0 },
     },
     isFetching: false,
+    isSaving: false,
   }
 };
 

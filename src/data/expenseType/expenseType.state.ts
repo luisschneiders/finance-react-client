@@ -7,4 +7,5 @@ export interface ExpenseTypeState {
     pagination: Pagination;
   };
   isFetching: boolean;
+  isSaving: boolean;
 }

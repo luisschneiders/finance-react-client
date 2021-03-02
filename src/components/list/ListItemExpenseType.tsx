@@ -14,11 +14,11 @@ import { AppColor } from '../../enum/AppColor';
 import { StatusColor } from '../../enum/StatusColor';
 import LsMainChip from '../chip/MainChip';
 import {
-  isFetchingExpenseTypeList,
   setExpenseTypeList
 } from '../../data/expenseType/expenseType.actions';
 import { UserProfileServer } from '../../models/UserProfileServer';
 import { PageSize } from '../../enum/PageSize';
+import LsMainCard from '../card/MainCard';
 
 interface StateProps {
   isLoggedIn: boolean;
@@ -28,7 +28,6 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  isFetchingExpenseTypeList: typeof isFetchingExpenseTypeList;
   setExpenseTypeList: typeof setExpenseTypeList;
 }
 
@@ -40,7 +39,6 @@ const LsListItemExpenseType: React.FC<ListExpensesTypeProps> = ({
     userProfileServer,
     expenseTypeList,
     setExpenseTypeList,
-    isFetchingExpenseTypeList,
   }) => {
   const [expenseType, setExpenseType] = useState<ExpenseType[]>([]);
 
@@ -54,14 +52,13 @@ const LsListItemExpenseType: React.FC<ListExpensesTypeProps> = ({
     if (isLoggedIn && userProfileServer) {
       let newPage: number = expenseTypeList.pagination.page;
       ++newPage;
-      isFetchingExpenseTypeList(true);
       setExpenseTypeList(userProfileServer.userId, newPage, PageSize.S_12);
     }
   };
   
   return (
     <>
-      {(expenseType && expenseType.length) &&
+      {expenseType && expenseType.length > 0 &&
         <IonList lines="full">
           {expenseType.map((item: ExpenseType, index: number) => (
             <IonItem key={index}>
@@ -73,13 +70,15 @@ const LsListItemExpenseType: React.FC<ListExpensesTypeProps> = ({
               </div>
             </IonItem>
           ))}
-        </IonList>        
+        </IonList>
       }
-      {((expenseType && expenseType.length) &&
-        (expenseTypeList.pagination.pageCount > expenseTypeList.pagination.page)) &&
+      {expenseType && expenseType.length > 0 && (expenseTypeList.pagination.pageCount > expenseTypeList.pagination.page) &&
         <div className="ion-text-center">
           <IonButton fill="clear" color={AppColor.TERTIARY} disabled={isFetching} onClick={loadMore}>Load more...</IonButton>
         </div>
+      }
+      {!expenseType.length && 
+        <LsMainCard color={StatusColor.WARNING} message="No records found!"></LsMainCard>
       }
     </>
   );
@@ -93,7 +92,6 @@ export default connect<{}, StateProps, DispatchProps>({
     expenseTypeList: selectorsExpenseType.getExpenseTypeList(state),
   }),
   mapDispatchToProps: ({
-    isFetchingExpenseTypeList,
     setExpenseTypeList,
   }),
   component: LsListItemExpenseType

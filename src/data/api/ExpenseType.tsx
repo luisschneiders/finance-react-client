@@ -2,16 +2,49 @@ import { ExpenseType, ExpenseTypeList } from '../../models/ExpenseType';
 import * as ROUTES from '../../constants/Routes';
 import { toast } from '../../components/toast/Toast';
 import { StatusColor } from '../../enum/StatusColor';
+import { PageSize } from '../../enum/PageSize';
 
 export function fetchExpenseTypeList(id: number, page: number, pageSize: number) {
+
+  let resStatus: any = null;
+
   return fetch(`${ROUTES.SERVER}/get-all-expenses-type/id=${id}&page=${page}&pageSize=${pageSize}`)
-          .then(response => response.json())
+          .then(response => {
+            resStatus = response.status;
+            return response.json()
+          })
           .then((result: ExpenseTypeList) => {
-            return result;
+
+            const expensesTypeMap: ExpenseType[] = [];
+            result.expensesType.forEach((item: any) => {
+              const expensesType: ExpenseType = {
+                expenseTypeId: item.id,
+                expenseTypeDescription: item.expenseTypeDescription,
+                expenseTypeIsActive: item.expenseTypeIsActive,
+                expenseTypeInsertedBy: item.expenseTypeInsertedBy,
+                expenseTypeCreatedAt: item.created_at,
+                expenseTypeUpdatedAt: item.updated_at,
+              };
+              expensesTypeMap.push(expensesType);
+            });
+
+            const expenseTypeList: ExpenseTypeList = {
+              expensesType: expensesTypeMap,
+              pagination: result.pagination
+            };
+
+            return expenseTypeList;
           },
           (error) => {
-            toast(error.message, StatusColor.ERROR, 4000);
-            return null;
+            // Assign initial state as response
+            const expenseTypeList: ExpenseTypeList = {
+              expensesType: [],
+              pagination: {page: 1, pageSize: PageSize.S_12, pageCount: 0, rowCount: 0}
+            };
+
+            toast(`Code: ${resStatus} -> ${error}`, StatusColor.ERROR, 4000);
+
+            return expenseTypeList;
           });
 }
 
@@ -24,5 +57,31 @@ export function saveExpenseType(data: Partial<ExpenseType>) {
 
   let resStatus: any = null;
 
-  return 1;
+  return fetch(`${ROUTES.SERVER}/expense-type-new/expenseTypeInsertedBy=${data.expenseTypeInsertedBy}`, requestOptions)
+          .then(response => {
+            resStatus = response.status;
+            return response.json();
+          })
+          .then((result: any) => {
+            switch (resStatus) {
+              case 200:
+              case 201:
+                const expenseType: ExpenseType = {
+                  expenseTypeId: result.expenseType.id,
+                  expenseTypeDescription: result.expenseType.expenseTypeDescription,
+                  expenseTypeIsActive: result.expenseType.expenseTypeIsActive,
+                  expenseTypeInsertedBy: result.expenseType.expenseTypeInsertedBy,
+                  expenseTypeCreatedAt: result.expenseType.created_at,
+                  expenseTypeUpdatedAt: result.expenseType.updated_at,
+                };
+                toast(result.msg, StatusColor.SUCCESS, 4000);
+                return expenseType;
+              default:
+                toast(`Code: ${resStatus} -> Unhandled`, StatusColor.ERROR, 4000);
+                return false;
+            }
+          }).catch((error) => {
+            toast(`Code: ${resStatus} -> ${error}`, StatusColor.ERROR, 4000);
+            return false;
+          });
 }

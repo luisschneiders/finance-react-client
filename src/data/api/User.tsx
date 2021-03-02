@@ -29,18 +29,12 @@ export function getUserCredentialsServer(credentials: UserCredentials) {
                   email: result.email
                 })
                 return userProfile;
-              case 400:
-                toast(result.error, StatusColor.ERROR, 4000);
-                return false;
-              case 401:
-                toast(result.error, StatusColor.ERROR, 4000);
-                return false;
               default:
-                toast('Unhandled', StatusColor.ERROR, 4000);
+                toast(`Code: ${resStatus} -> Unhandled`, StatusColor.ERROR, 4000);
                 return false;
             }
           }).catch((error) => {
-            toast(error.msg, StatusColor.ERROR, 4000);
+            toast(`Code: ${resStatus} -> ${error}`, StatusColor.ERROR, 4000);
             return false;
           });
 
@@ -70,18 +64,12 @@ export function setUserCredentialsServer(credentials: UserCredentials) {
                   email: result.email
                 })
                 return userProfile;
-              case 400:
-                toast(result.error, StatusColor.ERROR, 4000);
-                return false;
-              case 401:
-                toast(result.error, StatusColor.ERROR, 4000);
-                return false;
               default:
-                toast('Unhandled', StatusColor.ERROR, 4000);
-                return false;
+                toast(`Code: ${resStatus} -> Unhandled`, StatusColor.ERROR, 4000);
+                return result;
             }
           }).catch((error) => {
-            toast(error.msg, StatusColor.ERROR, 4000);
+            toast(`Code: ${resStatus} -> ${error}`, StatusColor.ERROR, 4000);
             return false;
           });
 

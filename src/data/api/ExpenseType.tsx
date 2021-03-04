@@ -20,7 +20,7 @@ export function fetchExpenseTypeList(id: number, page: number, pageSize: number)
               const expensesType: ExpenseType = {
                 expenseTypeId: item.id,
                 expenseTypeDescription: item.expenseTypeDescription,
-                expenseTypeIsActive: item.expenseTypeIsActive,
+                expenseTypeIsActive: item.expenseTypeIsActive === 0 ? false : true,
                 expenseTypeInsertedBy: item.expenseTypeInsertedBy,
                 expenseTypeCreatedAt: item.created_at,
                 expenseTypeUpdatedAt: item.updated_at,
@@ -48,7 +48,7 @@ export function fetchExpenseTypeList(id: number, page: number, pageSize: number)
           });
 }
 
-export function saveExpenseType(data: Partial<ExpenseType>) {
+export function addExpenseType(data: Partial<ExpenseType>) {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -84,4 +84,43 @@ export function saveExpenseType(data: Partial<ExpenseType>) {
             toast(`Code: ${resStatus} -> ${error}`, StatusColor.ERROR, 4000);
             return false;
           });
+}
+
+export function updateExpenseType(data: Partial<ExpenseType>) {
+  const requestOptions = {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  };
+
+  let resStatus: any = null;
+
+  return fetch(`${ROUTES.SERVER}/expense-type-id/expenseTypeInsertedBy=${data.expenseTypeInsertedBy}&id=${data.expenseTypeId}`, requestOptions)
+  .then(response => {
+    resStatus = response.status;
+    return response.json();
+  })
+  .then((result: any) => {
+    switch (resStatus) {
+      case 200:
+      case 201:
+        const expenseType: ExpenseType = {
+          expenseTypeId: result.expenseType.id,
+          expenseTypeDescription: result.expenseType.expenseTypeDescription,
+          expenseTypeIsActive: result.expenseType.expenseTypeIsActive,
+          expenseTypeInsertedBy: result.expenseType.expenseTypeInsertedBy,
+          expenseTypeCreatedAt: result.expenseType.created_at,
+          expenseTypeUpdatedAt: result.expenseType.updated_at,
+        };
+        toast(result.msg, StatusColor.SUCCESS, 4000);
+        return expenseType;
+      default:
+        toast(`Code: ${resStatus} -> Unhandled`, StatusColor.ERROR, 4000);
+        return false;
+    }
+  }).catch((error) => {
+    toast(`Code: ${resStatus} -> ${error}`, StatusColor.ERROR, 4000);
+    return false;
+  });
+
 }

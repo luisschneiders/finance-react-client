@@ -4,6 +4,7 @@ import {
   IonItem,
   IonList,
   IonButton,
+  IonToggle,
 } from '@ionic/react';
 import { connect } from '../../data/connect';
 import * as selectorsUser from '../../data/user/user.selectors';
@@ -12,9 +13,9 @@ import * as selectorsExpenseType from '../../data/expenseType/expenseType.select
 import { ExpenseType, ExpenseTypeList } from '../../models/ExpenseType';
 import { AppColor } from '../../enum/AppColor';
 import { StatusColor } from '../../enum/StatusColor';
-import LsMainChip from '../chip/MainChip';
 import {
-  setExpenseTypeList
+  setExpenseTypeList,
+  updateExpenseType
 } from '../../data/expenseType/expenseType.actions';
 import { UserProfileServer } from '../../models/UserProfileServer';
 import { PageSize } from '../../enum/PageSize';
@@ -29,6 +30,7 @@ interface StateProps {
 
 interface DispatchProps {
   setExpenseTypeList: typeof setExpenseTypeList;
+  updateExpenseType: typeof updateExpenseType;
 }
 
 interface ListExpensesTypeProps extends StateProps, DispatchProps {}
@@ -39,6 +41,7 @@ const LsListItemExpenseType: React.FC<ListExpensesTypeProps> = ({
     userProfileServer,
     expenseTypeList,
     setExpenseTypeList,
+    updateExpenseType,
   }) => {
   const [expenseType, setExpenseType] = useState<ExpenseType[]>([]);
 
@@ -55,18 +58,27 @@ const LsListItemExpenseType: React.FC<ListExpensesTypeProps> = ({
       setExpenseTypeList(userProfileServer.userId, newPage, PageSize.S_12);
     }
   };
+
+  const changeStatus = async (expenseType: ExpenseType) => {
+    if (expenseType) {
+      const newExpenseType: ExpenseType = expenseType;
+      newExpenseType.expenseTypeIsActive = !expenseType.expenseTypeIsActive
+
+      updateExpenseType(newExpenseType);
+    }
+  }
   
   return (
     <>
       {expenseType && expenseType.length > 0 &&
-        <IonList lines="full">
+        <IonList lines="full" >
           {expenseType.map((item: ExpenseType, index: number) => (
             <IonItem key={index}>
-              <IonLabel color={item.expenseTypeIsActive ? AppColor.DARK : AppColor.MEDIUM}>
+              <IonLabel color={item.expenseTypeIsActive ? AppColor.DARK : AppColor.MEDIUM} className="ion-text-uppercase">
                 {item.expenseTypeDescription}
               </IonLabel>
               <div slot="end">
-                <LsMainChip color={item.expenseTypeIsActive ? StatusColor.SUCCESS : StatusColor.DEFAULT} text={item.expenseTypeIsActive ? 'Active' : 'Inactive'}/>
+                <IonToggle color={StatusColor.SUCCESS} checked={item.expenseTypeIsActive} onClick={() => changeStatus(item)} />
               </div>
             </IonItem>
           ))}
@@ -93,6 +105,7 @@ export default connect<{}, StateProps, DispatchProps>({
   }),
   mapDispatchToProps: ({
     setExpenseTypeList,
+    updateExpenseType,
   }),
   component: LsListItemExpenseType
 });

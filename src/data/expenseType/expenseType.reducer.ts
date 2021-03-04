@@ -1,15 +1,16 @@
 import {
-  EXPENSE_TYPE_SAVE,
+  EXPENSE_TYPE_ADD,
   EXPENSE_TYPE_LIST_SET,
   EXPENSE_TYPE_LIST_IS_FETCHING,
   EXPENSE_TYPE_IS_SAVING,
+  EXPENSE_TYPE_UPDATE,
 } from '../actionTypes';
 import { ExpenseTypeAction } from './expenseType.actions';
 import { ExpenseTypeState } from './expenseType.state';
 
 export const expenseTypeReducer = (state: ExpenseTypeState, action: ExpenseTypeAction) : ExpenseTypeState => {
   switch (action.type) {
-    case EXPENSE_TYPE_SAVE:
+    case EXPENSE_TYPE_ADD:
       // Add new expense in the list, 
       // then remove the last item from the array list
       // and check if page is smaller than pageCount, to prevent the slice
@@ -21,27 +22,31 @@ export const expenseTypeReducer = (state: ExpenseTypeState, action: ExpenseTypeA
       return {
         ...state,
         expenseTypeList: {
-          expensesType: [action.data, ...expensesType],
+          expensesType: [action.payload, ...expensesType],
           pagination: {...state.expenseTypeList.pagination},
         }
+      };
+    case EXPENSE_TYPE_UPDATE:
+      return {
+        ...state
       };
     case EXPENSE_TYPE_LIST_SET:
       return {
         ...state,
         expenseTypeList: {
-          expensesType: [...state.expenseTypeList.expensesType, ...action.expenseTypeList.expensesType],
-          pagination: {...state.expenseTypeList.pagination, ...action.expenseTypeList.pagination},
+          expensesType: [...state.expenseTypeList.expensesType, ...action.payload.expensesType],
+          pagination: {...state.expenseTypeList.pagination, ...action.payload.pagination},
         }
       }
     case EXPENSE_TYPE_LIST_IS_FETCHING:
       return {
         ...state,
-        isFetching: action.isFetching
+        isFetching: action.payload
       }
     case EXPENSE_TYPE_IS_SAVING:
       return {
         ...state,
-        isSaving: action.isSaving
+        isSaving: action.payload
       }
   }
 }

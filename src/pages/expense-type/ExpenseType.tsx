@@ -24,7 +24,7 @@ import * as selectorsExpenseType from '../../data/expenseType/expenseType.select
 import { PageSize } from '../../enum/PageSize';
 import LsListItemExpenseType from '../../components/list/ListItemExpenseType';
 import {
-  saveExpenseType,
+  addExpenseType,
   setExpenseTypeList
 } from '../../data/expenseType/expenseType.actions';
 
@@ -37,7 +37,7 @@ interface StateProps {
 
 interface DispatchProps {
   setExpenseTypeList: typeof setExpenseTypeList;
-  saveExpenseType: typeof saveExpenseType;
+  addExpenseType: typeof addExpenseType;
 }
 
 interface ExpensesTypeProps extends StateProps, DispatchProps {}
@@ -48,7 +48,7 @@ const ExpenseTypePage: React.FC<ExpensesTypeProps> = ({
   isSaving,
   userProfileServer,
   setExpenseTypeList,
-  saveExpenseType,
+  addExpenseType,
 }) => {
 
   const [expenseTypeDescription, setExpenseTypeDescription] = useState<string>('');
@@ -65,7 +65,7 @@ const ExpenseTypePage: React.FC<ExpensesTypeProps> = ({
     if (!expenseTypeDescription) {
       return toast('Description is required!', StatusColor.WARNING);
     }
-    saveExpenseType({
+    addExpenseType({
       expenseTypeDescription,
       expenseTypeInsertedBy: userProfileServer.userId,
       expenseTypeIsActive: true
@@ -120,7 +120,7 @@ export default connect<{}, StateProps, DispatchProps>({
   }),
   mapDispatchToProps: ({
     setExpenseTypeList,
-    saveExpenseType,
+    addExpenseType,
   }),
   component: React.memo(ExpenseTypePage)
 });

@@ -1,10 +1,23 @@
-import { ExpenseType, ExpenseTypeList } from '../../models/ExpenseType';
+import {
+  ExpenseType,
+  ExpenseTypeList
+} from '../../models/ExpenseType';
 
-import { fetchExpenseTypeList, addExpenseType, updateExpenseType } from '../api/ExpenseType';
+import {
+  fetchExpenseTypeList,
+  addExpenseType,
+  updateExpenseType,
+  fetchExpenseTypeById
+} from '../api/ExpenseType';
 
 export const fetchExpenseTypedData = async (id: number, page: number, pageSize: number) => {
   const response: any = await fetchExpenseTypeList(id, page, pageSize);
   return response as ExpenseTypeList;
+}
+
+export const fetchExpenseTypeByIdData = async (userId: number, expenseTypeId: number) => {
+  const response: any = await fetchExpenseTypeById(userId, expenseTypeId);
+  return response as ExpenseType;
 }
 
 export const addExpenseTypeData = async (data: Partial<ExpenseType>) => {

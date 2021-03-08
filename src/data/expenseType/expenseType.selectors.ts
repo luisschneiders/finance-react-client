@@ -1,10 +1,14 @@
 import { createSelector } from 'reselect';
-import { ExpenseTypeList } from '../../models/ExpenseType';
+import { ExpenseType, ExpenseTypeList } from '../../models/ExpenseType';
 import { AppState } from '../app/app.state';
 
 const getExpenseTypeListData = (state: AppState) => state.expenseTypeReducer.expenseTypeList;
+const getExpenseTypeData = (state: AppState) => state.expenseTypeReducer.expenseType;
 const isFetchingExpenseTypeListData = (state: AppState) => state.expenseTypeReducer.isFetching;
 const isSavingExpenseTypeData = (state: AppState) => state.expenseTypeReducer.isSaving;
+const getIdParam = (_state: AppState, props: any) => {
+  return props.match.params['id'];
+};
 
 export const getExpenseTypeList = createSelector(
   getExpenseTypeListData,
@@ -25,4 +29,20 @@ export const isSavingExpenseType = createSelector(
   (isSaving: boolean) => {
     return isSaving;
   }
+);
+
+export const getExpenseTypeFromList = createSelector(
+  getExpenseTypeListData, getIdParam,
+  (expenseTypeList: ExpenseTypeList, id: number) => {
+    if (expenseTypeList && expenseTypeList.expensesType && expenseTypeList.expensesType.length > 0) {
+      return expenseTypeList.expensesType.find((e: any) => e.expenseTypeId.toString() === id);
+    }
+  }  
+);
+
+export const getExpenseType = createSelector(
+  getExpenseTypeData,
+  (expensesType: ExpenseType) => {
+    return expensesType;
+  }  
 );

@@ -4,11 +4,12 @@ import {
   EXPENSE_TYPE_LIST_IS_FETCHING,
   EXPENSE_TYPE_IS_SAVING,
   EXPENSE_TYPE_UPDATE,
+  EXPENSE_TYPE_BY_ID_SET,
 } from '../actionTypes';
 import { ExpenseTypeAction } from './expenseType.actions';
-import { ExpenseTypeState } from './expenseType.state';
+import { ExpenseTypeListState } from './expenseType.state';
 
-export const expenseTypeReducer = (state: ExpenseTypeState, action: ExpenseTypeAction) : ExpenseTypeState => {
+export const expenseTypeReducer = (state: ExpenseTypeListState, action: ExpenseTypeAction) : ExpenseTypeListState => {
   switch (action.type) {
     case EXPENSE_TYPE_ADD:
       // Add new expense in the list, 
@@ -37,6 +38,11 @@ export const expenseTypeReducer = (state: ExpenseTypeState, action: ExpenseTypeA
           expensesType: [...state.expenseTypeList.expensesType, ...action.payload.expensesType],
           pagination: {...state.expenseTypeList.pagination, ...action.payload.pagination},
         }
+      }
+    case EXPENSE_TYPE_BY_ID_SET:
+      return {
+        ...state,
+        expenseType: action.payload
       }
     case EXPENSE_TYPE_LIST_IS_FETCHING:
       return {

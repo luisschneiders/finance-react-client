@@ -48,6 +48,38 @@ export function fetchExpenseTypeList(id: number, page: number, pageSize: number)
           });
 }
 
+export function fetchExpenseTypeById(userId: number, expenseTypeId: number) {
+
+  let resStatus: any = null; 
+  
+  return fetch(`${ROUTES.SERVER}/expense-type-id/expenseTypeInsertedBy=${userId}&id=${expenseTypeId}`)
+          .then(response => {
+            resStatus = response.status;
+            return response.json();
+          })
+          .then((result: any) => {
+            switch (resStatus) {
+              case 200:
+              case 201:
+                const expenseType: ExpenseType = {
+                  expenseTypeId: result.id,
+                  expenseTypeDescription: result.expenseTypeDescription,
+                  expenseTypeIsActive: result.expenseTypeIsActive,
+                  expenseTypeInsertedBy: result.expenseTypeInsertedBy,
+                  expenseTypeCreatedAt: result.created_at,
+                  expenseTypeUpdatedAt: result.updated_at,
+                };
+                return expenseType;
+              default:
+                toast(`Code: ${resStatus} -> Unhandled`, StatusColor.ERROR, 4000);
+                return false;
+            }
+          }).catch((error) => {
+            toast(`Code: ${resStatus} -> ${error}`, StatusColor.ERROR, 4000);
+            return false;
+          })
+}
+
 export function addExpenseType(data: Partial<ExpenseType>) {
   const requestOptions = {
     method: 'POST',

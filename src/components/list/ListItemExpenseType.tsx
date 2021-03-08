@@ -20,6 +20,7 @@ import {
 import { UserProfileServer } from '../../models/UserProfileServer';
 import { PageSize } from '../../enum/PageSize';
 import LsMainCard from '../card/MainCard';
+import * as ROUTES from '../../constants/Routes';
 
 interface StateProps {
   isLoggedIn: boolean;
@@ -74,8 +75,13 @@ const LsListItemExpenseType: React.FC<ListExpensesTypeProps> = ({
         <IonList lines="full" >
           {expenseType.map((item: ExpenseType, index: number) => (
             <IonItem key={index}>
-              <IonLabel color={item.expenseTypeIsActive ? AppColor.DARK : AppColor.MEDIUM} className="ion-text-uppercase">
-                {item.expenseTypeDescription}
+              <IonLabel className="ion-text-uppercase">
+                <IonButton
+                  fill="clear"
+                  color={item.expenseTypeIsActive ? AppColor.DARK : AppColor.MEDIUM}
+                  routerLink={`${ROUTES.SETUP_EXPENSE_TYPE}/${item.expenseTypeId}`}>
+                  {item.expenseTypeDescription}
+                </IonButton>
               </IonLabel>
               <div slot="end">
                 <IonToggle color={StatusColor.SUCCESS} checked={item.expenseTypeIsActive} onClick={() => changeStatus(item)} />

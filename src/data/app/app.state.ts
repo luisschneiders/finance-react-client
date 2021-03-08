@@ -39,6 +39,7 @@ export const initialState: AppState = {
       expensesType: [],
       pagination: { page: 1, pageSize: PageSize.S_12, pageCount: 0, rowCount: 0 },
     },
+    expenseType: null,
     isFetching: false,
     isSaving: false,
   }

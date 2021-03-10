@@ -6,7 +6,7 @@ export interface ExpenseTypeListState {
     expensesType: ExpenseType[];
     pagination: Pagination;
   };
-  expenseType: any;
+  expenseType: ExpenseType;
   isFetching: boolean;
   isSaving: boolean;
 }

@@ -37,6 +37,7 @@ interface StateProps {
   isLoggedIn: boolean;
   userProfileServer: UserProfileServer;
   expenseType: ExpenseType | undefined;
+  expenseTypeById: ExpenseType;
 };
 
 interface DispatchProps {
@@ -51,23 +52,38 @@ const ExpenseTypeDetailsPage: React.FC<ExpenseTypeDetailsProps> = ({
     userProfileServer,
     match,
     expenseType,
+    expenseTypeById,
     setExpenseTypeById,
     updateExpenseType,
   }) => {
 
     const [expenseTypeDescription, setExpenseTypeDescription] = useState<string>('');
+    const [isById, setIsById] = useState<boolean>(false);
 
     useEffect(() => {
       if (isLoggedIn && userProfileServer) {
-        if (!expenseType) {
+        // If user refresh the page, fetch the expense by id only once
+        if (!expenseType && !isById) {
           setExpenseTypeById(userProfileServer.userId, parseInt(match.params.id));
+          setIsById(true);
         }
       }
 
       if (expenseType) {
         setExpenseTypeDescription(expenseType.expenseTypeDescription);
+      } else if (expenseTypeById) {
+        setExpenseTypeDescription(expenseTypeById.expenseTypeDescription);
       }
-    }, [isLoggedIn, userProfileServer, expenseType, match, setExpenseTypeById]);
+
+    }, [
+      isLoggedIn,
+      userProfileServer,
+      expenseType,
+      match,
+      expenseTypeById,
+      setExpenseTypeById,
+      isById,
+    ]);
 
     const formExpenseType = async (e: React.FormEvent) => {
       e.preventDefault();
@@ -76,7 +92,7 @@ const ExpenseTypeDetailsPage: React.FC<ExpenseTypeDetailsProps> = ({
         return toast('Description is required!', StatusColor.WARNING);
       }
 
-      const newExpenseType: any = expenseType;
+      const newExpenseType: any = expenseType || expenseTypeById;
       newExpenseType.expenseTypeDescription = expenseTypeDescription
 
       updateExpenseType(newExpenseType);
@@ -97,14 +113,14 @@ const ExpenseTypeDetailsPage: React.FC<ExpenseTypeDetailsProps> = ({
       <IonContent>
         <form noValidate onSubmit={formExpenseType}>
           <IonList>
-            <IonItem lines="full" disabled={!expenseType}>
+            <IonItem lines="full" disabled={!expenseType && !expenseTypeById}>
               <IonLabel position="stacked" color={AppColor.PRIMARY}>Description</IonLabel>
               <IonInput name="expenseTypeDescription" type="text"
                         value={expenseTypeDescription} spellCheck={false} autocapitalize="off"
                         onIonChange={(e: any) => setExpenseTypeDescription(e.detail.value!)} required>
               </IonInput>
             </IonItem>
-            <IonItem lines="none" disabled={!expenseType}>
+            <IonItem lines="none" disabled={!expenseType && !expenseTypeById}>
               <div slot="end">
                 <IonButton type="submit" fill="outline" >Update</IonButton>
               </div>
@@ -121,6 +137,7 @@ export default connect<OwnProps, StateProps, DispatchProps>({
     isLoggedIn: selectorsUser.getIsLoggedIn(state),
     userProfileServer: selectorsSessions.getUserProfileServer(state),
     expenseType: selectorsExpenseType.getExpenseTypeFromList(state, OwnProps),
+    expenseTypeById: selectorsExpenseType.getExpenseType(state),
   }),
   mapDispatchToProps: ({
     setExpenseTypeById,

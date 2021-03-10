@@ -39,7 +39,14 @@ export const initialState: AppState = {
       expensesType: [],
       pagination: { page: 1, pageSize: PageSize.S_12, pageCount: 0, rowCount: 0 },
     },
-    expenseType: null,
+    expenseType: {
+      expenseTypeId: 0,
+      expenseTypeDescription: '',
+      expenseTypeIsActive: false,
+      expenseTypeInsertedBy: 0,
+      expenseTypeCreatedAt: '',
+      expenseTypeUpdatedAt: '',
+    },
     isFetching: false,
     isSaving: false,
   }

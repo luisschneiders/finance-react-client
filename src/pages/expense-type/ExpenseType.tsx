@@ -2,10 +2,13 @@ import {
   IonButton,
   IonButtons,
   IonContent,
+  IonFab,
+  IonFabButton,
   IonHeader,
+  IonIcon,
   IonInput,
   IonItem,
-  IonList,
+  IonLabel,
   IonLoading,
   IonMenuButton,
   IonPage,
@@ -27,6 +30,10 @@ import {
   addExpenseType,
   setExpenseTypeList
 } from '../../data/expenseType/expenseType.actions';
+import { ModalProvider } from '../../components/modal/ModalProvider';
+import { add } from 'ionicons/icons';
+import { useModal } from '../../hooks/useModal';
+import LsMainModal from '../../components/modal/MainModal';
 
 interface StateProps {
   isLoggedIn: boolean;
@@ -50,6 +57,7 @@ const ExpenseTypePage: React.FC<ExpensesTypeProps> = ({
   setExpenseTypeList,
   addExpenseType,
 }) => {
+  const { showModal, isSubmitting, handleShow, handleClose } = useModal();
 
   const [expenseTypeDescription, setExpenseTypeDescription] = useState<string>('');
   
@@ -71,6 +79,7 @@ const ExpenseTypePage: React.FC<ExpensesTypeProps> = ({
       expenseTypeIsActive: true
     });
     setExpenseTypeDescription('');
+    handleClose();
   }
 
   return (
@@ -81,32 +90,51 @@ const ExpenseTypePage: React.FC<ExpensesTypeProps> = ({
             <IonMenuButton></IonMenuButton>
           </IonButtons>
           <IonTitle>Expense Categories</IonTitle>
-        </IonToolbar>
-        <IonToolbar>
-          <form noValidate onSubmit={expenseTypeForm}>
-            <IonList>
-              <IonItem>
-                <IonInput name="expenseTypeDescription"
-                        type="text"
-                        placeholder="Add new expense here" 
-                        value={expenseTypeDescription} spellCheck={false} autocapitalize="off"
-                        onIonChange={(e: any) => setExpenseTypeDescription(e.detail.value!)}
-                        required />
-                <div slot="end">
-                  <IonButton
-                    type="submit" size="small" fill="solid" shape="round" color={AppColor.SUCCESS}
-                    disabled={isSaving}>Save
-                  </IonButton>
-                </div>
-              </IonItem>
-            </IonList>
-          </form>
+          <IonFab vertical="center" horizontal="end">
+            <IonFabButton color={AppColor.TERTIARY} size="small" title="Add new record">
+              <IonIcon icon={add} onClick={() => handleShow()} />
+            </IonFabButton>
+          </IonFab>
         </IonToolbar>
       </IonHeader>
       <IonLoading message="Please wait..." duration={0} isOpen={isFetching}></IonLoading>
       <IonContent className="ion-padding">
         <LsListItemExpenseType />
       </IonContent>
+      <ModalProvider>
+      <LsMainModal
+        id="transaction-type"
+        show={showModal}
+        title="New expense category"
+        isSubmitting={isSubmitting}
+        closeModal={handleClose}
+      >
+          <form noValidate onSubmit={expenseTypeForm}>
+            <IonItem>
+              <IonLabel position="stacked">Description</IonLabel>
+              <IonInput
+                name="expenseTypeDescription"
+                type="text"
+                value={expenseTypeDescription} spellCheck={false} autocapitalize="off"
+                onIonChange={(e: any) => setExpenseTypeDescription(e.detail.value!)}
+                required
+              />
+            </IonItem>
+            <IonItem lines="none">
+              <div slot="end" className="ion-padding-vertical">
+                <IonButton
+                  type="submit"
+                  fill="outline"
+                  color={AppColor.SUCCESS}
+                  disabled={isSaving}
+                >
+                  Save
+                </IonButton>
+              </div>
+            </IonItem>
+          </form>
+      </LsMainModal>
+      </ModalProvider>
     </IonPage>
   );
 };

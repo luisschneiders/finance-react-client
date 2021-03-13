@@ -122,7 +122,11 @@ const ExpenseTypeDetailsPage: React.FC<ExpenseTypeDetailsProps> = ({
             </IonItem>
             <IonItem lines="none" disabled={!expenseType && !expenseTypeById}>
               <div slot="end">
-                <IonButton type="submit" fill="outline" >Update</IonButton>
+                <IonButton
+                  type="submit"
+                  fill="outline"
+                  color={AppColor.SUCCESS}
+                >Update</IonButton>
               </div>
             </IonItem>
           </IonList>

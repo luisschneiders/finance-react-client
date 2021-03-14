@@ -21,7 +21,12 @@ interface ModalProps {
 const LsMainModal: React.FC<ModalProps> = (props: ModalProps) => {
 
   return (
-    <IonModal isOpen={props.show} onDidDismiss={() => props.closeModal()} id={props.id}>
+    <IonModal
+      isOpen={props.show}
+      onDidDismiss={() => props.closeModal()}
+      id={props.id}
+      backdropDismiss={false}
+    >
       <IonList lines="full">
         <IonListHeader>
           <IonLabel>{props.title}</IonLabel>

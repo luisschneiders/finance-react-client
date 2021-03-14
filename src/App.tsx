@@ -63,9 +63,11 @@ import * as ROUTES  from './constants/Routes';
 import { setResetAppStore } from './data/app/app.actions';
 import { initialState } from './data/app/app.state';
 import { getUserProfileServer } from './data/sessions/sessions.actions';
-import ExpenseTypeDetails from './pages/expense-type/ExpenseTypeDetails';
+import ExpenseTypeDetailsPage from './pages/expense-type/ExpenseTypeDetails';
 import TransactionType from './pages/transaction-type/TransactionType';
-import TransactionTypeDetails from './pages/transaction-type/TransactionTypeDetails';
+import TransactionTypeDetailsPage from './pages/transaction-type/TransactionTypeDetails';
+import VehiclePage from './pages/vehicle/Vehicle';
+import VehicleDetailsPage from './pages/vehicle/VehicleDetails';
 // import { setNews } from './data/news/news.actions';
 
 const App: React.FC = () => {
@@ -148,9 +150,11 @@ const IonicApp: React.FC<IonicAppProps> = ({
                     <Route path={ROUTES.REGISTER} component={RegisterPage} exact={true} />
                     <Route path={ROUTES.SETUP} component={SetupPage} exact={true} />
                     <Route path={ROUTES.SETUP_EXPENSE_TYPE} component={ExpenseTypePage} exact={true} />
-                    <Route path={`${ROUTES.SETUP_EXPENSE_TYPE}/:id`} component={ExpenseTypeDetails} />
+                    <Route path={`${ROUTES.SETUP_EXPENSE_TYPE}/:id`} component={ExpenseTypeDetailsPage} />
                     <Route path={ROUTES.SETUP_TRANSACTION_TYPE} component={TransactionType} exact={true} />
-                    <Route path={`${ROUTES.SETUP_TRANSACTION_TYPE}/:id`} component={TransactionTypeDetails} />
+                    <Route path={`${ROUTES.SETUP_TRANSACTION_TYPE}/:id`} component={TransactionTypeDetailsPage} />
+                    <Route path={ROUTES.SETUP_VEHICLE} component={VehiclePage} exact={true} />
+                    <Route path={`${ROUTES.SETUP_VEHICLE}/:id`} component={VehicleDetailsPage} />
                     <Route path={ROUTES.WELCOME} component={WelcomePage} exact={true} />
                     <Route path={ROUTES.LOGOUT} render={() => {
                       logoutUser().then(() => {

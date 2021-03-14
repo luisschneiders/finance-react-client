@@ -92,7 +92,11 @@ const ExpenseTypePage: React.FC<ExpensesTypeProps> = ({
           <IonTitle>Expense Categories</IonTitle>
           <IonFab vertical="center" horizontal="end">
             <IonFabButton color={AppColor.TERTIARY} size="small" title="Add new record">
-              <IonIcon icon={add} onClick={() => handleShow()} />
+              <IonIcon 
+                icon={add}
+                onClick={() => handleShow()}
+                size="small"
+              />
             </IonFabButton>
           </IonFab>
         </IonToolbar>

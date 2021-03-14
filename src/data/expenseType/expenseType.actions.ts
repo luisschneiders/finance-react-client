@@ -9,7 +9,7 @@ import {
   EXPENSE_TYPE_BY_ID_SET,
 } from '../actionTypes';
 import {
-  fetchExpenseTypedData,
+  fetchExpenseTypeData,
   addExpenseTypeData,
   updateExpenseTypeData,
   fetchExpenseTypeByIdData
@@ -67,7 +67,7 @@ export const isSavingExpenseType = (isSaving: boolean) => async () => {
 
 export const setExpenseTypeList = (id: number, page: number, pageSize: number) => async (dispatch: React.Dispatch<any>) => {
   dispatch(isFetchingExpenseTypeListAction(true));
-  const data = await fetchExpenseTypedData(id, page, pageSize);
+  const data = await fetchExpenseTypeData(id, page, pageSize);
   dispatch(isFetchingExpenseTypeListAction(false));
   return setExpenseTypeListAction(data);
 }

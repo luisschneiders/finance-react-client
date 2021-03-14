@@ -10,7 +10,7 @@ import {
   fetchExpenseTypeById
 } from '../api/ExpenseType';
 
-export const fetchExpenseTypedData = async (id: number, page: number, pageSize: number) => {
+export const fetchExpenseTypeData = async (id: number, page: number, pageSize: number) => {
   const response: any = await fetchExpenseTypeList(id, page, pageSize);
   return response as ExpenseTypeList;
 }

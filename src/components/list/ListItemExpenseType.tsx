@@ -21,7 +21,6 @@ import { UserProfileServer } from '../../models/UserProfileServer';
 import { PageSize } from '../../enum/PageSize';
 import LsMainCard from '../card/MainCard';
 import * as ROUTES from '../../constants/Routes';
-import LsMainChip from '../chip/MainChip';
 
 interface StateProps {
   isLoggedIn: boolean;

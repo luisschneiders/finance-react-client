@@ -109,7 +109,7 @@ const TransactionTypeDetailsPage: React.FC<TransactionTypeDetailsProps> = ({
         return toast('Action is required!', StatusColor.WARNING);
       }
 
-      const newTransactionType: any = transactionType || transactionTypeById;
+      const newTransactionType: TransactionType = transactionType || transactionTypeById;
       newTransactionType.transactionTypeDescription = transactionTypeDescription;
       newTransactionType.transactionTypeAction = transactionTypeAction;
 

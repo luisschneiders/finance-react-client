@@ -92,8 +92,8 @@ const ExpenseTypeDetailsPage: React.FC<ExpenseTypeDetailsProps> = ({
         return toast('Description is required!', StatusColor.WARNING);
       }
 
-      const newExpenseType: any = expenseType || expenseTypeById;
-      newExpenseType.expenseTypeDescription = expenseTypeDescription
+      const newExpenseType: ExpenseType = expenseType || expenseTypeById;
+      newExpenseType.expenseTypeDescription = expenseTypeDescription;
 
       updateExpenseType(newExpenseType);
     }

@@ -15,11 +15,11 @@ export const SERVER = process.env.REACT_APP_SERVER_URL;
 
 export const SETUP = '/setup';
 
-export const SETUP_BANKS = `${SETUP}/banks`;
+export const SETUP_BANKS = `${SETUP}/bank`;
 export const SETUP_EXPENSE_TYPE = `${SETUP}/expense-type`;
 export const SETUP_TRANSACTION_TYPE = `${SETUP}/transaction-type`;
-export const SETUP_USERS = `${SETUP}/users`;
-export const SETUP_VEHICLES = `${SETUP}/vehicles`;
+export const SETUP_USERS = `${SETUP}/user`;
+export const SETUP_VEHICLE = `${SETUP}/vehicle`;
 
 export const TABS = '/tabs';
 

@@ -7,6 +7,7 @@ import { transactionsReducer } from '../transactions/transactions.reducer';
 import { expensesReducer } from '../expenses/expenses.reducer';
 import { expenseTypeReducer } from '../expenseType/expenseType.reducer';
 import { transactionTypeReducer } from '../transactionType/transactionType.reducer';
+import { vehicleReducer } from '../vehicle/vehicle.reducer';
 import { APP_STORE_RESET } from '../actionTypes';
 import { PageSize } from '../../enum/PageSize';
 
@@ -68,6 +69,23 @@ export const initialState: AppState = {
     isFetching: false,
     isSaving: false,
   },
+  vehicleReducer: {
+    vehicleList: {
+      vehicles: [],
+      pagination: { page: 1, pageSize: PageSize.S_12, pageCount: 0, rowCount: 0 },
+    },
+    vehicle: {
+      vehicleId: 0,
+      vehicleDescription: '',
+      vehiclePlate: '',
+      vehicleIsActive: false,
+      vehicleInsertedBy: 0,
+      vehicleCreatedAt: '',
+      vehicleUpdatedAt: '',
+    },
+    isFetching: false,
+    isSaving: false,
+  },
 };
 
 export const rootReducer = combineReducers({
@@ -79,6 +97,7 @@ export const rootReducer = combineReducers({
   expensesReducer,
   expenseTypeReducer,
   transactionTypeReducer,
+  vehicleReducer,
 });
 
 export const reducers = (state: any, action: any) => {

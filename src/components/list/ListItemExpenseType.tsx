@@ -77,12 +77,14 @@ const LsListItemExpenseType: React.FC<ListExpensesTypeProps> = ({
           {expenseType.map((item: ExpenseType, index: number) => (
             <IonItem key={index}>
               <IonLabel>
-                <IonItem className="ion-text-uppercase" lines="none" routerLink={`${ROUTES.SETUP_EXPENSE_TYPE}/${item.expenseTypeId}`}>
-                  <LsMainChip 
-                    color={item.expenseTypeIsActive ? AppColor.SUCCESS : AppColor.MEDIUM}
-                    text={item.expenseTypeDescription}
-                  >
-                  </LsMainChip>
+                <IonItem
+                  className="ion-text-uppercase"
+                  lines="none"
+                  routerLink={`${ROUTES.SETUP_EXPENSE_TYPE}/${item.expenseTypeId}`}
+                >
+                  <IonLabel slot="start" color={item.expenseTypeIsActive ? StatusColor.SUCCESS : StatusColor.DEFAULT}>
+                    {item.expenseTypeDescription}
+                  </IonLabel>
                 </IonItem>
               </IonLabel>
               <div slot="end">

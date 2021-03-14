@@ -6,6 +6,7 @@ import { summaryReducer } from '../summary/summary.reducer';
 import { transactionsReducer } from '../transactions/transactions.reducer';
 import { expensesReducer } from '../expenses/expenses.reducer';
 import { expenseTypeReducer } from '../expenseType/expenseType.reducer';
+import { transactionTypeReducer } from '../transactionType/transactionType.reducer';
 import { APP_STORE_RESET } from '../actionTypes';
 import { PageSize } from '../../enum/PageSize';
 
@@ -49,7 +50,24 @@ export const initialState: AppState = {
     },
     isFetching: false,
     isSaving: false,
-  }
+  },
+  transactionTypeReducer: {
+    transactionTypeList: {
+      transactionsType: [],
+      pagination: { page: 1, pageSize: PageSize.S_12, pageCount: 0, rowCount: 0 },
+    },
+    transactionType: {
+      transactionTypeId: 0,
+      transactionTypeDescription: '',
+      transactionTypeAction: '',
+      transactionTypeIsActive: false,
+      transactionTypeInsertedBy: 0,
+      transactionTypeCreatedAt: '',
+      transactionTypeUpdatedAt: '',
+    },
+    isFetching: false,
+    isSaving: false,
+  },
 };
 
 export const rootReducer = combineReducers({
@@ -60,6 +78,7 @@ export const rootReducer = combineReducers({
   newsReducer,
   expensesReducer,
   expenseTypeReducer,
+  transactionTypeReducer,
 });
 
 export const reducers = (state: any, action: any) => {

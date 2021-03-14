@@ -24,9 +24,9 @@ export function getUserCredentialsServer(credentials: UserCredentials) {
               case 200:
               case 201:
                 const userProfile: UserProfileServer = Object.assign({}, {
-                  userId: result.id,
-                  name: result.name,
-                  email: result.email
+                  userId: result.user.id,
+                  name: result.user.name,
+                  email: result.user.email
                 })
                 return userProfile;
               default:
@@ -59,9 +59,9 @@ export function setUserCredentialsServer(credentials: UserCredentials) {
               case 200:
               case 201:
                 const userProfile: UserProfileServer = Object.assign({}, {
-                  userId: result.id,
-                  name: result.name,
-                  email: result.email
+                  userId: result.user.id,
+                  name: result.user.name,
+                  email: result.user.email
                 })
                 return userProfile;
               default:

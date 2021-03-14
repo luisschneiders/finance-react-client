@@ -69,7 +69,7 @@ const SetupPage: React.FC<SetupProps> = ({
             <IonIcon slot="start" icon={peopleOutline} />
             <IonLabel>Users</IonLabel>
           </IonItem>
-          <IonItem disabled detail={true} routerLink={ROUTES.SETUP_VEHICLES} routerDirection="none">
+          <IonItem detail={true} routerLink={ROUTES.SETUP_VEHICLE} routerDirection="none">
             <IonIcon slot="start" icon={carOutline} />
             <IonLabel>Vehicles</IonLabel>
           </IonItem>

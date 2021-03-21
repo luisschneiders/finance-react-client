@@ -139,7 +139,6 @@ const VehicleDetailsPage: React.FC<VehicleDetailsProps> = ({
                 <IonButton
                   type="submit"
                   fill="outline"
-                  color={AppColor.SUCCESS}
                 >Update</IonButton>
               </div>
             </IonItem>

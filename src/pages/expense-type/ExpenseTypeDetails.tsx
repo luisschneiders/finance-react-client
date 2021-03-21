@@ -125,7 +125,6 @@ const ExpenseTypeDetailsPage: React.FC<ExpenseTypeDetailsProps> = ({
                 <IonButton
                   type="submit"
                   fill="outline"
-                  color={AppColor.SUCCESS}
                 >Update</IonButton>
               </div>
             </IonItem>

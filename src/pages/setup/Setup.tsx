@@ -53,7 +53,7 @@ const SetupPage: React.FC<SetupProps> = ({
       </IonHeader>
       <IonContent fullscreen>
         <IonList lines="full">
-          <IonItem disabled detail={true} routerLink={ROUTES.SETUP_BANKS} routerDirection="none">
+          <IonItem detail={true} routerLink={ROUTES.SETUP_BANK} routerDirection="none">
             <IonIcon slot="start" icon={businessOutline} />
             <IonLabel>Banks</IonLabel>
           </IonItem>

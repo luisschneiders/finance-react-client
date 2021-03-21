@@ -105,7 +105,7 @@ const TransactionTypeDetailsPage: React.FC<TransactionTypeDetailsProps> = ({
       if (transactionTypeDescription.trim() === '') {
         return toast('Description is required!', StatusColor.WARNING);
       }
-      if (transactionTypeAction.trim() === '') {
+      if (transactionTypeAction === '') {
         return toast('Action is required!', StatusColor.WARNING);
       }
 

@@ -10,7 +10,7 @@ import {
   fetchTransactionTypeById
 } from '../api/TransactionType';
 
-export const fetchTransactionTypedData = async (id: number, page: number, pageSize: number) => {
+export const fetchTransactionTypeData = async (id: number, page: number, pageSize: number) => {
   const response: any = await fetchTransactionTypeList(id, page, pageSize);
   return response as TransactionTypeList;
 }

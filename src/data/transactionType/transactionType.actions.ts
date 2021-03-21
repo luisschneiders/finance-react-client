@@ -9,7 +9,7 @@ import {
   TRANSACTION_TYPE_BY_ID_SET,
 } from '../actionTypes';
 import {
-  fetchTransactionTypedData,
+  fetchTransactionTypeData,
   addTransactionTypeData,
   updateTransactionTypeData,
   fetchTransactionTypeByIdData
@@ -67,7 +67,7 @@ export const isSavingTransactionType = (isSaving: boolean) => async () => {
 
 export const setTransactionTypeList = (id: number, page: number, pageSize: number) => async (dispatch: React.Dispatch<any>) => {
   dispatch(isFetchingTransactionTypeListAction(true));
-  const data = await fetchTransactionTypedData(id, page, pageSize);
+  const data = await fetchTransactionTypeData(id, page, pageSize);
   dispatch(isFetchingTransactionTypeListAction(false));
   return setTransactionTypeListAction(data);
 }

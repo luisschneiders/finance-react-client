@@ -261,6 +261,14 @@
   text-decoration: underline;
 }
 
+.isActive {
+  color: var(--ion-color-success);
+}
+
+.isInactive {
+  color: var(--ion-color-medium);
+}
+
 /*
  * App iOS Variables
  * ----------------------------------------------------------------------------

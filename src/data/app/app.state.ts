@@ -5,6 +5,7 @@ import { newsReducer } from '../news/news.reducer';
 import { summaryReducer } from '../summary/summary.reducer';
 import { transactionsReducer } from '../transactions/transactions.reducer';
 import { expensesReducer } from '../expenses/expenses.reducer';
+import { bankReducer } from '../bank/bank.reducer';
 import { expenseTypeReducer } from '../expenseType/expenseType.reducer';
 import { transactionTypeReducer } from '../transactionType/transactionType.reducer';
 import { vehicleReducer } from '../vehicle/vehicle.reducer';
@@ -35,6 +36,25 @@ export const initialState: AppState = {
   },
   expensesReducer: {
     expenses: null,
+  },
+  bankReducer: {
+    bankList: {
+      banks: [],
+      pagination: { page: 1, pageSize: PageSize.S_12, pageCount: 0, rowCount: 0 },
+    },
+    bank: {
+      bankId: 0,
+      bankDescription: '',
+      bankAccount: '',
+      bankInitialBalance: 0,
+      bankCurrentBalance: 0,
+      bankIsActive: false,
+      bankInsertedBy: 0,
+      bankCreatedAt: '',
+      bankUpdatedAt: '',
+    },
+    isFetching: false,
+    isSaving: false,
   },
   expenseTypeReducer: {
     expenseTypeList: {
@@ -95,6 +115,7 @@ export const rootReducer = combineReducers({
   transactionsReducer,
   newsReducer,
   expensesReducer,
+  bankReducer,
   expenseTypeReducer,
   transactionTypeReducer,
   vehicleReducer,

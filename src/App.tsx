@@ -55,7 +55,6 @@ import AccountPage from './pages/account/Account';
 import WelcomePage from './pages/welcome/Welcome';
 import DashboardPage from './pages/dashboard/Dashboard';
 import SetupPage from './pages/setup/Setup';
-import ExpenseTypePage from './pages/expense-type/ExpenseType';
 
 import { StatusColor } from './enum/StatusColor';
 import { getAvatar } from './util/getAvatar';
@@ -63,6 +62,10 @@ import * as ROUTES  from './constants/Routes';
 import { setResetAppStore } from './data/app/app.actions';
 import { initialState } from './data/app/app.state';
 import { getUserProfileServer } from './data/sessions/sessions.actions';
+
+import BankPage from './pages/bank/Bank';
+import BankDetailsPage from './pages/bank/BankDetails';
+import ExpenseTypePage from './pages/expense-type/ExpenseType';
 import ExpenseTypeDetailsPage from './pages/expense-type/ExpenseTypeDetails';
 import TransactionType from './pages/transaction-type/TransactionType';
 import TransactionTypeDetailsPage from './pages/transaction-type/TransactionTypeDetails';
@@ -148,13 +151,21 @@ const IonicApp: React.FC<IonicAppProps> = ({
                     <Route path={ROUTES.DASHBOARD} component={DashboardPage} exact={true} />
                     <Route path={ROUTES.LOGIN} component={LoginPage} exact={true} />
                     <Route path={ROUTES.REGISTER} component={RegisterPage} exact={true} />
+
                     <Route path={ROUTES.SETUP} component={SetupPage} exact={true} />
+
+                    <Route path={ROUTES.SETUP_BANK} component={BankPage} exact={true} />
+                    <Route path={`${ROUTES.SETUP_BANK}/:id`} component={BankDetailsPage} />
+
                     <Route path={ROUTES.SETUP_EXPENSE_TYPE} component={ExpenseTypePage} exact={true} />
                     <Route path={`${ROUTES.SETUP_EXPENSE_TYPE}/:id`} component={ExpenseTypeDetailsPage} />
+
                     <Route path={ROUTES.SETUP_TRANSACTION_TYPE} component={TransactionType} exact={true} />
                     <Route path={`${ROUTES.SETUP_TRANSACTION_TYPE}/:id`} component={TransactionTypeDetailsPage} />
+
                     <Route path={ROUTES.SETUP_VEHICLE} component={VehiclePage} exact={true} />
                     <Route path={`${ROUTES.SETUP_VEHICLE}/:id`} component={VehicleDetailsPage} />
+
                     <Route path={ROUTES.WELCOME} component={WelcomePage} exact={true} />
                     <Route path={ROUTES.LOGOUT} render={() => {
                       logoutUser().then(() => {

@@ -15,7 +15,7 @@ export const SERVER = process.env.REACT_APP_SERVER_URL;
 
 export const SETUP = '/setup';
 
-export const SETUP_BANKS = `${SETUP}/bank`;
+export const SETUP_BANK = `${SETUP}/bank`;
 export const SETUP_EXPENSE_TYPE = `${SETUP}/expense-type`;
 export const SETUP_TRANSACTION_TYPE = `${SETUP}/transaction-type`;
 export const SETUP_USERS = `${SETUP}/user`;

@@ -81,8 +81,11 @@ const LsListItemExpenseType: React.FC<ListExpensesTypeProps> = ({
                   lines="none"
                   routerLink={`${ROUTES.SETUP_EXPENSE_TYPE}/${item.expenseTypeId}`}
                 >
-                  <IonLabel slot="start" color={item.expenseTypeIsActive ? StatusColor.SUCCESS : StatusColor.DEFAULT}>
-                    {item.expenseTypeDescription}
+                  <IonLabel>
+                    <div className="ion-text-capitalize">Expense: </div>
+                    <div className={item.expenseTypeIsActive ? StatusColor.IS_ACTIVE : StatusColor.IS_INACTIVE}>
+                      {item.expenseTypeDescription}
+                    </div>
                   </IonLabel>
                 </IonItem>
               </IonLabel>

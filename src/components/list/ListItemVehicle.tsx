@@ -81,11 +81,17 @@ const LsListItemVehicle: React.FC<ListVehicleProps> = ({
                   lines="none"
                   routerLink={`${ROUTES.SETUP_VEHICLE}/${item.vehicleId}`}
                 >
-                  <IonLabel slot="start" color={item.vehicleIsActive ? StatusColor.SUCCESS : StatusColor.DEFAULT}>
-                    {item.vehicleDescription}
+                  <IonLabel>
+                    <div className="ion-text-capitalize">Vehicle: </div>
+                    <div className={item.vehicleIsActive ? StatusColor.IS_ACTIVE : StatusColor.IS_INACTIVE}>
+                      {item.vehicleDescription}
+                    </div>
                   </IonLabel>
-                  <IonLabel slot="end" color={item.vehicleIsActive ? StatusColor.SUCCESS : StatusColor.DEFAULT}>
-                    {item.vehiclePlate}
+                  <IonLabel>
+                    <div className="ion-text-capitalize">Plate: </div>
+                    <div className={item.vehicleIsActive ? StatusColor.IS_ACTIVE : StatusColor.IS_INACTIVE}>
+                      {item.vehiclePlate}
+                    </div>
                   </IonLabel>
                 </IonItem>
               </IonLabel>

@@ -81,11 +81,17 @@ const LsListItemTransactionType: React.FC<ListTransactionTypeProps> = ({
                   lines="none"
                   routerLink={`${ROUTES.SETUP_TRANSACTION_TYPE}/${item.transactionTypeId}`}
                 >
-                  <IonLabel slot="start" color={item.transactionTypeIsActive ? StatusColor.SUCCESS : StatusColor.DEFAULT}>
-                    {item.transactionTypeDescription}
+                  <IonLabel>
+                    <div className="ion-text-capitalize">Transaction: </div>
+                    <div className={item.transactionTypeIsActive ? StatusColor.IS_ACTIVE : StatusColor.IS_INACTIVE}>
+                      {item.transactionTypeDescription}
+                    </div>
                   </IonLabel>
-                  <IonLabel slot="end" color={item.transactionTypeIsActive ? StatusColor.SUCCESS : StatusColor.DEFAULT}>
-                    {item.transactionTypeAction}
+                  <IonLabel>
+                    <div className="ion-text-capitalize">Action: </div>
+                    <div className={item.transactionTypeIsActive ? StatusColor.IS_ACTIVE : StatusColor.IS_INACTIVE}>
+                      {item.transactionTypeAction}
+                    </div>
                   </IonLabel>
                 </IonItem>
               </IonLabel>

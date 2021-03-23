@@ -1,13 +1,15 @@
 import {
-  IonButton,
+  IonFab,
+  IonFabButton,
   IonIcon,
-  IonLabel,
   IonList,
   IonListHeader,
-  IonModal
+  IonModal,
+  IonTitle
 } from '@ionic/react';
 import React from 'react';
-import { close } from 'ionicons/icons';
+import './MainModal.scss'
+import { close, closeSharp } from 'ionicons/icons';
 import { AppColor } from '../../enum/AppColor';
 
 interface ModalProps {
@@ -21,22 +23,29 @@ interface ModalProps {
 const LsMainModal: React.FC<ModalProps> = (props: ModalProps) => {
 
   return (
-    <IonModal
-      isOpen={props.show}
-      onDidDismiss={() => props.closeModal()}
-      id={props.id}
-      backdropDismiss={false}
-    >
-      <IonList lines="full">
-        <IonListHeader>
-          <IonLabel>{props.title}</IonLabel>
-          <IonButton onClick={() => props.closeModal()}>
-            <IonIcon icon={close} color={AppColor.TERTIARY}>Close</IonIcon>
-          </IonButton>
-        </IonListHeader>
-        {props.children}
-      </IonList>
-    </IonModal>
+      <IonModal
+        isOpen={props.show}
+        onDidDismiss={() => props.closeModal()}
+        id={props.id}
+        backdropDismiss={false}
+        cssClass="main-modal"
+      >
+        <IonList lines="full">
+          <IonListHeader>
+            <IonTitle>{props.title}</IonTitle>
+            <IonFab vertical="center" horizontal="end">
+              <IonFabButton color={AppColor.LIGHT} size="small" title="Close">
+                <IonIcon
+                  icon={closeSharp}
+                  onClick={() => props.closeModal()}
+                  size="small"
+                />
+              </IonFabButton>
+            </IonFab>
+          </IonListHeader>
+          {props.children}
+        </IonList>
+      </IonModal>
   );
 }
 

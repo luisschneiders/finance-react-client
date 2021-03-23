@@ -6,6 +6,7 @@ const getBankListData = (state: AppState) => state.bankReducer.bankList;
 const getBankData = (state: AppState) => state.bankReducer.bank;
 const isFetchingBankListData = (state: AppState) => state.bankReducer.isFetching;
 const isSavingBankData = (state: AppState) => state.bankReducer.isSaving;
+const showBankModalData = (state: AppState) => state.bankReducer.showBankModal;
 const getIdParam = (_state: AppState, props: any) => {
   return props.match.params['id'];
 };
@@ -28,6 +29,13 @@ export const isSavingBank = createSelector(
   isSavingBankData,
   (isSaving: boolean) => {
     return isSaving;
+  }
+);
+
+export const showBankModal = createSelector(
+  showBankModalData,
+  (showBankModal: boolean) => {
+    return showBankModal;
   }
 );
 

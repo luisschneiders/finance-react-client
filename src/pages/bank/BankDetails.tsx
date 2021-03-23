@@ -12,8 +12,6 @@ import {
   IonTitle,
   IonButton,
   IonList,
-  IonSelect,
-  IonSelectOption,
 } from '@ionic/react';
 import {
   withRouter,

@@ -5,6 +5,7 @@ import {
   BANK_IS_SAVING,
   BANK_UPDATE,
   BANK_BY_ID_SET,
+  BANK_MODAL_SHOW,
 } from '../actionTypes';
 import { BankAction } from './bank.actions';
 import { BankListState } from './bank.state';
@@ -53,6 +54,11 @@ export const bankReducer = (state: BankListState, action: BankAction) : BankList
       return {
         ...state,
         isSaving: action.payload
+      }
+    case BANK_MODAL_SHOW:
+      return {
+        ...state,
+        showBankModal: action.payload
       }
   }
 }

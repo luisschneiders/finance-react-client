@@ -7,6 +7,7 @@ import {
   BANK_IS_SAVING,
   BANK_UPDATE,
   BANK_BY_ID_SET,
+  BANK_MODAL_SHOW,
 } from '../actionTypes';
 import {
   fetchBankData,
@@ -57,12 +58,23 @@ const isSavingBankAction = (isSaving: boolean) => {
   } as const);
 }
 
+const setBankModalShowAction = (showBankModal: boolean) => {
+  return ({
+    type: BANK_MODAL_SHOW,
+    payload: showBankModal
+  } as const);
+}
+
 export const isFetchingBankList = (isFetching: boolean) => async () => {
   return isFetchingBankListAction(isFetching);
 }
 
 export const isSavingBank = (isSaving: boolean) => async () => {
   return isSavingBankAction(isSaving);
+}
+
+export const setBankModalShow = (showBankModal: boolean) => async () => {
+  return setBankModalShowAction(showBankModal);
 }
 
 export const setBankList = (id: number, page: number, pageSize: number) => async (dispatch: React.Dispatch<any>) => {
@@ -96,5 +108,6 @@ export type BankAction =
   | ActionType<typeof updateBank>
   | ActionType<typeof setBankList>
   | ActionType<typeof setBankById>
+  | ActionType<typeof setBankModalShow>
   | ActionType<typeof isFetchingBankList>
   | ActionType<typeof isSavingBank>

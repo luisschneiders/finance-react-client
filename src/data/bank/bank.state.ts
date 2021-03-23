@@ -9,4 +9,5 @@ export interface BankListState {
   bank: Bank;
   isFetching: boolean;
   isSaving: boolean;
+  showBankModal: boolean;
 }

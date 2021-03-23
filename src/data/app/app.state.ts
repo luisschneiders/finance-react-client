@@ -75,7 +75,8 @@ export const initialState: AppState = {
     isSaving: false,
   },
   modalReducer: {
-    showModal: false,
+    isShowModalBank: false,
+    isShowModalVehicle: false,
   },
   transactionTypeReducer: {
     transactionTypeList: {

@@ -12,20 +12,21 @@ import { toast } from '../toast/Toast';
 import { StatusColor } from '../../enum/StatusColor';
 import { useModal } from '../../hooks/useModal';
 import { UserProfileServer } from '../../models/UserProfileServer';
-import { addBank, setBankModalShow } from '../../data/bank/bank.actions';
+import { addBank } from '../../data/bank/bank.actions';
 import { connect } from '../../data/connect';
 import * as selectorsUser from '../../data/user/user.selectors';
 import * as selectorsSessions from '../../data/sessions/sessions.selectors';
-import * as selectorsBank from '../../data/bank/bank.selectors';
+import * as selectorsModal from '../../data/modal/modal.selectors';
+import { setModalBankShow } from '../../data/modal/modal.actions';
 
 interface StateProps {
   isLoggedIn: boolean;
   userProfileServer: UserProfileServer;
-  showBankModal: boolean;
+  isShowModalBank: boolean;
 }
 
 interface DispatchProps {
-  setBankModalShow: typeof setBankModalShow;
+  setModalBankShow: typeof setModalBankShow;
   addBank: typeof addBank;
 }
 
@@ -34,8 +35,8 @@ interface ModalBankProps extends StateProps, DispatchProps {}
 const LsModalBank: React.FC<ModalBankProps> = ({
     isLoggedIn,
     userProfileServer,
-    showBankModal,
-    setBankModalShow,
+    isShowModalBank,
+    setModalBankShow,
     addBank,
   }) => {
 
@@ -46,11 +47,17 @@ const LsModalBank: React.FC<ModalBankProps> = ({
   const [bankCurrentBalance, setBankCurrentBalance] = useState<number>();
 
   useEffect(() => {
-    if (showBankModal) {
+    if (isShowModalBank) {
       handleShow();
-      setBankModalShow(false);
+      setModalBankShow(false);
     }
-  }, [isLoggedIn, userProfileServer, showBankModal, setBankModalShow, handleShow])
+  }, [
+    isLoggedIn,
+    userProfileServer,
+    isShowModalBank,
+    setModalBankShow,
+    handleShow
+  ])
 
   const bankForm = async(e: React.FormEvent) => {
     e.preventDefault();
@@ -87,7 +94,7 @@ const LsModalBank: React.FC<ModalBankProps> = ({
   return (
     <ModalProvider>
       <LsMainModal
-        id="bank"
+        id="modal-bank"
         show={showModal}
         title="New bank"
         isSubmitting={isSubmitting}
@@ -147,10 +154,10 @@ export default connect<{}, StateProps, DispatchProps>({
   mapStateToProps: (state) => ({
     isLoggedIn: selectorsUser.getIsLoggedIn(state),
     userProfileServer: selectorsSessions.getUserProfileServer(state),
-    showBankModal: selectorsBank.showBankModal(state),
+    isShowModalBank: selectorsModal.showModalBank(state),
   }),
   mapDispatchToProps: ({
-    setBankModalShow,
+    setModalBankShow,
     addBank,
   }),
   component: LsModalBank

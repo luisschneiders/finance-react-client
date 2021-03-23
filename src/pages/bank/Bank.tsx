@@ -22,21 +22,20 @@ import { PageSize } from '../../enum/PageSize';
 import LsListItemBank from '../../components/list/ListItemBank';
 import {
   setBankList,
-  setBankModalShow
 } from '../../data/bank/bank.actions';
 import { add } from 'ionicons/icons';
 import LsModalBank from '../../components/modal/ModalBank';
+import { setModalBankShow } from '../../data/modal/modal.actions';
 
 interface StateProps {
   isLoggedIn: boolean;
-  isSaving: boolean;
   isFetching: boolean;
   userProfileServer: UserProfileServer;
 }
 
 interface DispatchProps {
   setBankList: typeof setBankList;
-  setBankModalShow: typeof setBankModalShow;
+  setModalBankShow: typeof setModalBankShow;
 }
 
 interface BankProps extends StateProps, DispatchProps {}
@@ -46,14 +45,19 @@ const BankPage: React.FC<BankProps> = ({
   isFetching,
   userProfileServer,
   setBankList,
-  setBankModalShow,
+  setModalBankShow,
 }) => {
   
   useEffect(() => {
     if (isLoggedIn && userProfileServer) {
       setBankList(userProfileServer.userId, 1, PageSize.S_12);
     }
-  }, [isLoggedIn, userProfileServer, setBankList, setBankModalShow]);
+  }, [
+    isLoggedIn,
+    userProfileServer,
+    setBankList,
+    setModalBankShow,  
+  ]);
   
   return (
     <IonPage>
@@ -67,7 +71,7 @@ const BankPage: React.FC<BankProps> = ({
             <IonFabButton color={AppColor.TERTIARY} size="small" title="Add new record">
               <IonIcon
                 icon={add}
-                onClick={() => setBankModalShow(true)}
+                onClick={() => setModalBankShow(true)}
                 size="small"
               />
             </IonFabButton>
@@ -86,13 +90,12 @@ const BankPage: React.FC<BankProps> = ({
 export default connect<{}, StateProps, DispatchProps>({
   mapStateToProps: (state) => ({
     isLoggedIn: selectorsUser.getIsLoggedIn(state),
-    isSaving: selectorsBank.isSavingBank(state),
     isFetching: selectorsBank.isFetchingBankList(state),
     userProfileServer: selectorsSessions.getUserProfileServer(state),
   }),
   mapDispatchToProps: ({
     setBankList,
-    setBankModalShow,
+    setModalBankShow,
   }),
   component: React.memo(BankPage)
 });

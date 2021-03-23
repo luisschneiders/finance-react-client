@@ -9,7 +9,7 @@ import {
 } from '@ionic/react';
 import React from 'react';
 import './MainModal.scss'
-import { close, closeSharp } from 'ionicons/icons';
+import { closeSharp } from 'ionicons/icons';
 import { AppColor } from '../../enum/AppColor';
 
 interface ModalProps {

@@ -3,6 +3,6 @@ export enum StatusColor {
   WARNING = 'warning',
   ERROR = 'danger',
   DEFAULT = 'medium',
-  IS_ACTIVE = 'isActive',
-  IS_INACTIVE = 'isInactive',
+  IS_ACTIVE = 'isActive', // for className
+  IS_INACTIVE = 'isInactive', // for className
 }

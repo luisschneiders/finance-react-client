@@ -7,6 +7,7 @@ import { transactionsReducer } from '../transactions/transactions.reducer';
 import { expensesReducer } from '../expenses/expenses.reducer';
 import { bankReducer } from '../bank/bank.reducer';
 import { expenseTypeReducer } from '../expenseType/expenseType.reducer';
+import { modalReducer } from '../modal/modal.reducer';
 import { transactionTypeReducer } from '../transactionType/transactionType.reducer';
 import { vehicleReducer } from '../vehicle/vehicle.reducer';
 import { APP_STORE_RESET } from '../actionTypes';
@@ -55,6 +56,7 @@ export const initialState: AppState = {
     },
     isFetching: false,
     isSaving: false,
+    showBankModal: false,
   },
   expenseTypeReducer: {
     expenseTypeList: {
@@ -71,6 +73,9 @@ export const initialState: AppState = {
     },
     isFetching: false,
     isSaving: false,
+  },
+  modalReducer: {
+    showModal: false,
   },
   transactionTypeReducer: {
     transactionTypeList: {
@@ -117,6 +122,7 @@ export const rootReducer = combineReducers({
   expensesReducer,
   bankReducer,
   expenseTypeReducer,
+  modalReducer,
   transactionTypeReducer,
   vehicleReducer,
 });

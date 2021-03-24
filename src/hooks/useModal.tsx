@@ -6,11 +6,13 @@ export const useModal = () => {
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const handleClose = () => setShowModal(false);
     const handleShow = () => setShowModal(true);
+    const handleSubmitting = () => setIsSubmitting(true);
 
     return {
         showModal,
         isSubmitting,
         handleShow,
-        handleClose
+        handleClose,
+        handleSubmitting,
     };
 }

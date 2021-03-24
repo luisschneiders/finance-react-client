@@ -76,8 +76,9 @@ export const initialState: AppState = {
   },
   modalReducer: {
     isShowModalBank: false,
-    isShowModalVehicle: false,
     isShowModalExpenseType: false,
+    isShowModalTransactionType: false,
+    isShowModalVehicle: false,
   },
   transactionTypeReducer: {
     transactionTypeList: {

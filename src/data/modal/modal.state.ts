@@ -1,5 +1,6 @@
 export interface ModalState {
   isShowModalBank: boolean;
-  isShowModalVehicle: boolean;
   isShowModalExpenseType: boolean;
+  isShowModalTransactionType: boolean;
+  isShowModalVehicle: boolean;
 }

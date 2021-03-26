@@ -82,8 +82,7 @@ const UserTypeDetailsPage: React.FC<UserTypeDetailsProps> = ({
           setIsById(true);
         }
       }
-      console.log('LFS - userType: ', userType);
-      console.log('LFS - userTypeById: ', userTypeById);
+
       if (userType) {
         setUserTypeDescription(userType.userTypeDescription);
         setUserTypeRates(userType.userTypeRates);

@@ -69,6 +69,8 @@ import ExpenseTypePage from './pages/expense-type/ExpenseType';
 import ExpenseTypeDetailsPage from './pages/expense-type/ExpenseTypeDetails';
 import TransactionType from './pages/transaction-type/TransactionType';
 import TransactionTypeDetailsPage from './pages/transaction-type/TransactionTypeDetails';
+import UserTypePage from './pages/user/UserType';
+import UserTypeDetailsPage from './pages/user/UserTypeDetails';
 import VehiclePage from './pages/vehicle/Vehicle';
 import VehicleDetailsPage from './pages/vehicle/VehicleDetails';
 // import { setNews } from './data/news/news.actions';
@@ -162,6 +164,9 @@ const IonicApp: React.FC<IonicAppProps> = ({
 
                     <Route path={ROUTES.SETUP_TRANSACTION_TYPE} component={TransactionType} exact={true} />
                     <Route path={`${ROUTES.SETUP_TRANSACTION_TYPE}/:id`} component={TransactionTypeDetailsPage} />
+
+                    <Route path={ROUTES.SETUP_USER_TYPE} component={UserTypePage} exact={true} />
+                    <Route path={`${ROUTES.SETUP_USER_TYPE}/:id`} component={UserTypeDetailsPage} />
 
                     <Route path={ROUTES.SETUP_VEHICLE} component={VehiclePage} exact={true} />
                     <Route path={`${ROUTES.SETUP_VEHICLE}/:id`} component={VehicleDetailsPage} />

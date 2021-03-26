@@ -9,6 +9,7 @@ import { bankReducer } from '../bank/bank.reducer';
 import { expenseTypeReducer } from '../expenseType/expenseType.reducer';
 import { modalReducer } from '../modal/modal.reducer';
 import { transactionTypeReducer } from '../transactionType/transactionType.reducer';
+import { userTypeReducer } from '../userType/userType.reducer';
 import { vehicleReducer } from '../vehicle/vehicle.reducer';
 import { APP_STORE_RESET } from '../actionTypes';
 import { PageSize } from '../../enum/PageSize';
@@ -78,6 +79,7 @@ export const initialState: AppState = {
     isShowModalBank: false,
     isShowModalExpenseType: false,
     isShowModalTransactionType: false,
+    isShowModalUserType: false,
     isShowModalVehicle: false,
   },
   transactionTypeReducer: {
@@ -93,6 +95,24 @@ export const initialState: AppState = {
       transactionTypeInsertedBy: 0,
       transactionTypeCreatedAt: '',
       transactionTypeUpdatedAt: '',
+    },
+    isFetching: false,
+    isSaving: false,
+  },
+  userTypeReducer: {
+    userTypeList: {
+      usersType: [],
+      pagination: { page: 1, pageSize: PageSize.S_12, pageCount: 0, rowCount: 0 },
+    },
+    userType: {
+      userTypeId: 0,
+      userTypeDescription: '',
+      userTypeRates: 0,
+      userTypeOptions: 1,
+      userTypeIsActive: false,
+      userTypeInsertedBy: 0,
+      userTypeCreatedAt: '',
+      userTypeUpdatedAt: '',
     },
     isFetching: false,
     isSaving: false,
@@ -127,6 +147,7 @@ export const rootReducer = combineReducers({
   expenseTypeReducer,
   modalReducer,
   transactionTypeReducer,
+  userTypeReducer,
   vehicleReducer,
 });
 

@@ -18,7 +18,7 @@ export const SETUP = '/setup';
 export const SETUP_BANK = `${SETUP}/bank`;
 export const SETUP_EXPENSE_TYPE = `${SETUP}/expense-type`;
 export const SETUP_TRANSACTION_TYPE = `${SETUP}/transaction-type`;
-export const SETUP_USERS = `${SETUP}/user`;
+export const SETUP_USER_TYPE = `${SETUP}/user-type`;
 export const SETUP_VEHICLE = `${SETUP}/vehicle`;
 
 export const TABS = '/tabs';

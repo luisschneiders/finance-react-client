@@ -22,6 +22,7 @@ import { PageSize } from '../../enum/PageSize';
 import LsMainCard from '../card/MainCard';
 import * as ROUTES from '../../constants/Routes';
 import { currencyMask } from '../../util/currencyMask';
+import { userTypeOptions } from '../../pages/user/UserTypeOptions';
 
 interface StateProps {
   isLoggedIn: boolean;
@@ -46,8 +47,15 @@ const LsListItemUserType: React.FC<ListUserTypeProps> = ({
     updateUserType,
   }) => {
   const [userType, setUserType] = useState<UserType[]>([]);
+  const [userTypeOptionsList, setUserTypeOptionsList] = useState<any[]>([]);
+
+  const userActionsOptions = async () => {
+    const actions = userTypeOptions();
+    setUserTypeOptionsList(await actions);
+  }
 
   useEffect(() => {
+    userActionsOptions();
     if (userTypeList) {
       setUserType(userTypeList.usersType);
     }
@@ -97,7 +105,9 @@ const LsListItemUserType: React.FC<ListUserTypeProps> = ({
                   <IonLabel>
                     <div className="ion-text-capitalize">Type: </div>
                     <div className={item.userTypeIsActive ? StatusColor.IS_ACTIVE : StatusColor.IS_INACTIVE}>
-                      {item.userTypeOptions}
+                      {userTypeOptionsList.map((type: any, key: number) => {
+                        return type.value === item.userTypeOptions ? <span key={key}>{type.description}</span> : '';
+                      })}
                     </div>
                   </IonLabel>
                 </IonItem>

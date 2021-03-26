@@ -21,6 +21,7 @@ import { UserProfileServer } from '../../models/UserProfileServer';
 import { PageSize } from '../../enum/PageSize';
 import LsMainCard from '../card/MainCard';
 import * as ROUTES from '../../constants/Routes';
+import { transactionTypeOptions } from '../../pages/transaction-type/TransactionTypeOptions';
 
 interface StateProps {
   isLoggedIn: boolean;
@@ -45,8 +46,15 @@ const LsListItemTransactionType: React.FC<ListTransactionTypeProps> = ({
     updateTransactionType,
   }) => {
   const [transactionType, setTransactionType] = useState<TransactionType[]>([]);
+  const [transactionTypeOptionsList, setTransactionTypeOptionsList] = useState<any[]>([]);
+
+  const transactionActionsOptions = async () => {
+    const actions = transactionTypeOptions();
+    setTransactionTypeOptionsList(await actions);
+  }
 
   useEffect(() => {
+    transactionActionsOptions();
     if (transactionTypeList) {
       setTransactionType(transactionTypeList.transactionsType);
     }
@@ -90,7 +98,9 @@ const LsListItemTransactionType: React.FC<ListTransactionTypeProps> = ({
                   <IonLabel>
                     <div className="ion-text-capitalize">Action: </div>
                     <div className={item.transactionTypeIsActive ? StatusColor.IS_ACTIVE : StatusColor.IS_INACTIVE}>
-                      {item.transactionTypeAction}
+                      {transactionTypeOptionsList.map((type: any, key: number) => {
+                        return type.value === item.transactionTypeAction ? <span key={key}>{type.description}</span> : '';
+                      })}
                     </div>
                   </IonLabel>
                 </IonItem>

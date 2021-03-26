@@ -65,7 +65,7 @@ const SetupPage: React.FC<SetupProps> = ({
             <IonIcon slot="start" icon={repeatOutline} />
             <IonLabel>Transaction Categories</IonLabel>
           </IonItem>
-          <IonItem disabled detail={true} routerLink={ROUTES.SETUP_USERS} routerDirection="none">
+          <IonItem detail={true} routerLink={ROUTES.SETUP_USER_TYPE} routerDirection="none">
             <IonIcon slot="start" icon={peopleOutline} />
             <IonLabel>Users</IonLabel>
           </IonItem>

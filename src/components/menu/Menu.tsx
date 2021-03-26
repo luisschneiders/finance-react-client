@@ -17,10 +17,12 @@ import {
   IonToggle } from '@ionic/react';
 import './Menu.scss'
 import {
+  businessOutline,
   moonOutline, sunnyOutline,
 } from 'ionicons/icons';
 import { connect } from '../../data/connect';
 import { appPages } from '../../app/AppPages';
+import { AppColor } from '../../enum/AppColor';
 
 interface StateProps {
   darkMode: boolean;
@@ -77,6 +79,13 @@ const LsMenu: React.FC<MenuProps> = ({darkMode, history, isAuthenticated, setDar
             {!darkMode ? <IonIcon slot="start" icon={moonOutline}></IonIcon> : <IonIcon slot="start" icon={sunnyOutline}></IonIcon>}
             <IonLabel>Dark Mode</IonLabel>
             <IonToggle checked={darkMode} onClick={() => setDarkMode(!darkMode)} />
+          </IonItem>
+        </IonList>
+        <IonList lines="none">
+          <IonListHeader>Company</IonListHeader>
+          <IonItem>
+            <IonIcon slot="start" icon={businessOutline}></IonIcon>
+            <IonLabel color={AppColor.TERTIARY}>Schneiders Tech</IonLabel>
           </IonItem>
         </IonList>
         <IonList lines="none">

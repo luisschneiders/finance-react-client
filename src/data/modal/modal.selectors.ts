@@ -4,6 +4,7 @@ import { AppState } from '../app/app.state';
 const showModalBankData = (state: AppState) => state.modalReducer.isShowModalBank;
 const showModalExpenseTypeData = (state: AppState) => state.modalReducer.isShowModalExpenseType;
 const showModalTransactionTypeData = (state: AppState) => state.modalReducer.isShowModalTransactionType;
+const showModalUserTypeData = (state: AppState) => state.modalReducer.isShowModalUserType;
 const showModalVehicleData = (state: AppState) => state.modalReducer.isShowModalVehicle;
 
 export const showModalBank = createSelector(
@@ -25,6 +26,13 @@ export const showModalTransactionType = createSelector(
   showModalTransactionTypeData,
   (isShowModalTransactionType: boolean) => {
     return isShowModalTransactionType;
+  }
+);
+
+export const showModalUserType = createSelector(
+  showModalUserTypeData,
+  (isShowModalUserType: boolean) => {
+    return isShowModalUserType;
   }
 );
 

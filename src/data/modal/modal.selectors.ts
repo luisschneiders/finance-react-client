@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import { AppState } from '../app/app.state';
 
 const showModalBankData = (state: AppState) => state.modalReducer.isShowModalBank;
+const showModalExpensesSearchShowData = (state: AppState) => state.modalReducer.isShowModalExpensesSearch;
 const showModalExpenseTypeData = (state: AppState) => state.modalReducer.isShowModalExpenseType;
 const showModalTransactionTypeData = (state: AppState) => state.modalReducer.isShowModalTransactionType;
 const showModalUserTypeData = (state: AppState) => state.modalReducer.isShowModalUserType;
@@ -13,7 +14,6 @@ export const showModalBank = createSelector(
     return isShowModalBank;
   }
 );
-
 
 export const showModalExpenseType = createSelector(
   showModalExpenseTypeData,
@@ -40,5 +40,12 @@ export const showModalVehicle = createSelector(
   showModalVehicleData,
   (isShowModalVehicle: boolean) => {
     return isShowModalVehicle;
+  }
+);
+
+export const showModalExpensesSearch = createSelector(
+  showModalExpensesSearchShowData,
+  (isShowModalExpensesSearch: boolean) => {
+    return isShowModalExpensesSearch;
   }
 );

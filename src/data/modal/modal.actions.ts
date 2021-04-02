@@ -1,6 +1,7 @@
 import { ActionType } from '../../util/types';
 import {
   MODAL_BANK_SHOW_SET,
+  MODAL_EXPENSES_SEARCH_SHOW_SET,
   MODAL_EXPENSE_TYPE_SHOW_SET,
   MODAL_TRANSACTION_TYPE_SHOW_SET,
   MODAL_USER_TYPE_SHOW_SET,
@@ -42,6 +43,13 @@ const setModalVehicleShowAction = (isShowModalVehicle: boolean) => {
   } as const);
 }
 
+const setModalExpensesSearchShowAction = (isShowModalExpensesSearch: boolean) => {
+  return ({
+    type: MODAL_EXPENSES_SEARCH_SHOW_SET,
+    payload: isShowModalExpensesSearch
+  } as const);
+}
+
 export const setModalBankShow = (isShowModalBank: boolean) => async () => {
   return setModalBankShowAction(isShowModalBank);
 }
@@ -62,8 +70,13 @@ export const setModalVehicleShow = (isShowModalVehicle: boolean) => async () => 
   return setModalVehicleShowAction(isShowModalVehicle);
 }
 
+export const setModalExpensesSearchShow = (isShowModalExpensesSearch: boolean) => async () => {
+  return setModalExpensesSearchShowAction(isShowModalExpensesSearch);
+}
+
 export type ModalAction = 
   | ActionType<typeof setModalBankShow>
+  | ActionType<typeof setModalExpensesSearchShow>
   | ActionType<typeof setModalExpenseTypeShow>
   | ActionType<typeof setModalTransactionTypeShow>
   | ActionType<typeof setModalUserTypeShow>

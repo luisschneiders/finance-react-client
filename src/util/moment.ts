@@ -38,7 +38,7 @@ export const dateFormatYYYY = (date: string) => {
 
 /**
  * Format ll
- * Jan 01, 2021
+ * Jan 31, 2021
  */
 export const dateFormatll = (date: string) => {
   return moment(date).format('ll');
@@ -46,7 +46,7 @@ export const dateFormatll = (date: string) => {
 
 /**
  * Format DD/MM/YYYY
- * 01/01/2021
+ * 31/01/2021
  */
 export const dateFormatDDMMYYYY = (date: string) => {
   return moment(date).format('DD/MM/YYYY');
@@ -54,10 +54,18 @@ export const dateFormatDDMMYYYY = (date: string) => {
 
 /**
  * Format DD/MM/YY
- * 01/01/2021
+ * 31/01/21
  */
 export const dateFormatDDMMYY = (date: string) => {
   return moment(date).format('DD/MM/YY');
+};
+
+/**
+ * Format YYYY-MM-DD
+ * 2021-01-31
+ */
+export const dateFormatYYYYMMDD = (date: string) => {
+  return moment(date).format('YYYY-MM-DD');
 };
 
 export const dateFormatM = (date: string) => {

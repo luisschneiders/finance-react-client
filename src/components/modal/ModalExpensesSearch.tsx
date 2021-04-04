@@ -82,10 +82,10 @@ const LsModalExpensesSearch: React.FC<ModalExpensesSearchProps> = ({
   const expensesSearchForm = async(e: React.FormEvent) => {
     e.preventDefault();
 
-    const newPeriod: Period = Object.assign({}, {
+    const newPeriod: Period = {
       startDate: dateFormatYYYYMMDD(selectedStartDate),
       endDate: dateFormatYYYYMMDD(selectedEndDate),
-    });
+    };
     
     if (isLoggedIn && userProfileServer) {
       setExpensesTimeTransition(newPeriod);
@@ -184,5 +184,5 @@ export default connect<ContainerProps, StateProps, DispatchProps>({
     setModalExpensesSearchShow,
     setExpensesTimeTransition,
   }),
-  component: LsModalExpensesSearch
+  component: React.memo(LsModalExpensesSearch)
 });

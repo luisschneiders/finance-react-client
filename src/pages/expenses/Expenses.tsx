@@ -57,18 +57,17 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
     endDate: endPeriod(MOMENT.currentMonthYYYMMDD),
   });
 
-  const [hasPeriodChanged, setHasPeriodChanged] = useState<boolean>(false);
+  const [isCustomSearch, setIsCustomSearch] = useState<boolean>(false);
   const [customPeriod, setCustomPeriod] = useState<Period>(period);
-
   const [params, setParams] = useState<string>('all');
 
   useEffect(() => {
     if (isLoggedIn && userProfileServer) {
-      if (!hasPeriodChanged) {
+      if (!isCustomSearch) {
         setExpenses(userProfileServer.userId, period, params);
         setExpensesTimeTransition(period);
       } else {
-        setHasPeriodChanged(false);
+        setIsCustomSearch(false);
         setPeriod(customPeriod);
       }
     }
@@ -77,7 +76,7 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
     userProfileServer,
     params,
     period,
-    hasPeriodChanged,
+    isCustomSearch,
     customPeriod,
     setExpenses,
     setExpensesTimeTransition,
@@ -109,7 +108,12 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
         </IonToolbar>
       </IonHeader>
       <LsMainExpenses />
-      <LsModalExpensesSearch setHasPeriodChanged={setHasPeriodChanged} setCustomPeriod={setCustomPeriod}/>
+      <LsModalExpensesSearch
+        setIsCustomSearch={setIsCustomSearch}
+        setCustomPeriod={setCustomPeriod}
+        setParams={setParams}
+      />
+
       {/* <IonModal isOpen={showAddRecordModal} onDidDismiss={() => setShowAddRecordModal(false)}>
         <form noValidate onSubmit={submitAddRecord}>
         <IonList lines="full">

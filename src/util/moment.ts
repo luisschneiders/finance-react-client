@@ -2,6 +2,7 @@
  * Replace Moment.js with javascript native features
  */
 import moment from 'moment';
+import { Period } from '../models/Period';
 
 export const now = moment();
 export const currentYearYYYY: string = moment().format('YYYY');
@@ -26,6 +27,27 @@ export const addStartPeriod = (date: string) => {
 };
 export const addEndPeriod = (date: string) => {
   return moment(date).add(1, 'months').endOf('month').format('YYYY-MM-DD');
+};
+
+export const decreasePeriod = (period: Period) => {
+  return {
+    startDate: subtractStartPeriod(period.startDate),
+    endDate: subtractEndPeriod(period.endDate),
+  };
+};
+
+export const increasePeriod = (period: Period) => {
+  return {
+    startDate: addStartPeriod(period.startDate),
+    endDate: addEndPeriod(period.endDate),
+  };
+};
+
+export const currentPeriod = () => {
+  return {
+    startDate: startPeriod(currentMonthYYYMMDD),
+    endDate: endPeriod(currentMonthYYYMMDD),
+  };
 };
 
 /**

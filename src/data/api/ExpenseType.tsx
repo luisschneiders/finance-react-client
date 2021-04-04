@@ -1,4 +1,4 @@
-import { ExpenseType, ExpenseTypeList } from '../../models/ExpenseType';
+import { ExpenseType, ExpenseTypeList, ExpenseTypeStatusActive } from '../../models/ExpenseType';
 import * as ROUTES from '../../constants/Routes';
 import { toast } from '../../components/toast/Toast';
 import { StatusColor } from '../../enum/StatusColor';
@@ -40,6 +40,47 @@ export function fetchExpenseTypeList(id: number, page: number, pageSize: number)
             const expenseTypeList: ExpenseTypeList = {
               expensesType: [],
               pagination: {page: 1, pageSize: PageSize.S_12, pageCount: 0, rowCount: 0}
+            };
+
+            toast(`Code: ${resStatus} -> ${error}`, StatusColor.ERROR, 4000);
+
+            return expenseTypeList;
+          });
+}
+
+export function fetchExpenseTypeStatusActive(userId: number) {
+  let resStatus: any = null;
+
+  return fetch(`${ROUTES.SERVER}/get-active-expenses-type/expenseTypeInsertedBy=${userId}`)
+          .then(response => {
+            resStatus = response.status;
+            return response.json()
+          })
+          .then((result: ExpenseTypeStatusActive) => {
+
+            const expensesTypeMap: ExpenseType[] = [];
+            result.expensesType.forEach((item: any) => {
+              const expensesType: ExpenseType = {
+                expenseTypeId: item.id,
+                expenseTypeDescription: item.expenseTypeDescription,
+                expenseTypeIsActive: item.expenseTypeIsActive === 0 ? false : true,
+                expenseTypeInsertedBy: item.expenseTypeInsertedBy,
+                expenseTypeCreatedAt: item.created_at,
+                expenseTypeUpdatedAt: item.updated_at,
+              };
+              expensesTypeMap.push(expensesType);
+            });
+
+            const expenseTypeList: ExpenseTypeStatusActive = {
+              expensesType: expensesTypeMap,
+            };
+
+            return expenseTypeList;
+          },
+          (error) => {
+            // Assign initial state as response
+            const expenseTypeList: ExpenseTypeStatusActive = {
+              expensesType: [],
             };
 
             toast(`Code: ${resStatus} -> ${error}`, StatusColor.ERROR, 4000);

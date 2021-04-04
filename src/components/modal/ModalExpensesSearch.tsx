@@ -22,8 +22,7 @@ import { setModalExpensesSearchShow } from '../../data/modal/modal.actions';
 import * as MOMENT  from '../../util/moment';
 import { dateFormatYYYYMMDD, endPeriod, startPeriod } from '../../util/moment';
 import { Period } from '../../models/Period';
-import { setExpensesTimeTransition } from '../../data/sessions/sessions.actions';
-import { ExpenseTypeList } from '../../models/ExpenseType';
+import { ExpenseTypeStatusActive } from '../../models/ExpenseType';
 import * as ROUTES  from '../../constants/Routes';
 
 interface ContainerProps {
@@ -36,12 +35,11 @@ interface StateProps {
   isLoggedIn: boolean;
   userProfileServer: UserProfileServer;
   isShowModalExpensesSearch: boolean;
-  expenseTypeList: ExpenseTypeList
+  expenseTypeStatusActive: ExpenseTypeStatusActive;
 }
 
 interface DispatchProps {
   setModalExpensesSearchShow: typeof setModalExpensesSearchShow;
-  setExpensesTimeTransition: typeof setExpensesTimeTransition;
 }
 
 
@@ -51,9 +49,8 @@ const LsModalExpensesSearch: React.FC<ModalExpensesSearchProps> = ({
     isLoggedIn,
     userProfileServer,
     isShowModalExpensesSearch,
-    expenseTypeList,
+    expenseTypeStatusActive,
     setCustomPeriod,
-    setExpensesTimeTransition,
     setModalExpensesSearchShow,
     setIsCustomSearch,
     setParams,
@@ -67,6 +64,7 @@ const LsModalExpensesSearch: React.FC<ModalExpensesSearchProps> = ({
 
   useEffect(() => {
     if (isShowModalExpensesSearch) {
+
       handleShow();
       setModalExpensesSearchShow(false);
     }
@@ -74,6 +72,7 @@ const LsModalExpensesSearch: React.FC<ModalExpensesSearchProps> = ({
     isLoggedIn,
     userProfileServer,
     isShowModalExpensesSearch,
+    expenseTypeStatusActive,
     expenseOptions,
     setModalExpensesSearchShow,
     handleShow,
@@ -86,9 +85,8 @@ const LsModalExpensesSearch: React.FC<ModalExpensesSearchProps> = ({
       startDate: dateFormatYYYYMMDD(selectedStartDate),
       endDate: dateFormatYYYYMMDD(selectedEndDate),
     };
-    
+
     if (isLoggedIn && userProfileServer) {
-      setExpensesTimeTransition(newPeriod);
       setIsCustomSearch(true);
       setCustomPeriod(newPeriod);
       setParams(expenseOptions.length ? expenseOptions.toString() : 'all');
@@ -128,29 +126,30 @@ const LsModalExpensesSearch: React.FC<ModalExpensesSearchProps> = ({
             </IonItem>
             <IonItem>
               <IonLabel>Expense</IonLabel>
-              {expenseTypeList.expensesType.length ?
-              <IonSelect
-                multiple={true}
-                onIonChange={e => setExpenseOptions(e.detail.value)}
-              >
-                {expenseTypeList.expensesType.map((option: any, index: number) => (
-                  <IonSelectOption
-                    key={index}
-                    value={option.expenseTypeId}
-                  >
-                    {option.expenseTypeDescription}
-                  </IonSelectOption>
-                ))}
-              </IonSelect> :
-              <IonSelect
-                value={0}
-                disabled
-              >
-                <IonSelectOption value={0}>No expenses found!</IonSelectOption>
-              </IonSelect>
+              {expenseTypeStatusActive.expensesType.length ?
+                <IonSelect
+                  multiple={true}
+                  onIonChange={e => setExpenseOptions(e.detail.value)}
+                  disabled={!expenseTypeStatusActive.expensesType.length}
+                >
+                  {expenseTypeStatusActive.expensesType.map((option: any, index: number) => (
+                    <IonSelectOption
+                      key={index}
+                      value={option.expenseTypeId}
+                    >
+                      {option.expenseTypeDescription}
+                    </IonSelectOption>
+                  ))}
+                </IonSelect> :
+                <IonSelect
+                  value={0}
+                  disabled
+                >
+                  <IonSelectOption value={0}>No expenses found!</IonSelectOption>
+                </IonSelect>
               }
             </IonItem>
-            {!expenseTypeList.expensesType.length &&
+            {!expenseTypeStatusActive.expensesType.length &&
               <IonItem lines="none">
                   <IonButton slot="end"
                     onClick={() => handleClose()}
@@ -178,11 +177,10 @@ export default connect<ContainerProps, StateProps, DispatchProps>({
     isLoggedIn: selectorsUser.getIsLoggedIn(state),
     userProfileServer: selectorsSessions.getUserProfileServer(state),
     isShowModalExpensesSearch: selectorsModal.showModalExpensesSearch(state),
-    expenseTypeList: selectorsExpenseType.getExpenseTypeList(state),
+    expenseTypeStatusActive: selectorsExpenseType.getExpenseTypeStatusActive(state),
   }),
   mapDispatchToProps: ({
     setModalExpensesSearchShow,
-    setExpensesTimeTransition,
   }),
   component: React.memo(LsModalExpensesSearch)
 });

@@ -5,6 +5,7 @@ import {
   EXPENSE_TYPE_IS_SAVING,
   EXPENSE_TYPE_UPDATE,
   EXPENSE_TYPE_BY_ID_SET,
+  EXPENSE_TYPE_STATUS_ACTIVE_SET,
 } from '../actionTypes';
 import { ExpenseTypeAction } from './expenseType.actions';
 import { ExpenseTypeListState } from './expenseType.state';
@@ -37,6 +38,13 @@ export const expenseTypeReducer = (state: ExpenseTypeListState, action: ExpenseT
         expenseTypeList: {
           expensesType: [...state.expenseTypeList.expensesType, ...action.payload.expensesType],
           pagination: {...state.expenseTypeList.pagination, ...action.payload.pagination},
+        }
+      }
+    case EXPENSE_TYPE_STATUS_ACTIVE_SET:
+      return {
+        ...state,
+        expenseTypeStatusActive: {
+          expensesType: [...state.expenseTypeList.expensesType, ...action.payload.expensesType],
         }
       }
     case EXPENSE_TYPE_BY_ID_SET:

@@ -1,18 +1,25 @@
 import {
   ExpenseType,
-  ExpenseTypeList
+  ExpenseTypeList,
+  ExpenseTypeStatusActive
 } from '../../models/ExpenseType';
 
 import {
   fetchExpenseTypeList,
   addExpenseType,
   updateExpenseType,
-  fetchExpenseTypeById
+  fetchExpenseTypeById,
+  fetchExpenseTypeStatusActive
 } from '../api/ExpenseType';
 
 export const fetchExpenseTypeData = async (id: number, page: number, pageSize: number) => {
   const response: any = await fetchExpenseTypeList(id, page, pageSize);
   return response as ExpenseTypeList;
+}
+
+export const fetchExpenseTypeStatusActiveData = async (userId: number) => {
+  const response: any = await fetchExpenseTypeStatusActive(userId);
+  return response as ExpenseTypeStatusActive;
 }
 
 export const fetchExpenseTypeByIdData = async (userId: number, expenseTypeId: number) => {

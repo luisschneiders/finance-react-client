@@ -1,8 +1,9 @@
 import { createSelector } from 'reselect';
-import { ExpenseType, ExpenseTypeList } from '../../models/ExpenseType';
+import { ExpenseType, ExpenseTypeList, ExpenseTypeStatusActive } from '../../models/ExpenseType';
 import { AppState } from '../app/app.state';
 
 const getExpenseTypeListData = (state: AppState) => state.expenseTypeReducer.expenseTypeList;
+const getExpenseTypeStatusActiveData = (state: AppState) => state.expenseTypeReducer.expenseTypeStatusActive;
 const getExpenseTypeData = (state: AppState) => state.expenseTypeReducer.expenseType;
 const isFetchingExpenseTypeListData = (state: AppState) => state.expenseTypeReducer.isFetching;
 const isSavingExpenseTypeData = (state: AppState) => state.expenseTypeReducer.isSaving;
@@ -14,6 +15,13 @@ export const getExpenseTypeList = createSelector(
   getExpenseTypeListData,
   (expenseTypeList: ExpenseTypeList) => {
     return expenseTypeList;
+  }
+);
+
+export const getExpenseTypeStatusActive = createSelector(
+  getExpenseTypeStatusActiveData,
+  (expenseTypeStatusActive: ExpenseTypeStatusActive) => {
+    return expenseTypeStatusActive;
   }
 );
 

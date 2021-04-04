@@ -13,3 +13,7 @@ export interface ExpenseTypeList {
   expensesType: ExpenseType[];
   pagination: Pagination;
 }
+
+export interface ExpenseTypeStatusActive {
+  expensesType: ExpenseType[];
+}

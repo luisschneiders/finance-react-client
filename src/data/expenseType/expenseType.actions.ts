@@ -1,4 +1,9 @@
-import { ExpenseType, ExpenseTypeList } from '../../models/ExpenseType';
+import React from 'react';
+import {
+  ExpenseType,
+  ExpenseTypeList,
+  ExpenseTypeStatusActive
+} from '../../models/ExpenseType';
 import { ActionType } from '../../util/types';
 import {
   EXPENSE_TYPE_ADD,
@@ -7,12 +12,14 @@ import {
   EXPENSE_TYPE_IS_SAVING,
   EXPENSE_TYPE_UPDATE,
   EXPENSE_TYPE_BY_ID_SET,
+  EXPENSE_TYPE_STATUS_ACTIVE_SET,
 } from '../actionTypes';
 import {
   fetchExpenseTypeData,
   addExpenseTypeData,
   updateExpenseTypeData,
-  fetchExpenseTypeByIdData
+  fetchExpenseTypeByIdData,
+  fetchExpenseTypeStatusActiveData
 } from './data';
 
 const saveExpenseTypeAction = (data: ExpenseType) => {
@@ -32,6 +39,13 @@ const updateExpenseTypeAction = (data: ExpenseType) => {
 const setExpenseTypeListAction = (data: ExpenseTypeList) => {
   return ({
     type: EXPENSE_TYPE_LIST_SET,
+    payload: data
+  } as const);
+}
+
+const setExpenseTypeByStatusActiveAction = (data: ExpenseTypeStatusActive) => {
+  return ({
+    type: EXPENSE_TYPE_STATUS_ACTIVE_SET,
     payload: data
   } as const);
 }
@@ -66,23 +80,34 @@ export const isSavingExpenseType = (isSaving: boolean) => async () => {
 }
 
 export const setExpenseTypeList = (id: number, page: number, pageSize: number) => async (dispatch: React.Dispatch<any>) => {
+
   dispatch(isFetchingExpenseTypeListAction(true));
   const data = await fetchExpenseTypeData(id, page, pageSize);
   dispatch(isFetchingExpenseTypeListAction(false));
+
   return setExpenseTypeListAction(data);
 }
 
 export const setExpenseTypeById = (userId: number, expenseTypeId: number) => async (dispatch: React.Dispatch<any>) => {
-
   const data = await fetchExpenseTypeByIdData(userId, expenseTypeId);
-
   return setExpenseTypeByIdAction(data);
 }
 
+export const setExpenseTypeByStatusActive = (userId: number) => async (dispatch: React.Dispatch<any>) => {
+
+  dispatch(isFetchingExpenseTypeListAction(true));
+  const data = await fetchExpenseTypeStatusActiveData(userId);
+  dispatch(isFetchingExpenseTypeListAction(false));
+
+  return setExpenseTypeByStatusActiveAction(data);
+}
+
 export const addExpenseType = (data: Partial<ExpenseType>) => async (dispatch: React.Dispatch<any>) => {
+
   dispatch(isSavingExpenseTypeAction(true));
   const expenseType = await addExpenseTypeData(data);
   dispatch(isSavingExpenseTypeAction(false));
+
   return saveExpenseTypeAction(expenseType);
 }
 
@@ -95,6 +120,7 @@ export type ExpenseTypeAction =
   | ActionType<typeof addExpenseType>
   | ActionType<typeof updateExpenseType>
   | ActionType<typeof setExpenseTypeList>
+  | ActionType<typeof setExpenseTypeByStatusActive>
   | ActionType<typeof setExpenseTypeById>
   | ActionType<typeof isFetchingExpenseTypeList>
   | ActionType<typeof isSavingExpenseType>

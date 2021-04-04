@@ -17,7 +17,6 @@ import * as selectorsUser from '../../data/user/user.selectors';
 import * as selectorsSessions from '../../data/sessions/sessions.selectors';
 import { UserProfileServer } from '../../models/UserProfileServer';
 import * as MOMENT  from '../../util/moment';
-import { setExpensesTimeTransition } from '../../data/sessions/sessions.actions';
 import {
   endPeriod,
   startPeriod,
@@ -30,6 +29,7 @@ import { ellipsisVertical, search } from 'ionicons/icons';
 import LsModalExpensesSearch from '../../components/modal/ModalExpensesSearch';
 import { setModalExpensesSearchShow } from '../../data/modal/modal.actions';
 import LsTransition from '../../components/time/Transition';
+import { setExpenseTypeByStatusActive } from '../../data/expenseType/expenseType.actions';
 
 interface StateProps {
   isLoggedIn: boolean;
@@ -38,8 +38,8 @@ interface StateProps {
 
 interface DispatchProps {
   setExpenses: typeof setExpenses;
-  setExpensesTimeTransition: typeof setExpensesTimeTransition;
   setModalExpensesSearchShow: typeof setModalExpensesSearchShow;
+  setExpenseTypeByStatusActive: typeof setExpenseTypeByStatusActive;
 }
 
 interface ExpensesProps extends StateProps, DispatchProps {}
@@ -47,9 +47,9 @@ interface ExpensesProps extends StateProps, DispatchProps {}
 const ExpensesPage: React.FC<ExpensesProps> = ({
     isLoggedIn,
     userProfileServer,
-    setExpensesTimeTransition,
     setExpenses,
     setModalExpensesSearchShow,
+    setExpenseTypeByStatusActive,
   }) => {
 
   const [period, setPeriod] = useState<Period>({
@@ -65,7 +65,6 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
     if (isLoggedIn && userProfileServer) {
       if (!isCustomSearch) {
         setExpenses(userProfileServer.userId, period, params);
-        setExpensesTimeTransition(period);
       } else {
         setIsCustomSearch(false);
         setPeriod(customPeriod);
@@ -79,7 +78,7 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
     isCustomSearch,
     customPeriod,
     setExpenses,
-    setExpensesTimeTransition,
+    setExpenseTypeByStatusActive,
   ]);
 
   return (
@@ -90,15 +89,21 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
             <IonMenuButton auto-hide="true"></IonMenuButton>
           </IonButtons>
           <IonTitle>Expenses</IonTitle>
-          <IonFab vertical="center" horizontal="end">
+          {(isLoggedIn && userProfileServer) && <IonFab vertical="center" horizontal="end">
             <IonFabButton color={AppColor.TERTIARY} size="small">
               <IonIcon icon={ellipsisVertical} />
             </IonFabButton>
             <IonFabList side="start">
-              <IonFabButton><IonIcon color={AppColor.TERTIARY} icon={search} onClick={() => setModalExpensesSearchShow(true)} /></IonFabButton>
+              <IonFabButton 
+                onClick={() => [setModalExpensesSearchShow(true), setExpenseTypeByStatusActive(userProfileServer.userId)]}>
+                <IonIcon
+                  color={AppColor.TERTIARY}
+                  icon={search}
+                 />
+              </IonFabButton>
               {/* <IonFabButton><IonIcon color={AppColor.SUCCESS} icon={add} onClick={() => setShowAddRecordModal(true)} /></IonFabButton> */}
             </IonFabList>
-          </IonFab>
+          </IonFab>}
         </IonToolbar>
         <IonToolbar>
             <LsTransition
@@ -161,9 +166,9 @@ export default connect<{}, StateProps, DispatchProps> ({
     userProfileServer: selectorsSessions.getUserProfileServer(state),
   }),
   mapDispatchToProps: ({
-    setExpensesTimeTransition,
     setExpenses,
     setModalExpensesSearchShow,
+    setExpenseTypeByStatusActive,
   }),
   component: React.memo(ExpensesPage)
 });

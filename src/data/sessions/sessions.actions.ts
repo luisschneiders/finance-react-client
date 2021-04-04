@@ -84,6 +84,7 @@ export const setTransactionsTimeTransition = (transactionsTimeTransition: Period
 export type SessionsActions =
   | ActionType<typeof setMenuEnabled>
   | ActionType<typeof setUserProfileServer>
+  // TODO: review the need of this actions
   | ActionType<typeof setHomeTimeTransition>
   | ActionType<typeof setExpensesTimeTransition>
   | ActionType<typeof setTransactionsTimeTransition>

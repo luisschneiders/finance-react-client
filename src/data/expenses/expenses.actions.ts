@@ -7,7 +7,7 @@ import { fetchExpensesData } from './data';
 const setExpensesAction = (data: Expenses) => {
   return ({
     type: EXPENSES_SET,
-    data
+    payload: data
   } as const);
 }
 

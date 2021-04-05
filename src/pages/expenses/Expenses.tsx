@@ -95,7 +95,8 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
             </IonFabButton>
             <IonFabList side="start">
               <IonFabButton 
-                onClick={() => [setModalExpensesSearchShow(true), setExpenseTypeByStatusActive(userProfileServer.userId)]}>
+                onClick={() => [setModalExpensesSearchShow(true), setExpenseTypeByStatusActive(userProfileServer.userId)]}
+              >
                 <IonIcon
                   color={AppColor.TERTIARY}
                   icon={search}
@@ -106,10 +107,10 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
           </IonFab>}
         </IonToolbar>
         <IonToolbar>
-            <LsTransition
-              period={period}
-              setPeriod={setPeriod}
-            />
+          <LsTransition
+            period={period}
+            setPeriod={setPeriod}
+          />
         </IonToolbar>
       </IonHeader>
       <LsMainExpenses />

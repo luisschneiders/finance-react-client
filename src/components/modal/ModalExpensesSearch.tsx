@@ -20,7 +20,11 @@ import * as selectorsModal from '../../data/modal/modal.selectors';
 import * as selectorsExpenseType from '../../data/expenseType/expenseType.selectors';
 import { setModalExpensesSearchShow } from '../../data/modal/modal.actions';
 import * as MOMENT  from '../../util/moment';
-import { dateFormatYYYYMMDD, endPeriod, startPeriod } from '../../util/moment';
+import {
+  dateFormatYYYYMMDD,
+  endPeriod,
+  startPeriod
+} from '../../util/moment';
 import { Period } from '../../models/Period';
 import { ExpenseTypeStatusActive } from '../../models/ExpenseType';
 import * as ROUTES  from '../../constants/Routes';

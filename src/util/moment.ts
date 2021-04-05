@@ -8,45 +8,45 @@ export const now = moment();
 export const currentYearYYYY: string = moment().format('YYYY');
 export const currentMonthYYYMMDD: string = moment().format('YYYY-MM-DD');
 
-export const startPeriod = (date: string) => {
-  return moment(date).startOf('month').format('YYYY-MM-DD');
+export const startPeriod = (date: string, monthOrYear: any = 'month') => {
+  return moment(date).startOf(monthOrYear).format('YYYY-MM-DD');
 };
-export const endPeriod = (date: string) => {
-  return moment(date).endOf('month').format('YYYY-MM-DD');
-};
-
-export const subtractStartPeriod = (date: string) => {
-  return moment(date).subtract(1, 'months').startOf('month').format('YYYY-MM-DD');
-};
-export const subtractEndPeriod = (date: string) => {
-  return moment(date).subtract(1, 'months').endOf('month').format('YYYY-MM-DD');
+export const endPeriod = (date: string, monthOrYear: any = 'month') => {
+  return moment(date).endOf(monthOrYear).format('YYYY-MM-DD');
 };
 
-export const addStartPeriod = (date: string) => {
-  return moment(date).add(1, 'months').startOf('month').format('YYYY-MM-DD');
+export const subtractStartPeriod = (date: string, monthOrYear: any = 'month') => {
+  return moment(date).subtract(1, monthOrYear).startOf(monthOrYear).format('YYYY-MM-DD');
 };
-export const addEndPeriod = (date: string) => {
-  return moment(date).add(1, 'months').endOf('month').format('YYYY-MM-DD');
+export const subtractEndPeriod = (date: string, monthOrYear: any = 'month') => {
+  return moment(date).subtract(1, monthOrYear).endOf(monthOrYear).format('YYYY-MM-DD');
 };
 
-export const decreasePeriod = (period: Period) => {
+export const addStartPeriod = (date: string, monthOrYear: any = 'month') => {
+  return moment(date).add(1, monthOrYear).startOf(monthOrYear).format('YYYY-MM-DD');
+};
+export const addEndPeriod = (date: string, monthOrYear: any = 'month') => {
+  return moment(date).add(1, monthOrYear).endOf(monthOrYear).format('YYYY-MM-DD');
+};
+
+export const decreasePeriod = (period: Period, monthOrYear: any = 'month') => {
   return {
-    startDate: subtractStartPeriod(period.startDate),
-    endDate: subtractEndPeriod(period.endDate),
+    startDate: subtractStartPeriod(period.startDate, monthOrYear),
+    endDate: subtractEndPeriod(period.endDate, monthOrYear),
   };
 };
 
-export const increasePeriod = (period: Period) => {
+export const increasePeriod = (period: Period, monthOrYear: any = 'month') => {
   return {
-    startDate: addStartPeriod(period.startDate),
-    endDate: addEndPeriod(period.endDate),
+    startDate: addStartPeriod(period.startDate, monthOrYear),
+    endDate: addEndPeriod(period.endDate, monthOrYear),
   };
 };
 
-export const currentPeriod = () => {
+export const currentPeriod = (monthOrYear: any = 'month') => {
   return {
-    startDate: startPeriod(currentMonthYYYMMDD),
-    endDate: endPeriod(currentMonthYYYMMDD),
+    startDate: startPeriod(currentMonthYYYMMDD, monthOrYear),
+    endDate: endPeriod(currentMonthYYYMMDD, monthOrYear),
   };
 };
 

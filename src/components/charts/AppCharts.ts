@@ -152,16 +152,16 @@ export const setBanksChart = (data: any[]) => {
   };
 }
 
-export const setDailyTransactionsChart = (data: any[]) => {
-  const isLeap = isLeapYear(data[1]);
+export const setDailyTransactionsChart = (data: any, year: string) => {
+  const isLeap = isLeapYear(parseInt(year));
   const days = isLeap === true ? 366 : 365;
 
-  const transactionsData: any = data[0].map((value: any) => {
+  const transactionsData: any = data.map((value: any) => {
     return (value.TotalAmountByLabel / days).toFixed(2);
   });
 
-  const transactionsLabel: any = transactionTypeLabel(data[0]);
-  const horizontalChartColoursBackground: any = chartColoursBackground(data[0]);
+  const transactionsLabel: any = transactionTypeLabel(data);
+  const horizontalChartColoursBackground: any = chartColoursBackground(data);
 
   return {
     Data: {

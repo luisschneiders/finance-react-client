@@ -34,10 +34,14 @@ const LsMainModal: React.FC<ModalProps> = (props: ModalProps) => {
           <IonListHeader>
             <IonTitle>{props.title}</IonTitle>
             <IonFab vertical="center" horizontal="end">
-              <IonFabButton color={AppColor.LIGHT} size="small" title="Close">
+              <IonFabButton
+                title="Close"
+                size="small"
+                color={AppColor.LIGHT}
+                onClick={() => props.closeModal()}
+              >
                 <IonIcon
                   icon={closeSharp}
-                  onClick={() => props.closeModal()}
                   size="small"
                 />
               </IonFabButton>

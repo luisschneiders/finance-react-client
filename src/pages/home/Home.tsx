@@ -13,27 +13,43 @@ import {
 import './Home.scss';
 import { connect } from '../../data/connect';
 import * as selectorsUser from '../../data/user/user.selectors';
+import * as selectorsSessions from '../../data/sessions/sessions.selectors';
 import LsAppSummary from '../../components/summary/AppSummary';
 import LsGroupThumbnail from '../../components/list/GroupThumbnail';
 import { News } from '../../models/News';
 import * as selectorsNews from '../../data/news/news.selectors';
 import { setNews } from '../../data/news/news.actions';
+import LsTransition from '../../components/time/Transition';
+import * as MOMENT  from '../../util/moment';
+import { Period } from '../../models/Period';
+import { endPeriod, startPeriod } from '../../util/moment';
+import { UserProfileServer } from '../../models/UserProfileServer';
+import { setAppSummary } from '../../data/summary/summary.actions';
+import LsMainChip from '../../components/chip/MainChip';
+import { StatusColor } from '../../enum/StatusColor';
 
 interface StateProps {
   isLoggedIn: boolean;
+  userProfileServer: UserProfileServer;
   news: News | null;
 }
 interface DispatchProps {
-  setNews: typeof setNews;
+  setAppSummary: typeof setAppSummary;
+  // setNews: typeof setNews;
 }
 interface HomeProps extends StateProps, DispatchProps {}
 
 const HomePage: React.FC<HomeProps> = ({
     isLoggedIn,
+    userProfileServer,
     news,
-    setNews
-  }) => {
-
+    setAppSummary,
+    // setNews,
+}) => {
+  const [period, setPeriod] = useState<Period>({
+    startDate: startPeriod(MOMENT.currentYearYYYY, 'year'),
+    endDate: endPeriod(MOMENT.currentYearYYYY, 'year'),
+  });
   const [isError, setError] = useState<boolean>(false);
   const [isNewsError, setNewsError] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -42,7 +58,8 @@ const HomePage: React.FC<HomeProps> = ({
   useEffect(() => {
     setIsLoaded(true);
 
-    if (isLoggedIn) {
+    if (isLoggedIn && userProfileServer) {
+      setAppSummary(userProfileServer.userId, parseInt(period.startDate));
       setNews();
       setError(false);
       setTimeout(() => {
@@ -62,8 +79,11 @@ const HomePage: React.FC<HomeProps> = ({
 
   },[
     isLoggedIn,
+    userProfileServer,
     news,
-    setNews,
+    period,
+    setAppSummary,
+    // setNews,
   ]);
 
   return (
@@ -75,16 +95,22 @@ const HomePage: React.FC<HomeProps> = ({
           </IonButtons>
           <IonTitle>Home</IonTitle>
         </IonToolbar>
+        <IonToolbar>
+          <LsTransition
+            monthOrYear="year"
+            period={period}
+            setPeriod={setPeriod}
+          />
+        </IonToolbar>
       </IonHeader>
       <IonLoading message="Fetching data..." duration={0} isOpen={isLoaded}></IonLoading>
       <IonContent>
-        {isError && <IonList>
-          <p className="ion-text-center">Something went wrong! <span role="img" aria-label="sad-face">😢</span></p>
-          <p className="ion-text-center">Please try again!</p>
+        {isError && <IonList className="ion-text-center">
+          <LsMainChip text="Something went wrong! 😢" color={StatusColor.ERROR} />
         </IonList>}
         {!isError && <LsAppSummary />}
-        {isNewsError && <IonList>
-          <p className="ion-text-center">No news found! <span role="img" aria-label="sad-face">😢</span></p>
+        {isNewsError && <IonList className="ion-text-center">
+          <LsMainChip text="No news found!" color={StatusColor.ERROR} />
         </IonList>}
         {newsList && <LsGroupThumbnail data={newsList} groupBy="category"></LsGroupThumbnail>}
       </IonContent>
@@ -95,10 +121,12 @@ const HomePage: React.FC<HomeProps> = ({
 export default connect<{}, StateProps, DispatchProps>({
   mapStateToProps: (state) => ({
     isLoggedIn: selectorsUser.getIsLoggedIn(state),
+    userProfileServer: selectorsSessions.getUserProfileServer(state),
     news: selectorsNews.getNewsByGroup(state),
   }),
   mapDispatchToProps: ({
-    setNews,
+    setAppSummary,
+    // setNews,
   }),
   component: React.memo(HomePage)
 });

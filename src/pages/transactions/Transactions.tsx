@@ -97,7 +97,10 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
               <IonFabButton
                 onClick={() => [setModalTransactionsSearchShow(true), setTransactionTypeByStatusActive(userProfileServer.userId)]}
               >
-                <IonIcon color={AppColor.TERTIARY} icon={search} />
+                <IonIcon
+                  color={AppColor.TERTIARY}
+                  icon={search}
+                />
               </IonFabButton>
               {/* <IonFabButton><IonIcon color={AppColor.SUCCESS} icon={add} /></IonFabButton> */}
             </IonFabList>
@@ -105,8 +108,9 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
         </IonToolbar>
         <IonToolbar>
           <LsTransition
-              period={period}
-              setPeriod={setPeriod}
+            monthOrYear='month'
+            period={period}
+            setPeriod={setPeriod}
           />
         </IonToolbar>
       </IonHeader>

@@ -100,7 +100,7 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
                 <IonIcon
                   color={AppColor.TERTIARY}
                   icon={search}
-                 />
+                />
               </IonFabButton>
               {/* <IonFabButton><IonIcon color={AppColor.SUCCESS} icon={add} onClick={() => setShowAddRecordModal(true)} /></IonFabButton> */}
             </IonFabList>
@@ -108,6 +108,7 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
         </IonToolbar>
         <IonToolbar>
           <LsTransition
+            monthOrYear="month"
             period={period}
             setPeriod={setPeriod}
           />

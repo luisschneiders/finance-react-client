@@ -43,8 +43,6 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
   summary,
   }) => {
 
-  const [currentYear, setCurrentYear] = useState<string>('0');
-  const [hasSummary, setHasSummary] = useState<boolean>(false);
   const [transactionsData, setTransactionsData] = useState<any>();
   const [incomeOutcomeData, setIncomeOutcomeData] = useState<any>();
   const [banksData, setBanksData] = useState<any>();
@@ -101,8 +99,6 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
     isLoggedIn,
     userProfileServer,
     summary,
-    hasSummary,
-    currentYear,
   ]);
 
   return (

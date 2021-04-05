@@ -1,4 +1,4 @@
-import { TransactionType, TransactionTypeList } from '../../models/TransactionType';
+import { TransactionType, TransactionTypeList, TransactionTypeStatusActive } from '../../models/TransactionType';
 import * as ROUTES from '../../constants/Routes';
 import { toast } from '../../components/toast/Toast';
 import { StatusColor } from '../../enum/StatusColor';
@@ -41,6 +41,48 @@ export function fetchTransactionTypeList(id: number, page: number, pageSize: num
             const transactionTypeList: TransactionTypeList = {
               transactionsType: [],
               pagination: {page: 1, pageSize: PageSize.S_12, pageCount: 0, rowCount: 0}
+            };
+
+            toast(`Code: ${resStatus} -> ${error}`, StatusColor.ERROR, 4000);
+
+            return transactionTypeList;
+          });
+}
+
+export function fetchTransactionTypeStatusActive(userId: number) {
+  let resStatus: any = null;
+
+  return fetch(`${ROUTES.SERVER}/get-active-transactions-type/transactionTypeInsertedBy=${userId}`)
+          .then(response => {
+            resStatus = response.status;
+            return response.json()
+          })
+          .then((result: TransactionTypeStatusActive) => {
+
+            const transactionsTypeMap: TransactionType[] = [];
+            result.transactionsType.forEach((item: any) => {
+              const transactionsType: TransactionType = {
+                transactionTypeId: item.id,
+                transactionTypeDescription: item.transactionTypeDescription,
+                transactionTypeAction: item.transactionTypeAction,
+                transactionTypeIsActive: item.transactionTypeIsActive === 0 ? false : true,
+                transactionTypeInsertedBy: item.transactionTypeInsertedBy,
+                transactionTypeCreatedAt: item.created_at,
+                transactionTypeUpdatedAt: item.updated_at,
+              };
+              transactionsTypeMap.push(transactionsType);
+            });
+
+            const transactionTypeList: TransactionTypeStatusActive = {
+              transactionsType: transactionsTypeMap,
+            };
+
+            return transactionTypeList;
+          },
+          (error) => {
+            // Assign initial state as response
+            const transactionTypeList: TransactionTypeStatusActive = {
+              transactionsType: [],
             };
 
             toast(`Code: ${resStatus} -> ${error}`, StatusColor.ERROR, 4000);

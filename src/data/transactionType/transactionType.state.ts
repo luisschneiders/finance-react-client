@@ -6,6 +6,9 @@ export interface TransactionTypeListState {
     transactionsType: TransactionType[];
     pagination: Pagination;
   };
+  transactionTypeStatusActive: {
+    transactionsType: TransactionType[];
+  }
   transactionType: TransactionType;
   isFetching: boolean;
   isSaving: boolean;

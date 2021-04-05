@@ -5,6 +5,7 @@ import {
   TRANSACTION_TYPE_IS_SAVING,
   TRANSACTION_TYPE_UPDATE,
   TRANSACTION_TYPE_BY_ID_SET,
+  TRANSACTION_TYPE_STATUS_ACTIVE_SET,
 } from '../actionTypes';
 import { TransactionTypeAction } from './transactionType.actions';
 import { TransactionTypeListState } from './transactionType.state';
@@ -37,6 +38,13 @@ export const transactionTypeReducer = (state: TransactionTypeListState, action: 
         transactionTypeList: {
           transactionsType: [...state.transactionTypeList.transactionsType, ...action.payload.transactionsType],
           pagination: {...state.transactionTypeList.pagination, ...action.payload.pagination},
+        }
+      }
+    case TRANSACTION_TYPE_STATUS_ACTIVE_SET:
+      return {
+        ...state,
+        transactionTypeStatusActive: {
+          transactionsType: [...state.transactionTypeList.transactionsType, ...action.payload.transactionsType],
         }
       }
     case TRANSACTION_TYPE_BY_ID_SET:

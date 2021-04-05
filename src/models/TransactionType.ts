@@ -14,3 +14,7 @@ export interface TransactionTypeList {
   transactionsType: TransactionType[];
   pagination: Pagination;
 }
+
+export interface TransactionTypeStatusActive {
+  transactionsType: TransactionType[];
+}

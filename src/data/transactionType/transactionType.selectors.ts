@@ -1,8 +1,13 @@
 import { createSelector } from 'reselect';
-import { TransactionType, TransactionTypeList } from '../../models/TransactionType';
+import {
+  TransactionType,
+  TransactionTypeList,
+  TransactionTypeStatusActive
+} from '../../models/TransactionType';
 import { AppState } from '../app/app.state';
 
 const getTransactionTypeListData = (state: AppState) => state.transactionTypeReducer.transactionTypeList;
+const getTransactionTypeStatusActiveData = (state: AppState) => state.transactionTypeReducer.transactionTypeStatusActive;
 const getTransactionTypeData = (state: AppState) => state.transactionTypeReducer.transactionType;
 const isFetchingTransactionTypeListData = (state: AppState) => state.transactionTypeReducer.isFetching;
 const isSavingTransactionTypeData = (state: AppState) => state.transactionTypeReducer.isSaving;
@@ -14,6 +19,13 @@ export const getTransactionTypeList = createSelector(
   getTransactionTypeListData,
   (transactionTypeList: TransactionTypeList) => {
     return transactionTypeList;
+  }
+);
+
+export const getTransactionTypeStatusActive = createSelector(
+  getTransactionTypeStatusActiveData,
+  (transactionTypeStatusActive: TransactionTypeStatusActive) => {
+    return transactionTypeStatusActive;
   }
 );
 

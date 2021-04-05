@@ -1,18 +1,25 @@
 import {
   TransactionType,
-  TransactionTypeList
+  TransactionTypeList,
+  TransactionTypeStatusActive
 } from '../../models/TransactionType';
 
 import {
   fetchTransactionTypeList,
   addTransactionType,
   updateTransactionType,
-  fetchTransactionTypeById
+  fetchTransactionTypeById,
+  fetchTransactionTypeStatusActive
 } from '../api/TransactionType';
 
 export const fetchTransactionTypeData = async (id: number, page: number, pageSize: number) => {
   const response: any = await fetchTransactionTypeList(id, page, pageSize);
   return response as TransactionTypeList;
+}
+
+export const fetchTransactionTypeStatusActiveData = async (userId: number) => {
+  const response: any = await fetchTransactionTypeStatusActive(userId);
+  return response as TransactionTypeStatusActive;
 }
 
 export const fetchTransactionTypeByIdData = async (userId: number, transactionTypeId: number) => {

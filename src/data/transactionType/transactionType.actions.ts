@@ -1,4 +1,4 @@
-import { TransactionType, TransactionTypeList } from '../../models/TransactionType';
+import { TransactionType, TransactionTypeList, TransactionTypeStatusActive } from '../../models/TransactionType';
 import { ActionType } from '../../util/types';
 import {
   TRANSACTION_TYPE_ADD,
@@ -7,12 +7,14 @@ import {
   TRANSACTION_TYPE_IS_SAVING,
   TRANSACTION_TYPE_UPDATE,
   TRANSACTION_TYPE_BY_ID_SET,
+  TRANSACTION_TYPE_STATUS_ACTIVE_SET,
 } from '../actionTypes';
 import {
   fetchTransactionTypeData,
   addTransactionTypeData,
   updateTransactionTypeData,
-  fetchTransactionTypeByIdData
+  fetchTransactionTypeByIdData,
+  fetchTransactionTypeStatusActiveData
 } from './data';
 
 const saveTransactionTypeAction = (data: TransactionType) => {
@@ -32,6 +34,13 @@ const updateTransactionTypeAction = (data: TransactionType) => {
 const setTransactionTypeListAction = (data: TransactionTypeList) => {
   return ({
     type: TRANSACTION_TYPE_LIST_SET,
+    payload: data
+  } as const);
+}
+
+const setTransactionTypeByStatusActiveAction = (data: TransactionTypeStatusActive) => {
+  return ({
+    type: TRANSACTION_TYPE_STATUS_ACTIVE_SET,
     payload: data
   } as const);
 }
@@ -79,6 +88,15 @@ export const setTransactionTypeById = (userId: number, transactionTypeId: number
   return setTransactionTypeByIdAction(data);
 }
 
+export const setTransactionTypeByStatusActive = (userId: number) => async (dispatch: React.Dispatch<any>) => {
+
+  dispatch(isFetchingTransactionTypeListAction(true));
+  const data = await fetchTransactionTypeStatusActiveData(userId);
+  dispatch(isFetchingTransactionTypeListAction(false));
+
+  return setTransactionTypeByStatusActiveAction(data);
+}
+
 export const addTransactionType = (data: Partial<TransactionType>) => async (dispatch: React.Dispatch<any>) => {
   dispatch(isSavingTransactionTypeAction(true));
   const transactionType = await addTransactionTypeData(data);
@@ -95,6 +113,7 @@ export type TransactionTypeAction =
   | ActionType<typeof addTransactionType>
   | ActionType<typeof updateTransactionType>
   | ActionType<typeof setTransactionTypeList>
+  | ActionType<typeof setTransactionTypeByStatusActive>
   | ActionType<typeof setTransactionTypeById>
   | ActionType<typeof isFetchingTransactionTypeList>
   | ActionType<typeof isSavingTransactionType>

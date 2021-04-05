@@ -82,6 +82,7 @@ export const initialState: AppState = {
     isShowModalBank: false,
     isShowModalExpensesSearch: false,
     isShowModalExpenseType: false,
+    isShowModalTransactionsSearch: false,
     isShowModalTransactionType: false,
     isShowModalUserType: false,
     isShowModalVehicle: false,
@@ -90,6 +91,9 @@ export const initialState: AppState = {
     transactionTypeList: {
       transactionsType: [],
       pagination: { page: 1, pageSize: PageSize.S_12, pageCount: 0, rowCount: 0 },
+    },
+    transactionTypeStatusActive: {
+      transactionsType: [],
     },
     transactionType: {
       transactionTypeId: 0,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Transactions.scss';
 import {
   IonButtons,
@@ -13,36 +13,33 @@ import {
   IonToolbar
 } from '@ionic/react';
 import { connect } from '../../data/connect';
-import LsTimeTransition from '../../components/time/TimeTransition';
 import {
-  addEndPeriod,
-  addStartPeriod,
-  dateFormatll,
   endPeriod,
   startPeriod,
-  subtractEndPeriod,
-  subtractStartPeriod
 } from '../../util/moment';
 import { Period } from '../../models/Period';
 import * as MOMENT  from '../../util/moment';
-import { setTransactionsTimeTransition } from '../../data/sessions/sessions.actions';
 import { UserProfileServer } from '../../models/UserProfileServer';
 import * as selectorsUser from '../../data/user/user.selectors';
 import * as selectorsSessions from '../../data/sessions/sessions.selectors';
 import { setTransactions } from '../../data/transactions/transactions.actions';
 import LsMainTransactions from '../../components/transactions/MainTransactions';
-import { add, ellipsisVertical, search } from 'ionicons/icons';
+import { ellipsisVertical, search } from 'ionicons/icons';
 import { AppColor } from '../../enum/AppColor';
+import LsTransition from '../../components/time/Transition';
+import { setModalTransactionsSearchShow } from '../../data/modal/modal.actions';
+import { setTransactionTypeByStatusActive } from '../../data/transactionType/transactionType.actions';
+import LsModalTransactionsSearch from '../../components/modal/ModalTransactionsSearch';
 
 interface StateProps {
   isLoggedIn: boolean;
   userProfileServer: UserProfileServer;
-  transactionsTimeTransition: Period;
 }
 
 interface DispatchProps {
-  setTransactionsTimeTransition: typeof setTransactionsTimeTransition;
   setTransactions: typeof setTransactions;
+  setModalTransactionsSearchShow: typeof setModalTransactionsSearchShow;
+  setTransactionTypeByStatusActive: typeof setTransactionTypeByStatusActive;
 }
 
 interface TransactionsProps extends StateProps, DispatchProps {}
@@ -50,49 +47,39 @@ interface TransactionsProps extends StateProps, DispatchProps {}
 const TransactionsPage: React.FC<TransactionsProps> = ({
   isLoggedIn,
   userProfileServer,
-  transactionsTimeTransition,
-  setTransactionsTimeTransition,
   setTransactions,
+  setModalTransactionsSearchShow,
+  setTransactionTypeByStatusActive,
+
 }) => {
   const [period, setPeriod] = useState<Period>({
     startDate: startPeriod(MOMENT.currentMonthYYYMMDD),
     endDate: endPeriod(MOMENT.currentMonthYYYMMDD),
   });
 
+  const [isCustomSearch, setIsCustomSearch] = useState<boolean>(false);
+  const [customPeriod, setCustomPeriod] = useState<Period>(period);
   const [params, setParams] = useState<string>('all');
-  
-  const decreasePeriod = (date: Period = period) => {
-    const newDate: Period = Object.assign({}, {
-      startDate: subtractStartPeriod(date.startDate),
-      endDate: subtractEndPeriod(date.endDate),
-    });
-    setPeriod(newDate);
-    setTransactionsTimeTransition(newDate);
-  };
 
-  const increasePeriod = (date: Period = period) => {
-    const newDate: Period = Object.assign({}, {
-      startDate: addStartPeriod(date.startDate),
-      endDate: addEndPeriod(date.endDate),
-    });
-    setPeriod(newDate);
-    setTransactionsTimeTransition(newDate);
-  };
-
-  const currentPeriod = () => {
-    const newDate: Period = Object.assign({}, {
-      startDate: startPeriod(MOMENT.currentMonthYYYMMDD),
-      endDate: endPeriod(MOMENT.currentMonthYYYMMDD),
-    });
-    setPeriod(newDate);
-    setTransactionsTimeTransition(newDate);
-  };
-
-  if (isLoggedIn && userProfileServer) {
-    if (period !== transactionsTimeTransition) {
-      setTransactions(userProfileServer.userId, period, params);
+  useEffect(() => {
+    if (isLoggedIn && userProfileServer) {
+      if (!isCustomSearch) {
+        setTransactions(userProfileServer.userId, period, params);
+      } else {
+        setIsCustomSearch(false);
+        setPeriod(customPeriod);
+      }
     }
-  }
+  }, [
+    isLoggedIn,
+    userProfileServer,
+    params,
+    period,
+    isCustomSearch,
+    customPeriod,
+    setTransactions,
+    setTransactionTypeByStatusActive,
+  ]);
 
   return (
     <IonPage id="transactions-page">
@@ -102,25 +89,33 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
             <IonMenuButton auto-hide="true"></IonMenuButton>
           </IonButtons>
           <IonTitle>Transactions</IonTitle>
-          <IonFab vertical="center" horizontal="end">
+          {(isLoggedIn && userProfileServer) && <IonFab vertical="center" horizontal="end">
             <IonFabButton color={AppColor.TERTIARY} size="small">
               <IonIcon icon={ellipsisVertical} />
             </IonFabButton>
             <IonFabList side="start">
-              <IonFabButton><IonIcon color={AppColor.TERTIARY} icon={search} /></IonFabButton>
-              <IonFabButton><IonIcon color={AppColor.SUCCESS} icon={add} /></IonFabButton>
+              <IonFabButton
+                onClick={() => [setModalTransactionsSearchShow(true), setTransactionTypeByStatusActive(userProfileServer.userId)]}
+              >
+                <IonIcon color={AppColor.TERTIARY} icon={search} />
+              </IonFabButton>
+              {/* <IonFabButton><IonIcon color={AppColor.SUCCESS} icon={add} /></IonFabButton> */}
             </IonFabList>
-          </IonFab>
+          </IonFab>}
         </IonToolbar>
         <IonToolbar>
-          <LsTimeTransition
-            formatPeriod={`${dateFormatll(period.startDate)} - ${dateFormatll(period.endDate)}`}
-            decreasePeriod={decreasePeriod}
-            currentPeriod={currentPeriod}
-            increasePeriod={increasePeriod} />
+          <LsTransition
+              period={period}
+              setPeriod={setPeriod}
+          />
         </IonToolbar>
       </IonHeader>
-      <LsMainTransactions></LsMainTransactions>
+      <LsMainTransactions />
+      <LsModalTransactionsSearch
+        setIsCustomSearch={setIsCustomSearch}
+        setCustomPeriod={setCustomPeriod}
+        setParams={setParams}
+      />
     </IonPage>
   );
 };
@@ -129,11 +124,11 @@ export default connect<{}, StateProps, DispatchProps> ({
   mapStateToProps: (state) => ({
     isLoggedIn: selectorsUser.getIsLoggedIn(state),
     userProfileServer: selectorsSessions.getUserProfileServer(state),
-    transactionsTimeTransition: selectorsSessions.getTransactionsTimeTransition(state),
   }),
   mapDispatchToProps: ({
-    setTransactionsTimeTransition,
     setTransactions,
+    setModalTransactionsSearchShow,
+    setTransactionTypeByStatusActive,
   }),
   component: React.memo(TransactionsPage)
 });

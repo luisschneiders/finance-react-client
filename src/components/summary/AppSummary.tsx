@@ -18,39 +18,29 @@ import {
   setBanksChart,
   setDailyTransactionsChart,
 } from '../charts/AppCharts';
+import * as selectorsUser from '../../data/user/user.selectors';
 import * as selectorsSummary from '../../data/summary/summary.selectors';
 import * as selectorsSessions from '../../data/sessions/sessions.selectors';
-import {
-  setAppSummary
-} from '../../data/summary/summary.actions';
 import { UserProfileServer } from '../../models/UserProfileServer';
 import LsMainCard from '../card/MainCard';
 import { StatusColor } from '../../enum/StatusColor';
 import LsMainChip from '../chip/MainChip';
 import { AppColor } from '../../enum/AppColor';
-import { setHomeTimeTransition } from '../../data/sessions/sessions.actions';
-import * as MOMENT  from '../../util/moment';
 import { dateFormatYYYY } from '../../util/moment';
-import LsTimeTransition from '../time/TimeTransition';
 
 interface StateProps {
+  isLoggedIn: boolean;
   userProfileServer: UserProfileServer;
-  homeTimeTransition: string;
   summary: any;
 }
-interface DispatchProps {
-  setHomeTimeTransition: typeof setHomeTimeTransition;
-  setAppSummary: typeof setAppSummary;
-}
+interface DispatchProps {}
 
 interface AppSummaryProps extends StateProps, DispatchProps {}
 
 const LsAppSummary: React.FC<AppSummaryProps> = ({
-    userProfileServer,
-    homeTimeTransition,
-    summary,
-    setAppSummary,
-    setHomeTimeTransition
+  isLoggedIn,
+  userProfileServer,
+  summary,
   }) => {
 
   const [currentYear, setCurrentYear] = useState<string>('0');
@@ -60,26 +50,17 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
   const [banksData, setBanksData] = useState<any>();
   const [dailyTransactionsData, setDailyTransactionsData] = useState<any>();
 
-  const [period, setPeriod] = useState<string>(MOMENT.currentYearYYYY);
-
   useEffect(() => {
-    if (userProfileServer) {
-      if (!hasSummary || (parseInt(currentYear) !== parseInt(homeTimeTransition))) {
-        setAppSummary(userProfileServer.userId, parseInt(period));
-        setHasSummary(true);
-        setCurrentYear(homeTimeTransition);
-      } else {
-        setTransactionsData({ labels: [], datasets: [] });
-        setIncomeOutcomeData({ labels: [], datasets: [] });
-        setBanksData({ labels: [], datasets: [] });
-        setDailyTransactionsData({ labels: [], datasets: [] });
-      }
+
+    if (isLoggedIn && userProfileServer) {
 
       if (summary && summary.incomesOutcomesTransfers.length > 0) {
         const pieChart: any = setTransactionsChart(summary.incomesOutcomesTransfers);
         if (pieChart && pieChart.Data) {
           setTransactionsData(pieChart.Data);
         }
+      } else {
+        setTransactionsData({ labels: [], datasets: [] });
       }
 
       if (summary && (summary.purchases.length > 0 || summary.transactions.length > 0)) {
@@ -87,6 +68,8 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
         if (barChart.Data) {
           setIncomeOutcomeData(barChart.Data);
         }
+      } else {
+        setIncomeOutcomeData({ labels: [], datasets: [] });
       }
 
       if (summary && summary.banks.length > 0) {
@@ -94,53 +77,36 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
         if (doughnutChart && doughnutChart.Data) {
           setBanksData(doughnutChart.Data);
         }
+      } else {
+        setBanksData({ labels: [], datasets: [] });
       }
 
       if (summary && summary.incomesOutcomesTransfers.length > 0) {
-        const horizontalBarChart: any = setDailyTransactionsChart([summary.incomesOutcomesTransfers, homeTimeTransition]);
+        const horizontalBarChart: any = setDailyTransactionsChart(
+          summary.incomesOutcomesTransfers,
+          // Get the year selected from any transaction type.
+          // E.g.: Income, Outcome or Transfer
+          dateFormatYYYY(summary.incomesOutcomesTransfers[0].transactionDate ||
+                         summary.incomesOutcomesTransfers[1].transactionDate ||
+                         summary.incomesOutcomesTransfers[3].transactionDate ));
         if (horizontalBarChart && horizontalBarChart.Data) {
           setDailyTransactionsData(horizontalBarChart.Data);
         }
+      } else {
+        setDailyTransactionsData({ labels: [], datasets: [] });
       }
     }
 
-
   }, [
+    isLoggedIn,
     userProfileServer,
-    homeTimeTransition,
     summary,
-    setAppSummary,
     hasSummary,
     currentYear,
-    period
   ]);
-
-  const decreasePeriod = (date: string = period) => {
-    let newDate: number = parseInt(date);
-    --newDate;
-    setPeriod(newDate.toString());
-    setHomeTimeTransition(newDate.toString());
-  };
-
-  const increasePeriod = (date: string = period) => {
-    let newDate: number = parseInt(date);
-    ++newDate;
-    setPeriod(newDate.toString());
-    setHomeTimeTransition(newDate.toString());
-  };
-
-  const currentPeriod = () => {
-    setPeriod(MOMENT.currentYearYYYY);
-    setHomeTimeTransition(MOMENT.currentYearYYYY);
-  };
 
   return (
     <IonGrid id="app-summary" className="ion-padding-top">
-      <LsTimeTransition
-          formatPeriod={`${dateFormatYYYY(period)}`}
-          decreasePeriod={decreasePeriod}
-          currentPeriod={currentPeriod}
-          increasePeriod={increasePeriod} />
       <IonRow className="min-height min-height--330">
         <IonCol size="12" size-sm="6">
           <LsMainChip color={AppColor.PRIMARY} text='Transactions' />
@@ -197,13 +163,10 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
 
 export default connect<{}, StateProps, DispatchProps> ({
   mapStateToProps: (state) => ({
+    isLoggedIn: selectorsUser.getIsLoggedIn(state),
     userProfileServer: selectorsSessions.getUserProfileServer(state),
-    homeTimeTransition: selectorsSessions.getHomeTimeTransition(state),
     summary: selectorsSummary.getSummary(state),
   }),
-  mapDispatchToProps: ({
-    setHomeTimeTransition,
-    setAppSummary,
-  }),
+  mapDispatchToProps: ({}),
   component: React.memo(LsAppSummary)
 });

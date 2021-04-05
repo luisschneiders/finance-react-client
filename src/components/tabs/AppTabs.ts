@@ -11,9 +11,9 @@ import * as ROUTES from '../../constants/Routes'
 
 export function appTabs() {
   const authenticated: AppPage[] = [
-    { url: ROUTES.TABS_HOME, label: '', icon: homeOutline },
-    { url: ROUTES.TABS_EXPENSES, label: '', icon: cartOutline },
-    { url: ROUTES.TABS_TRANSACTIONS, label: '', icon: cashOutline },
+    { url: ROUTES.TABS_HOME, label: 'Home', icon: homeOutline },
+    { url: ROUTES.TABS_EXPENSES, label: 'Expenses', icon: cartOutline },
+    { url: ROUTES.TABS_TRANSACTIONS, label: 'Transactions', icon: cashOutline },
   ];
 
   const unauthenticated: AppPage[] = [

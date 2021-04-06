@@ -1,4 +1,4 @@
-import { isLeapYear, dateFormatM } from '../../util/moment';
+import { isLeapYear, dateFormatM, dateFormatYYYY } from '../../util/moment';
 
 const transactionTypeLabel = (data: any[]) => {
   return data.map((value) => {
@@ -152,7 +152,12 @@ export const setBanksChart = (data: any[]) => {
   };
 }
 
-export const setDailyTransactionsChart = (data: any, year: string) => {
+export const setDailyTransactionsChart = (data: any) => {
+  // Get the year selected from any transaction type.
+  // E.g.: Income, Outcome or Transfer
+  // To know if it's a leap year.
+  const year = dateFormatYYYY(data[0].transactionDate || data[1].transactionDate || data[3].transactionDate );
+
   const isLeap = isLeapYear(parseInt(year));
   const days = isLeap === true ? 366 : 365;
 

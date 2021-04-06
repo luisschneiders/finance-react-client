@@ -80,13 +80,7 @@ const LsAppSummary: React.FC<AppSummaryProps> = ({
       }
 
       if (summary && summary.incomesOutcomesTransfers.length > 0) {
-        const horizontalBarChart: any = setDailyTransactionsChart(
-          summary.incomesOutcomesTransfers,
-          // Get the year selected from any transaction type.
-          // E.g.: Income, Outcome or Transfer
-          dateFormatYYYY(summary.incomesOutcomesTransfers[0].transactionDate ||
-                         summary.incomesOutcomesTransfers[1].transactionDate ||
-                         summary.incomesOutcomesTransfers[3].transactionDate ));
+        const horizontalBarChart: any = setDailyTransactionsChart(summary.incomesOutcomesTransfers);
         if (horizontalBarChart && horizontalBarChart.Data) {
           setDailyTransactionsData(horizontalBarChart.Data);
         }

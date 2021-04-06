@@ -22,7 +22,7 @@ interface StateProps {
 }
 
 const LsMainTabs: React.FC<StateProps> = ({isAuthenticated}) => {
-  function renderTabItems(tabs: AppPage[]) {
+  const renderTabItems = (tabs: AppPage[]) => {
     return tabs
       .filter(route => !!route.url)
       .map((tab, index) => (
@@ -37,9 +37,9 @@ const LsMainTabs: React.FC<StateProps> = ({isAuthenticated}) => {
     <IonTabs>
       <IonRouterOutlet>
         <Redirect path={ROUTES.TABS} to={ROUTES.TABS_HOME} exact={true} />
-        <Route path={ROUTES.TABS_HOME} render={() => <HomePage></HomePage>} exact={true} />
-        <Route path={ROUTES.TABS_EXPENSES} render={() => <ExpensesPage></ExpensesPage>} exact={true} />
-        <Route path={ROUTES.TABS_TRANSACTIONS} render={() => <TransactionsPage></TransactionsPage>} exact={true} />
+        <Route path={ROUTES.TABS_HOME} render={() => <HomePage />} exact={true} />
+        <Route path={ROUTES.TABS_EXPENSES} render={() => <ExpensesPage />} exact={true} />
+        <Route path={ROUTES.TABS_TRANSACTIONS} render={() => <TransactionsPage />} exact={true} />
         <Route path={`${ROUTES.TABS_NEWS_DETAILS}/:id`} component={NewsDetailsPage} />
         <Route path='/' render={() => <Redirect to={ROUTES.TABS_HOME} />} exact={true} />
       </IonRouterOutlet>

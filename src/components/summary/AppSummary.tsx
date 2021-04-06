@@ -26,7 +26,6 @@ import LsMainCard from '../card/MainCard';
 import { StatusColor } from '../../enum/StatusColor';
 import LsMainChip from '../chip/MainChip';
 import { AppColor } from '../../enum/AppColor';
-import { dateFormatYYYY } from '../../util/moment';
 
 interface StateProps {
   isLoggedIn: boolean;

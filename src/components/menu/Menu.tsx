@@ -39,7 +39,7 @@ interface MenuProps extends RouteComponentProps, StateProps, DispatchProps {}
 const LsMenu: React.FC<MenuProps> = ({darkMode, history, isAuthenticated, setDarkMode, menuEnabled}) => {
   const location = useLocation();
 
-  function renderMenuItems(pages: any[], menu: string) {
+  const renderMenuItems = (pages: any[], menu: string) => {
     return pages
       .filter(item => !!item.url && item.level === menu)
       .map((page, index, array) => {

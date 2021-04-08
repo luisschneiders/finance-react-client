@@ -112,7 +112,7 @@ const IonicApp: React.FC<IonicAppProps> = ({
     setResetAppStore,
   }) => {
 
-  const [busy, setBusy] = useState(true);
+  const [busy, setBusy] = useState<boolean>(true);
 
   useEffect(() => {
     getDarkMode();

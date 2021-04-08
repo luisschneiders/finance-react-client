@@ -6,6 +6,8 @@ export const ACCOUNT = '/account';
 
 export const DASHBOARD = '/dashboard';
 
+export const LOADING = '/loading';
+
 export const LOGIN = '/login';
 export const LOGOUT = '/logout';
 
@@ -23,9 +25,9 @@ export const SETUP_VEHICLE = `${SETUP}/vehicle`;
 
 export const TABS = '/tabs';
 
-export const TABS_HOME = `${TABS}/home`;
-
 export const TABS_EXPENSES = `${TABS}/expenses`;
+
+export const TABS_HOME = `${TABS}/home`;
 
 export const TABS_NEWS_DETAILS = `${TABS}/news-details`;
 

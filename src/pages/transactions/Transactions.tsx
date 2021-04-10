@@ -30,6 +30,7 @@ import LsTransition from '../../components/time/Transition';
 import { setModalTransactionsSearchShow } from '../../data/modal/modal.actions';
 import { setTransactionTypeByStatusActive } from '../../data/transactionType/transactionType.actions';
 import LsModalTransactionsSearch from '../../components/modal/ModalTransactionsSearch';
+import { useWindowSize } from '../../hooks/useWindowSize';
 
 interface StateProps {
   isLoggedIn: boolean;
@@ -52,6 +53,7 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
   setTransactionTypeByStatusActive,
 
 }) => {
+  const [height, width] = useWindowSize();
   const [period, setPeriod] = useState<Period>({
     startDate: startPeriod(MOMENT.currentMonthYYYMMDD),
     endDate: endPeriod(MOMENT.currentMonthYYYMMDD),
@@ -88,7 +90,12 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
           <IonButtons slot="start">
             <IonMenuButton auto-hide="true"></IonMenuButton>
           </IonButtons>
-          <IonTitle>Transactions</IonTitle>
+          {width <= 991 &&  <IonTitle>Transactions</IonTitle>}
+          {width > 991 && <LsTransition
+            monthOrYear='month'
+            period={period}
+            setPeriod={setPeriod}
+          />}
           {(isLoggedIn && userProfileServer) && <IonFab vertical="center" horizontal="end">
             <IonFabButton color={AppColor.TERTIARY} size="small">
               <IonIcon icon={ellipsisVertical} />
@@ -106,13 +113,13 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
             </IonFabList>
           </IonFab>}
         </IonToolbar>
-        <IonToolbar>
+        {width <= 991 && <IonToolbar>
           <LsTransition
             monthOrYear='month'
             period={period}
             setPeriod={setPeriod}
           />
-        </IonToolbar>
+        </IonToolbar>}
       </IonHeader>
       <LsMainTransactions />
       <LsModalTransactionsSearch

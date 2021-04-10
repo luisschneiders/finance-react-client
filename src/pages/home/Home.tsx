@@ -9,6 +9,8 @@ import {
   IonMenuButton,
   IonList,
   IonLoading,
+  getPlatforms,
+  isPlatform,
 } from '@ionic/react';
 import './Home.scss';
 import { connect } from '../../data/connect';
@@ -27,6 +29,7 @@ import { UserProfileServer } from '../../models/UserProfileServer';
 import { setAppSummary } from '../../data/summary/summary.actions';
 import LsMainChip from '../../components/chip/MainChip';
 import { StatusColor } from '../../enum/StatusColor';
+import { useWindowSize } from '../../hooks/useWindowSize';
 
 interface StateProps {
   isLoggedIn: boolean;
@@ -46,6 +49,7 @@ const HomePage: React.FC<HomeProps> = ({
     setAppSummary,
     // setNews,
 }) => {
+  const [height, width] = useWindowSize();
   const [period, setPeriod] = useState<Period>({
     startDate: startPeriod(MOMENT.currentYearYYYY, 'year'),
     endDate: endPeriod(MOMENT.currentYearYYYY, 'year'),
@@ -93,15 +97,20 @@ const HomePage: React.FC<HomeProps> = ({
           <IonButtons slot="start">
             <IonMenuButton auto-hide="true"></IonMenuButton>
           </IonButtons>
-          <IonTitle>Home</IonTitle>
+          {width <= 991 &&  <IonTitle>Home</IonTitle>}
+          {width > 991 && <LsTransition
+            monthOrYear="year"
+            period={period}
+            setPeriod={setPeriod}
+          />}
         </IonToolbar>
-        <IonToolbar>
+        {width <= 991 && <IonToolbar>
           <LsTransition
             monthOrYear="year"
             period={period}
             setPeriod={setPeriod}
           />
-        </IonToolbar>
+        </IonToolbar>}
       </IonHeader>
       <IonLoading message="Fetching data..." duration={0} isOpen={isLoaded}></IonLoading>
       <IonContent>

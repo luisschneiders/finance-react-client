@@ -30,6 +30,7 @@ import LsModalExpensesSearch from '../../components/modal/ModalExpensesSearch';
 import { setModalExpensesSearchShow } from '../../data/modal/modal.actions';
 import LsTransition from '../../components/time/Transition';
 import { setExpenseTypeByStatusActive } from '../../data/expenseType/expenseType.actions';
+import { useWindowSize } from '../../hooks/useWindowSize';
 
 interface StateProps {
   isLoggedIn: boolean;
@@ -52,7 +53,8 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
     setExpenseTypeByStatusActive,
   }) => {
 
-  const [period, setPeriod] = useState<Period>({
+    const [height, width] = useWindowSize();
+    const [period, setPeriod] = useState<Period>({
     startDate: startPeriod(MOMENT.currentMonthYYYMMDD),
     endDate: endPeriod(MOMENT.currentMonthYYYMMDD),
   });
@@ -88,7 +90,12 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
           <IonButtons slot="start">
             <IonMenuButton auto-hide="true"></IonMenuButton>
           </IonButtons>
-          <IonTitle>Expenses</IonTitle>
+          {width <= 991 &&  <IonTitle>Expenses</IonTitle>}
+          {width > 991 && <LsTransition
+            monthOrYear='month'
+            period={period}
+            setPeriod={setPeriod}
+          />}
           {(isLoggedIn && userProfileServer) && <IonFab vertical="center" horizontal="end">
             <IonFabButton color={AppColor.TERTIARY} size="small">
               <IonIcon icon={ellipsisVertical} />
@@ -106,13 +113,13 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
             </IonFabList>
           </IonFab>}
         </IonToolbar>
-        <IonToolbar>
+        {width <= 991 && <IonToolbar>
           <LsTransition
             monthOrYear="month"
             period={period}
             setPeriod={setPeriod}
           />
-        </IonToolbar>
+        </IonToolbar>}
       </IonHeader>
       <LsMainExpenses />
       <LsModalExpensesSearch

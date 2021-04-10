@@ -31,6 +31,7 @@ import { setModalExpensesSearchShow } from '../../data/modal/modal.actions';
 import LsTransition from '../../components/time/Transition';
 import { setExpenseTypeByStatusActive } from '../../data/expenseType/expenseType.actions';
 import { useWindowSize } from '../../hooks/useWindowSize';
+import { MOBILE_VIEW } from '../../constants/App';
 
 interface StateProps {
   isLoggedIn: boolean;
@@ -90,8 +91,8 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
           <IonButtons slot="start">
             <IonMenuButton auto-hide="true"></IonMenuButton>
           </IonButtons>
-          {width <= 991 &&  <IonTitle>Expenses</IonTitle>}
-          {width > 991 && <LsTransition
+          {width <= MOBILE_VIEW &&  <IonTitle>Expenses</IonTitle>}
+          {width > MOBILE_VIEW && <LsTransition
             monthOrYear='month'
             period={period}
             setPeriod={setPeriod}
@@ -113,7 +114,7 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
             </IonFabList>
           </IonFab>}
         </IonToolbar>
-        {width <= 991 && <IonToolbar>
+        {width <= MOBILE_VIEW && <IonToolbar>
           <LsTransition
             monthOrYear="month"
             period={period}

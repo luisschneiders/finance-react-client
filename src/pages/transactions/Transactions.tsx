@@ -31,6 +31,7 @@ import { setModalTransactionsSearchShow } from '../../data/modal/modal.actions';
 import { setTransactionTypeByStatusActive } from '../../data/transactionType/transactionType.actions';
 import LsModalTransactionsSearch from '../../components/modal/ModalTransactionsSearch';
 import { useWindowSize } from '../../hooks/useWindowSize';
+import { MOBILE_VIEW } from '../../constants/App';
 
 interface StateProps {
   isLoggedIn: boolean;
@@ -90,8 +91,8 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
           <IonButtons slot="start">
             <IonMenuButton auto-hide="true"></IonMenuButton>
           </IonButtons>
-          {width <= 991 &&  <IonTitle>Transactions</IonTitle>}
-          {width > 991 && <LsTransition
+          {width <= MOBILE_VIEW &&  <IonTitle>Transactions</IonTitle>}
+          {width > MOBILE_VIEW && <LsTransition
             monthOrYear='month'
             period={period}
             setPeriod={setPeriod}
@@ -113,7 +114,7 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
             </IonFabList>
           </IonFab>}
         </IonToolbar>
-        {width <= 991 && <IonToolbar>
+        {width <= MOBILE_VIEW && <IonToolbar>
           <LsTransition
             monthOrYear='month'
             period={period}

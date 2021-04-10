@@ -30,6 +30,7 @@ import { setAppSummary } from '../../data/summary/summary.actions';
 import LsMainChip from '../../components/chip/MainChip';
 import { StatusColor } from '../../enum/StatusColor';
 import { useWindowSize } from '../../hooks/useWindowSize';
+import { MOBILE_VIEW } from '../../constants/App';
 
 interface StateProps {
   isLoggedIn: boolean;
@@ -97,14 +98,14 @@ const HomePage: React.FC<HomeProps> = ({
           <IonButtons slot="start">
             <IonMenuButton auto-hide="true"></IonMenuButton>
           </IonButtons>
-          {width <= 991 &&  <IonTitle>Home</IonTitle>}
-          {width > 991 && <LsTransition
+          {width <= MOBILE_VIEW &&  <IonTitle>Home</IonTitle>}
+          {width > MOBILE_VIEW && <LsTransition
             monthOrYear="year"
             period={period}
             setPeriod={setPeriod}
           />}
         </IonToolbar>
-        {width <= 991 && <IonToolbar>
+        {width <= MOBILE_VIEW && <IonToolbar>
           <LsTransition
             monthOrYear="year"
             period={period}

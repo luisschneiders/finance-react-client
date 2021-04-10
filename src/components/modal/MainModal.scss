@@ -3,3 +3,11 @@
     --box-shadow: none;
   }
 }
+
+.select-input-expense-type, .select-input-transaction-type {
+
+  .alert-wrapper.sc-ion-alert-md {
+    --min-width: 350px;
+    --max-width: 380px;
+  }
+}

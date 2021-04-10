@@ -65,6 +65,9 @@ const LsModalExpensesSearch: React.FC<ModalExpensesSearchProps> = ({
   const [selectedStartDate, setSelectedStartDate] = useState<string>(startPeriod(MOMENT.currentMonthYYYMMDD));
   const [selectedEndDate, setSelectedEndDate] = useState<string>(endPeriod(MOMENT.currentMonthYYYMMDD));
   const [expenseOptions, setExpenseOptions] = useState<[]>([]);
+  const selectInput = {
+    cssClass: 'select-input-expense-type'
+  };
 
   useEffect(() => {
     if (isShowModalExpensesSearch) {
@@ -135,6 +138,7 @@ const LsModalExpensesSearch: React.FC<ModalExpensesSearchProps> = ({
                   multiple={true}
                   onIonChange={e => setExpenseOptions(e.detail.value)}
                   disabled={!expenseTypeStatusActive.expensesType.length}
+                  interfaceOptions={selectInput}
                 >
                   {expenseTypeStatusActive.expensesType.map((option: any, index: number) => (
                     <IonSelectOption

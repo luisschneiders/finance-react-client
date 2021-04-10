@@ -61,6 +61,9 @@ const LsModalTransactionsSearch: React.FC<ModalTransactionsSearchProps> = ({
   const [selectedStartDate, setSelectedStartDate] = useState<string>(startPeriod(MOMENT.currentMonthYYYMMDD));
   const [selectedEndDate, setSelectedEndDate] = useState<string>(endPeriod(MOMENT.currentMonthYYYMMDD));
   const [transactionOptions, setTransactionOptions] = useState<[]>([]);
+  const selectInput = {
+    cssClass: 'select-input-transaction-type'
+  };
 
   useEffect(() => {
     if (isShowModalTransactionsSearch) {
@@ -131,6 +134,7 @@ const LsModalTransactionsSearch: React.FC<ModalTransactionsSearchProps> = ({
                   multiple={true}
                   onIonChange={e => setTransactionOptions(e.detail.value)}
                   disabled={!transactionTypeStatusActive.transactionsType.length}
+                  interfaceOptions={selectInput}
                 >
                   {transactionTypeStatusActive.transactionsType.map((option: any, index: number) => (
                     <IonSelectOption

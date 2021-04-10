@@ -18,7 +18,7 @@ import { UserProfileServer } from '../../models/UserProfileServer';
 import * as selectorsUser from '../../data/user/user.selectors';
 import * as selectorsSessions from '../../data/sessions/sessions.selectors';
 import * as selectorsTransactionType from '../../data/transactionType/transactionType.selectors';
-import { PageSize } from '../../enum/PageSize';
+import { PageListItem } from '../../enum/PageListItem';
 import LsListItemTransactionType from '../../components/list/ListItemTransactionType';
 import {
   setTransactionTypeList
@@ -50,7 +50,7 @@ const TransactionTypePage: React.FC<TransactionTypeProps> = ({
  
   useEffect(() => {
     if (isLoggedIn && userProfileServer) {
-      setTransactionTypeList(userProfileServer.userId, 1, PageSize.S_12);
+      setTransactionTypeList(userProfileServer.userId, 1, PageListItem.ITEM_12);
     }
   }, [
     isLoggedIn,

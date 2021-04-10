@@ -18,7 +18,7 @@ import {
   updateTransactionType
 } from '../../data/transactionType/transactionType.actions';
 import { UserProfileServer } from '../../models/UserProfileServer';
-import { PageSize } from '../../enum/PageSize';
+import { PageListItem } from '../../enum/PageListItem';
 import LsMainCard from '../card/MainCard';
 import * as ROUTES from '../../constants/Routes';
 import { transactionTypeOptions } from '../../pages/transaction-type/TransactionTypeOptions';
@@ -64,7 +64,7 @@ const LsListItemTransactionType: React.FC<ListTransactionTypeProps> = ({
     if (isLoggedIn && userProfileServer) {
       let newPage: number = transactionTypeList.pagination.page;
       ++newPage;
-      setTransactionTypeList(userProfileServer.userId, newPage, PageSize.S_12);
+      setTransactionTypeList(userProfileServer.userId, newPage, PageListItem.ITEM_12);
     }
   };
 

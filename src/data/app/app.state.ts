@@ -12,7 +12,7 @@ import { transactionTypeReducer } from '../transactionType/transactionType.reduc
 import { userTypeReducer } from '../userType/userType.reducer';
 import { vehicleReducer } from '../vehicle/vehicle.reducer';
 import { APP_STORE_RESET } from '../actionTypes';
-import { PageSize } from '../../enum/PageSize';
+import { PageListItem } from '../../enum/PageListItem';
 
 export const initialState: AppState = {
   sessionsReducer: {
@@ -42,7 +42,7 @@ export const initialState: AppState = {
   bankReducer: {
     bankList: {
       banks: [],
-      pagination: { page: 1, pageSize: PageSize.S_12, pageCount: 0, rowCount: 0 },
+      pagination: { page: 1, pageSize: PageListItem.ITEM_12, pageCount: 0, rowCount: 0 },
     },
     bank: {
       bankId: 0,
@@ -62,7 +62,7 @@ export const initialState: AppState = {
   expenseTypeReducer: {
     expenseTypeList: {
       expensesType: [],
-      pagination: { page: 1, pageSize: PageSize.S_12, pageCount: 0, rowCount: 0 },
+      pagination: { page: 1, pageSize: PageListItem.ITEM_12, pageCount: 0, rowCount: 0 },
     },
     expenseTypeStatusActive: {
       expensesType: [],
@@ -90,7 +90,7 @@ export const initialState: AppState = {
   transactionTypeReducer: {
     transactionTypeList: {
       transactionsType: [],
-      pagination: { page: 1, pageSize: PageSize.S_12, pageCount: 0, rowCount: 0 },
+      pagination: { page: 1, pageSize: PageListItem.ITEM_12, pageCount: 0, rowCount: 0 },
     },
     transactionTypeStatusActive: {
       transactionsType: [],
@@ -110,7 +110,7 @@ export const initialState: AppState = {
   userTypeReducer: {
     userTypeList: {
       usersType: [],
-      pagination: { page: 1, pageSize: PageSize.S_12, pageCount: 0, rowCount: 0 },
+      pagination: { page: 1, pageSize: PageListItem.ITEM_12, pageCount: 0, rowCount: 0 },
     },
     userType: {
       userTypeId: 0,
@@ -128,7 +128,7 @@ export const initialState: AppState = {
   vehicleReducer: {
     vehicleList: {
       vehicles: [],
-      pagination: { page: 1, pageSize: PageSize.S_12, pageCount: 0, rowCount: 0 },
+      pagination: { page: 1, pageSize: PageListItem.ITEM_12, pageCount: 0, rowCount: 0 },
     },
     vehicle: {
       vehicleId: 0,

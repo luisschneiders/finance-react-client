@@ -18,7 +18,7 @@ import {
   updateExpenseType
 } from '../../data/expenseType/expenseType.actions';
 import { UserProfileServer } from '../../models/UserProfileServer';
-import { PageSize } from '../../enum/PageSize';
+import { PageListItem } from '../../enum/PageListItem';
 import LsMainCard from '../card/MainCard';
 import * as ROUTES from '../../constants/Routes';
 
@@ -56,7 +56,7 @@ const LsListItemExpenseType: React.FC<ListExpensesTypeProps> = ({
     if (isLoggedIn && userProfileServer) {
       let newPage: number = expenseTypeList.pagination.page;
       ++newPage;
-      setExpenseTypeList(userProfileServer.userId, newPage, PageSize.S_12);
+      setExpenseTypeList(userProfileServer.userId, newPage, PageListItem.ITEM_12);
     }
   };
 

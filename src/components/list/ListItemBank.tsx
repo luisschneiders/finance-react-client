@@ -18,7 +18,7 @@ import {
   updateBank
 } from '../../data/bank/bank.actions';
 import { UserProfileServer } from '../../models/UserProfileServer';
-import { PageSize } from '../../enum/PageSize';
+import { PageListItem } from '../../enum/PageListItem';
 import LsMainCard from '../card/MainCard';
 import * as ROUTES from '../../constants/Routes';
 import { currencyMask } from '../../util/currencyMask';
@@ -57,7 +57,7 @@ const LsListItemBank: React.FC<ListBankProps> = ({
     if (isLoggedIn && userProfileServer) {
       let newPage: number = bankList.pagination.page;
       ++newPage;
-      setBankList(userProfileServer.userId, newPage, PageSize.S_12);
+      setBankList(userProfileServer.userId, newPage, PageListItem.ITEM_12);
     }
   };
 

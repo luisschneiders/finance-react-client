@@ -2,7 +2,7 @@ import { UserType, UserTypeList } from '../../models/UserType';
 import * as ROUTES from '../../constants/Routes';
 import { toast } from '../../components/toast/Toast';
 import { StatusColor } from '../../enum/StatusColor';
-import { PageSize } from '../../enum/PageSize';
+import { PageListItem } from '../../enum/PageListItem';
 
 export function fetchUserTypeList(id: number, page: number, pageSize: number) {
 
@@ -41,7 +41,7 @@ export function fetchUserTypeList(id: number, page: number, pageSize: number) {
             // Assign initial state as response
             const userTypeList: UserTypeList = {
               usersType: [],
-              pagination: {page: 1, pageSize: PageSize.S_12, pageCount: 0, rowCount: 0}
+              pagination: {page: 1, pageSize: PageListItem.ITEM_12, pageCount: 0, rowCount: 0}
             };
 
             toast(`Code: ${resStatus} -> ${error}`, StatusColor.ERROR, 4000);

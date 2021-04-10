@@ -18,7 +18,7 @@ import { UserProfileServer } from '../../models/UserProfileServer';
 import * as selectorsUser from '../../data/user/user.selectors';
 import * as selectorsSessions from '../../data/sessions/sessions.selectors';
 import * as selectorsUserType from '../../data/userType/userType.selectors';
-import { PageSize } from '../../enum/PageSize';
+import { PageListItem } from '../../enum/PageListItem';
 import LsListItemUserType from '../../components/list/ListItemUserType';
 import {
   setUserTypeList
@@ -50,7 +50,7 @@ const UserTypePage: React.FC<UserTypeProps> = ({
  
   useEffect(() => {
     if (isLoggedIn && userProfileServer) {
-      setUserTypeList(userProfileServer.userId, 1, PageSize.S_12);
+      setUserTypeList(userProfileServer.userId, 1, PageListItem.ITEM_12);
     }
   }, [
     isLoggedIn,

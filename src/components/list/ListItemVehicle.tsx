@@ -18,7 +18,7 @@ import {
   updateVehicle
 } from '../../data/vehicle/vehicle.actions';
 import { UserProfileServer } from '../../models/UserProfileServer';
-import { PageSize } from '../../enum/PageSize';
+import { PageListItem } from '../../enum/PageListItem';
 import LsMainCard from '../card/MainCard';
 import * as ROUTES from '../../constants/Routes';
 
@@ -56,7 +56,7 @@ const LsListItemVehicle: React.FC<ListVehicleProps> = ({
     if (isLoggedIn && userProfileServer) {
       let newPage: number = vehicleList.pagination.page;
       ++newPage;
-      setVehicleList(userProfileServer.userId, newPage, PageSize.S_12);
+      setVehicleList(userProfileServer.userId, newPage, PageListItem.ITEM_12);
     }
   };
 

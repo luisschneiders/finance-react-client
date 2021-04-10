@@ -2,7 +2,7 @@ import { ExpenseType, ExpenseTypeList, ExpenseTypeStatusActive } from '../../mod
 import * as ROUTES from '../../constants/Routes';
 import { toast } from '../../components/toast/Toast';
 import { StatusColor } from '../../enum/StatusColor';
-import { PageSize } from '../../enum/PageSize';
+import { PageListItem } from '../../enum/PageListItem';
 
 export function fetchExpenseTypeList(id: number, page: number, pageSize: number) {
 
@@ -39,7 +39,7 @@ export function fetchExpenseTypeList(id: number, page: number, pageSize: number)
             // Assign initial state as response
             const expenseTypeList: ExpenseTypeList = {
               expensesType: [],
-              pagination: {page: 1, pageSize: PageSize.S_12, pageCount: 0, rowCount: 0}
+              pagination: {page: 1, pageSize: PageListItem.ITEM_12, pageCount: 0, rowCount: 0}
             };
 
             toast(`Code: ${resStatus} -> ${error}`, StatusColor.ERROR, 4000);

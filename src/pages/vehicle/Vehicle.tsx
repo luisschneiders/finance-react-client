@@ -18,7 +18,7 @@ import { UserProfileServer } from '../../models/UserProfileServer';
 import * as selectorsUser from '../../data/user/user.selectors';
 import * as selectorsSessions from '../../data/sessions/sessions.selectors';
 import * as selectorsVehicle from '../../data/vehicle/vehicle.selectors';
-import { PageSize } from '../../enum/PageSize';
+import { PageListItem } from '../../enum/PageListItem';
 import LsListItemVehicle from '../../components/list/ListItemVehicle';
 import {
   setVehicleList
@@ -50,7 +50,7 @@ const VehiclePage: React.FC<VehicleProps> = ({
   
   useEffect(() => {
     if (isLoggedIn && userProfileServer) {
-      setVehicleList(userProfileServer.userId, 1, PageSize.S_12);
+      setVehicleList(userProfileServer.userId, 1, PageListItem.ITEM_12);
     }
   }, [
     isLoggedIn,

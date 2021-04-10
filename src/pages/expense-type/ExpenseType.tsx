@@ -18,7 +18,7 @@ import { UserProfileServer } from '../../models/UserProfileServer';
 import * as selectorsUser from '../../data/user/user.selectors';
 import * as selectorsSessions from '../../data/sessions/sessions.selectors';
 import * as selectorsExpenseType from '../../data/expenseType/expenseType.selectors';
-import { PageSize } from '../../enum/PageSize';
+import { PageListItem } from '../../enum/PageListItem';
 import LsListItemExpenseType from '../../components/list/ListItemExpenseType';
 import {
   setExpenseTypeList
@@ -50,7 +50,7 @@ const ExpenseTypePage: React.FC<ExpensesTypeProps> = ({
   
   useEffect(() => {
     if (isLoggedIn && userProfileServer) {
-      setExpenseTypeList(userProfileServer.userId, 1, PageSize.S_12);
+      setExpenseTypeList(userProfileServer.userId, 1, PageListItem.ITEM_12);
     }
   }, [
     isLoggedIn,

@@ -18,7 +18,7 @@ import { UserProfileServer } from '../../models/UserProfileServer';
 import * as selectorsUser from '../../data/user/user.selectors';
 import * as selectorsSessions from '../../data/sessions/sessions.selectors';
 import * as selectorsBank from '../../data/bank/bank.selectors';
-import { PageSize } from '../../enum/PageSize';
+import { PageListItem } from '../../enum/PageListItem';
 import LsListItemBank from '../../components/list/ListItemBank';
 import {
   setBankList,
@@ -50,7 +50,7 @@ const BankPage: React.FC<BankProps> = ({
   
   useEffect(() => {
     if (isLoggedIn && userProfileServer) {
-      setBankList(userProfileServer.userId, 1, PageSize.S_12);
+      setBankList(userProfileServer.userId, 1, PageListItem.ITEM_12);
     }
   }, [
     isLoggedIn,

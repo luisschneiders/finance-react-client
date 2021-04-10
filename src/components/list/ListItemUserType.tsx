@@ -18,7 +18,7 @@ import {
   updateUserType
 } from '../../data/userType/userType.actions';
 import { UserProfileServer } from '../../models/UserProfileServer';
-import { PageSize } from '../../enum/PageSize';
+import { PageListItem } from '../../enum/PageListItem';
 import LsMainCard from '../card/MainCard';
 import * as ROUTES from '../../constants/Routes';
 import { currencyMask } from '../../util/currencyMask';
@@ -65,7 +65,7 @@ const LsListItemUserType: React.FC<ListUserTypeProps> = ({
     if (isLoggedIn && userProfileServer) {
       let newPage: number = userTypeList.pagination.page;
       ++newPage;
-      setUserTypeList(userProfileServer.userId, newPage, PageSize.S_12);
+      setUserTypeList(userProfileServer.userId, newPage, PageListItem.ITEM_12);
     }
   };
 

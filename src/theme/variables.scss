@@ -269,6 +269,10 @@
   color: var(--ion-color-medium);
 }
 
+.app-split-pane {
+  --side-max-width: 22%;
+}
+
 /*
  * App iOS Variables
  * ----------------------------------------------------------------------------

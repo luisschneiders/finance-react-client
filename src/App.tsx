@@ -144,7 +144,7 @@ const IonicApp: React.FC<IonicAppProps> = ({
     <IonApp className={`${darkMode ? 'dark-theme' : ''}`}>
       { busy ? <div className="container-spinner"><IonSpinner></IonSpinner></div> :
               <IonReactRouter>
-                <IonSplitPane contentId="main">
+                <IonSplitPane contentId="main" className="app-split-pane">
                   <LsMenu />
                   <IonRouterOutlet id="main">
                     <Route path='/' component={HomeOrWelcome} exact={true} />

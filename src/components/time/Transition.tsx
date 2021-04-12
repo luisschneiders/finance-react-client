@@ -14,7 +14,7 @@ import {
 import { Period } from '../../models/Period';
 import {
   currentPeriod,
-  dateFormatll,
+  dateFormatDDMMYYYY,
   decreasePeriod,
   increasePeriod,
 } from '../../util/moment';
@@ -27,7 +27,7 @@ interface ContainerProps {
 
 const LsTransition: React.FC<ContainerProps> = ({ monthOrYear, period, setPeriod }) => {
   return (
-    <IonGrid className="ion-no-padding">
+    <IonGrid>
       <IonRow>
         <IonCol className="ion-text-right ion-no-padding">
           <IonButton color={AppColor.LIGHT} size="small" onClick={() => setPeriod(decreasePeriod(period, monthOrYear))}>
@@ -36,7 +36,7 @@ const LsTransition: React.FC<ContainerProps> = ({ monthOrYear, period, setPeriod
         </IonCol>
         <IonCol className="ion-text-center ion-no-padding">
           <IonButton color={AppColor.LIGHT} size="small" onClick={() => setPeriod(currentPeriod(monthOrYear))}>
-            {`${dateFormatll(period.startDate)} - ${dateFormatll(period.endDate)}`}
+            {`${dateFormatDDMMYYYY(period.startDate)} - ${dateFormatDDMMYYYY(period.endDate)}`}
           </IonButton>
         </IonCol>
         <IonCol className="ion-text-left ion-no-padding">

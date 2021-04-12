@@ -111,7 +111,8 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
                 />
               </IonFabButton>
               <IonFabButton
-                onClick={() => [setModalExpensesSearchShow(true), setExpenseTypeByStatusActive(userProfileServer.userId)]}>
+                onClick={() => [setModalExpensesSearchShow(true), setExpenseTypeByStatusActive(userProfileServer.userId)]}
+              >
                 <IonIcon color={AppColor.SUCCESS} icon={add}/>
               </IonFabButton>
             </IonFabList>

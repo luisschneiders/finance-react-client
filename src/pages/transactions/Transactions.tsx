@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import './Transactions.scss';
 import {
   IonButtons,
+  IonCol,
   IonFab,
   IonFabButton,
   IonFabList,
+  IonGrid,
   IonHeader,
   IonIcon,
   IonMenuButton,
   IonPage,
+  IonRow,
   IonTitle,
   IonToolbar
 } from '@ionic/react';
@@ -24,7 +27,7 @@ import * as selectorsUser from '../../data/user/user.selectors';
 import * as selectorsSessions from '../../data/sessions/sessions.selectors';
 import { setTransactions } from '../../data/transactions/transactions.actions';
 import LsMainTransactions from '../../components/transactions/MainTransactions';
-import { ellipsisVertical, search } from 'ionicons/icons';
+import { add, ellipsisVertical, search } from 'ionicons/icons';
 import { AppColor } from '../../enum/AppColor';
 import LsTransition from '../../components/time/Transition';
 import { setModalTransactionsSearchShow } from '../../data/modal/modal.actions';
@@ -92,12 +95,9 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
             <IonMenuButton auto-hide="true"></IonMenuButton>
           </IonButtons>
           {width <= MOBILE_VIEW &&  <IonTitle>Transactions</IonTitle>}
-          {width > MOBILE_VIEW && <LsTransition
-            monthOrYear='month'
-            period={period}
-            setPeriod={setPeriod}
-          />}
-          {(isLoggedIn && userProfileServer) && <IonFab vertical="center" horizontal="end">
+          {width <= MOBILE_VIEW &&
+          (isLoggedIn && userProfileServer) &&
+          <IonFab vertical="center" horizontal="end">
             <IonFabButton color={AppColor.TERTIARY} size="small">
               <IonIcon icon={ellipsisVertical} />
             </IonFabButton>
@@ -110,9 +110,49 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
                   icon={search}
                 />
               </IonFabButton>
-              {/* <IonFabButton><IonIcon color={AppColor.SUCCESS} icon={add} /></IonFabButton> */}
+              <IonFabButton
+                onClick={() => [setModalTransactionsSearchShow(true), setTransactionTypeByStatusActive(userProfileServer.userId)]}
+              >
+                <IonIcon color={AppColor.SUCCESS} icon={add} />
+              </IonFabButton>
             </IonFabList>
           </IonFab>}
+
+          {width > MOBILE_VIEW && 
+          <IonGrid className="ion-no-padding">
+            <IonRow className="ion-no-padding">
+              <IonCol size="8" push="2" className="ion-no-padding">
+                <LsTransition
+                  monthOrYear='month'
+                  period={period}
+                  setPeriod={setPeriod}
+                />
+              </IonCol>
+              <IonCol className="ion-no-padding">
+                <IonFab vertical="center" horizontal="end">
+                  <IonFabButton color={AppColor.LIGHT} size="small" title="Search">
+                    <IonIcon
+                      icon={search}
+                      onClick={() => [setModalTransactionsSearchShow(true), setTransactionTypeByStatusActive(userProfileServer.userId)]}
+                      size="small"
+                    />
+                  </IonFabButton>
+                </IonFab>
+              </IonCol>
+              <IonCol className="ion-no-padding">
+                <IonFab vertical="center" horizontal="end">
+                  <IonFabButton color={AppColor.TERTIARY} size="small" title="Add new record">
+                    <IonIcon
+                      icon={add}
+                      onClick={() => [setModalTransactionsSearchShow(true), setTransactionTypeByStatusActive(userProfileServer.userId)]}
+                      size="small"
+                    />
+                  </IonFabButton>
+                </IonFab>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+          }
         </IonToolbar>
         {width <= MOBILE_VIEW && <IonToolbar>
           <LsTransition

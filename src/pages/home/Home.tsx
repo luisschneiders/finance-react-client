@@ -9,8 +9,9 @@ import {
   IonMenuButton,
   IonList,
   IonLoading,
-  getPlatforms,
-  isPlatform,
+  IonGrid,
+  IonRow,
+  IonCol,
 } from '@ionic/react';
 import './Home.scss';
 import { connect } from '../../data/connect';
@@ -99,11 +100,19 @@ const HomePage: React.FC<HomeProps> = ({
             <IonMenuButton auto-hide="true"></IonMenuButton>
           </IonButtons>
           {width <= MOBILE_VIEW &&  <IonTitle>Home</IonTitle>}
-          {width > MOBILE_VIEW && <LsTransition
-            monthOrYear="year"
-            period={period}
-            setPeriod={setPeriod}
-          />}
+          {width > MOBILE_VIEW &&
+          <IonGrid className="ion-no-padding">
+            <IonRow className="ion-no-padding">
+              <IonCol size="8" push="2" className="ion-no-padding">
+              <LsTransition
+                monthOrYear="year"
+                period={period}
+                setPeriod={setPeriod}
+              />
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+          }
         </IonToolbar>
         {width <= MOBILE_VIEW && <IonToolbar>
           <LsTransition

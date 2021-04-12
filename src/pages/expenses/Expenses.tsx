@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import './Expenses.scss';
 import {
   IonButtons,
+  IonCol,
   IonFab,
   IonFabButton,
   IonFabList,
+  IonGrid,
   IonHeader,
   IonIcon,
   IonMenuButton,
   IonPage,
+  IonRow,
   IonTitle,
   IonToolbar
 } from '@ionic/react';
@@ -25,7 +28,7 @@ import { Period } from '../../models/Period';
 import { setExpenses } from '../../data/expenses/expenses.actions';
 import LsMainExpenses from '../../components/expenses/MainExpenses';
 import { AppColor } from '../../enum/AppColor';
-import { ellipsisVertical, search } from 'ionicons/icons';
+import { add, ellipsisVertical, search } from 'ionicons/icons';
 import LsModalExpensesSearch from '../../components/modal/ModalExpensesSearch';
 import { setModalExpensesSearchShow } from '../../data/modal/modal.actions';
 import LsTransition from '../../components/time/Transition';
@@ -91,13 +94,10 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
           <IonButtons slot="start">
             <IonMenuButton auto-hide="true"></IonMenuButton>
           </IonButtons>
-          {width <= MOBILE_VIEW &&  <IonTitle>Expenses</IonTitle>}
-          {width > MOBILE_VIEW && <LsTransition
-            monthOrYear='month'
-            period={period}
-            setPeriod={setPeriod}
-          />}
-          {(isLoggedIn && userProfileServer) && <IonFab vertical="center" horizontal="end">
+          {width <= MOBILE_VIEW &&  <IonTitle>Expenses</IonTitle>} 
+          {width <= MOBILE_VIEW &&
+          (isLoggedIn && userProfileServer) &&
+          <IonFab vertical="center" horizontal="end">
             <IonFabButton color={AppColor.TERTIARY} size="small">
               <IonIcon icon={ellipsisVertical} />
             </IonFabButton>
@@ -110,11 +110,51 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
                   icon={search}
                 />
               </IonFabButton>
-              {/* <IonFabButton><IonIcon color={AppColor.SUCCESS} icon={add} onClick={() => setShowAddRecordModal(true)} /></IonFabButton> */}
+              <IonFabButton
+                onClick={() => [setModalExpensesSearchShow(true), setExpenseTypeByStatusActive(userProfileServer.userId)]}>
+                <IonIcon color={AppColor.SUCCESS} icon={add}/>
+              </IonFabButton>
             </IonFabList>
           </IonFab>}
+
+          {width > MOBILE_VIEW && 
+          <IonGrid className="ion-no-padding">
+            <IonRow className="ion-no-padding">
+              <IonCol size="8" push="2" className="ion-no-padding">
+                <LsTransition
+                  monthOrYear='month'
+                  period={period}
+                  setPeriod={setPeriod}
+                />
+              </IonCol>
+              <IonCol className="ion-no-padding">
+                <IonFab vertical="center" horizontal="end">
+                  <IonFabButton color={AppColor.LIGHT} size="small" title="Search">
+                    <IonIcon
+                      icon={search}
+                      onClick={() => [setModalExpensesSearchShow(true), setExpenseTypeByStatusActive(userProfileServer.userId)]}
+                      size="small"
+                    />
+                  </IonFabButton>
+                </IonFab>
+              </IonCol>
+              <IonCol className="ion-no-padding">
+                <IonFab vertical="center" horizontal="end">
+                  <IonFabButton color={AppColor.TERTIARY} size="small" title="Add new record">
+                    <IonIcon
+                      icon={add}
+                      onClick={() => [setModalExpensesSearchShow(true), setExpenseTypeByStatusActive(userProfileServer.userId)]}
+                      size="small"
+                    />
+                  </IonFabButton>
+                </IonFab>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+          }
         </IonToolbar>
-        {width <= MOBILE_VIEW && <IonToolbar>
+        {width <= MOBILE_VIEW &&
+        <IonToolbar>
           <LsTransition
             monthOrYear="month"
             period={period}

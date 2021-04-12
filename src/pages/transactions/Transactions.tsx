@@ -121,14 +121,14 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
           {width > MOBILE_VIEW && 
           <IonGrid className="ion-no-padding">
             <IonRow className="ion-no-padding">
-              <IonCol size="8" push="2" className="ion-no-padding">
+              <IonCol size="10" push="1" className="ion-no-padding">
                 <LsTransition
                   monthOrYear='month'
                   period={period}
                   setPeriod={setPeriod}
                 />
               </IonCol>
-              <IonCol className="ion-no-padding">
+              <IonCol size="1" className="ion-no-padding">
                 <IonFab vertical="center" horizontal="end">
                   <IonFabButton color={AppColor.LIGHT} size="small" title="Search">
                     <IonIcon
@@ -139,7 +139,7 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
                   </IonFabButton>
                 </IonFab>
               </IonCol>
-              <IonCol className="ion-no-padding">
+              <IonCol size="1" className="ion-no-padding">
                 <IonFab vertical="center" horizontal="end">
                   <IonFabButton color={AppColor.TERTIARY} size="small" title="Add new record">
                     <IonIcon

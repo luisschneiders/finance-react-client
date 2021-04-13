@@ -44,7 +44,7 @@ export const transactionTypeReducer = (state: TransactionTypeListState, action: 
       return {
         ...state,
         transactionTypeStatusActive: {
-          transactionsType: [...state.transactionTypeList.transactionsType, ...action.payload.transactionsType],
+          transactionsType: [...state.transactionTypeStatusActive.transactionsType, ...action.payload.transactionsType],
         }
       }
     case TRANSACTION_TYPE_BY_ID_SET:

@@ -44,7 +44,7 @@ export const expenseTypeReducer = (state: ExpenseTypeListState, action: ExpenseT
       return {
         ...state,
         expenseTypeStatusActive: {
-          expensesType: [...state.expenseTypeList.expensesType, ...action.payload.expensesType],
+          expensesType: [...state.expenseTypeStatusActive.expensesType, ...action.payload.expensesType],
         }
       }
     case EXPENSE_TYPE_BY_ID_SET:

@@ -3,6 +3,7 @@ import { AppState } from '../app/app.state';
 
 const showModalBankData = (state: AppState) => state.modalReducer.isShowModalBank;
 const showModalExpenseTypeData = (state: AppState) => state.modalReducer.isShowModalExpenseType;
+const showModalExpensesAddShowData = (state: AppState) => state.modalReducer.isShowModalExpensesAdd;
 const showModalExpensesSearchShowData = (state: AppState) => state.modalReducer.isShowModalExpensesSearch;
 const showModalTransactionTypeData = (state: AppState) => state.modalReducer.isShowModalTransactionType;
 const showModalTransactionsSearchShowData = (state: AppState) => state.modalReducer.isShowModalTransactionsSearch;
@@ -41,6 +42,13 @@ export const showModalVehicle = createSelector(
   showModalVehicleData,
   (isShowModalVehicle: boolean) => {
     return isShowModalVehicle;
+  }
+);
+
+export const showModalExpensesAdd = createSelector(
+  showModalExpensesAddShowData,
+  (isShowModalExpensesAdd: boolean) => {
+    return isShowModalExpensesAdd;
   }
 );
 

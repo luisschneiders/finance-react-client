@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Expenses.scss';
 import {
+  IonButton,
   IonButtons,
   IonCol,
   IonFab,
@@ -29,8 +30,9 @@ import { setExpenses } from '../../data/expenses/expenses.actions';
 import LsMainExpenses from '../../components/expenses/MainExpenses';
 import { AppColor } from '../../enum/AppColor';
 import { add, ellipsisVertical, search } from 'ionicons/icons';
+import LsModalExpensesAdd from '../../components/modal/ModalExpensesAdd';
 import LsModalExpensesSearch from '../../components/modal/ModalExpensesSearch';
-import { setModalExpensesSearchShow } from '../../data/modal/modal.actions';
+import { setModalExpensesAddShow, setModalExpensesSearchShow } from '../../data/modal/modal.actions';
 import LsTransition from '../../components/time/Transition';
 import { setExpenseTypeByStatusActive } from '../../data/expenseType/expenseType.actions';
 import { useWindowSize } from '../../hooks/useWindowSize';
@@ -44,6 +46,7 @@ interface StateProps {
 interface DispatchProps {
   setExpenses: typeof setExpenses;
   setModalExpensesSearchShow: typeof setModalExpensesSearchShow;
+  setModalExpensesAddShow: typeof setModalExpensesAddShow;
   setExpenseTypeByStatusActive: typeof setExpenseTypeByStatusActive;
 }
 
@@ -54,6 +57,7 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
     userProfileServer,
     setExpenses,
     setModalExpensesSearchShow,
+    setModalExpensesAddShow,
     setExpenseTypeByStatusActive,
   }) => {
 
@@ -111,7 +115,7 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
                 />
               </IonFabButton>
               <IonFabButton
-                onClick={() => [setModalExpensesSearchShow(true), setExpenseTypeByStatusActive(userProfileServer.userId)]}
+                onClick={() => [setModalExpensesAddShow(true), setExpenseTypeByStatusActive(userProfileServer.userId)]}
               >
                 <IonIcon color={AppColor.SUCCESS} icon={add}/>
               </IonFabButton>
@@ -121,7 +125,23 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
           {width > MOBILE_VIEW && 
           <IonGrid className="ion-no-padding">
             <IonRow className="ion-no-padding">
-              <IonCol size="10" push="1" className="ion-no-padding">
+              <IonCol size="2" className="ion-no-padding">
+                <IonGrid>
+                  <IonRow>
+                    <IonCol className="ion-no-padding">
+                      <IonButton
+                        shape="round"
+                        color={AppColor.SECONDARY}
+                        size="small"
+                        className="ion-text-capitalize"
+                      >
+                        Clear filters
+                      </IonButton>
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+              </IonCol>
+              <IonCol size="8" className="ion-no-padding">
                 <LsTransition
                   monthOrYear='month'
                   period={period}
@@ -144,7 +164,7 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
                   <IonFabButton color={AppColor.TERTIARY} size="small" title="Add new record">
                     <IonIcon
                       icon={add}
-                      onClick={() => [setModalExpensesSearchShow(true), setExpenseTypeByStatusActive(userProfileServer.userId)]}
+                      onClick={() => [setModalExpensesAddShow(true), setExpenseTypeByStatusActive(userProfileServer.userId)]}
                       size="small"
                     />
                   </IonFabButton>
@@ -165,6 +185,11 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
       </IonHeader>
       <LsMainExpenses />
       <LsModalExpensesSearch
+        setIsCustomSearch={setIsCustomSearch}
+        setCustomPeriod={setCustomPeriod}
+        setParams={setParams}
+      />
+      <LsModalExpensesAdd
         setIsCustomSearch={setIsCustomSearch}
         setCustomPeriod={setCustomPeriod}
         setParams={setParams}
@@ -219,6 +244,7 @@ export default connect<{}, StateProps, DispatchProps> ({
   mapDispatchToProps: ({
     setExpenses,
     setModalExpensesSearchShow,
+    setModalExpensesAddShow,
     setExpenseTypeByStatusActive,
   }),
   component: React.memo(ExpensesPage)

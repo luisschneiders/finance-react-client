@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Transactions.scss';
 import {
+  IonButton,
   IonButtons,
   IonCol,
   IonFab,
@@ -35,6 +36,7 @@ import { setTransactionTypeByStatusActive } from '../../data/transactionType/tra
 import LsModalTransactionsSearch from '../../components/modal/ModalTransactionsSearch';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { MOBILE_VIEW } from '../../constants/App';
+import LsMainChip from '../../components/chip/MainChip';
 
 interface StateProps {
   isLoggedIn: boolean;
@@ -121,7 +123,23 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
           {width > MOBILE_VIEW && 
           <IonGrid className="ion-no-padding">
             <IonRow className="ion-no-padding">
-              <IonCol size="10" push="1" className="ion-no-padding">
+              <IonCol size="2" className="ion-no-padding">
+                <IonGrid>
+                  <IonRow>
+                    <IonCol className="ion-no-padding">
+                      <IonButton
+                        shape="round"
+                        color={AppColor.SECONDARY}
+                        size="small"
+                        className="ion-text-capitalize"
+                      >
+                        Clear filters
+                      </IonButton>
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+              </IonCol>
+              <IonCol size="8" className="ion-no-padding">
                 <LsTransition
                   monthOrYear='month'
                   period={period}

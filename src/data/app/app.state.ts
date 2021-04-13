@@ -44,6 +44,9 @@ export const initialState: AppState = {
       banks: [],
       pagination: { page: 1, pageSize: PageListItem.ITEM_12, pageCount: 0, rowCount: 0 },
     },
+    bankStatusActive: {
+      banks: [],
+    },
     bank: {
       bankId: 0,
       bankDescription: '',

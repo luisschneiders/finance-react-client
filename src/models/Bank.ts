@@ -16,3 +16,7 @@ export interface BankList {
   banks: Bank[];
   pagination: Pagination;
 }
+
+export interface BankStatusActive {
+  banks: Bank[];
+}

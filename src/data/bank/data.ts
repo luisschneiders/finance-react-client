@@ -1,18 +1,25 @@
 import {
   Bank,
-  BankList
+  BankList,
+  BankStatusActive
 } from '../../models/Bank';
 
 import {
   fetchBankList,
   addBank,
   updateBank,
-  fetchBankById
+  fetchBankById,
+  fetchBankStatusActive
 } from '../api/Bank';
 
 export const fetchBankData = async (id: number, page: number, pageSize: number) => {
   const response: any = await fetchBankList(id, page, pageSize);
   return response as BankList;
+}
+
+export const fetchBankStatusActiveData = async (userId: number) => {
+  const response: any = await fetchBankStatusActive(userId);
+  return response as BankStatusActive;
 }
 
 export const fetchBankByIdData = async (userId: number, bankId: number) => {

@@ -37,6 +37,7 @@ import LsTransition from '../../components/time/Transition';
 import { setExpenseTypeByStatusActive } from '../../data/expenseType/expenseType.actions';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { MOBILE_VIEW } from '../../constants/App';
+import { setBankByStatusActive } from '../../data/bank/bank.actions';
 
 interface StateProps {
   isLoggedIn: boolean;
@@ -48,6 +49,7 @@ interface DispatchProps {
   setModalExpensesSearchShow: typeof setModalExpensesSearchShow;
   setModalExpensesAddShow: typeof setModalExpensesAddShow;
   setExpenseTypeByStatusActive: typeof setExpenseTypeByStatusActive;
+  setBankByStatusActive: typeof setBankByStatusActive;
 }
 
 interface ExpensesProps extends StateProps, DispatchProps {}
@@ -59,6 +61,7 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
     setModalExpensesSearchShow,
     setModalExpensesAddShow,
     setExpenseTypeByStatusActive,
+    setBankByStatusActive,
   }) => {
 
     const [height, width] = useWindowSize();
@@ -89,6 +92,7 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
     customPeriod,
     setExpenses,
     setExpenseTypeByStatusActive,
+    setBankByStatusActive,
   ]);
 
   return (
@@ -107,7 +111,10 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
             </IonFabButton>
             <IonFabList side="start">
               <IonFabButton 
-                onClick={() => [setModalExpensesSearchShow(true), setExpenseTypeByStatusActive(userProfileServer.userId)]}
+                onClick={() => [
+                  setModalExpensesSearchShow(true),
+                  setExpenseTypeByStatusActive(userProfileServer.userId)
+                ]}
               >
                 <IonIcon
                   color={AppColor.TERTIARY}
@@ -115,7 +122,11 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
                 />
               </IonFabButton>
               <IonFabButton
-                onClick={() => [setModalExpensesAddShow(true), setExpenseTypeByStatusActive(userProfileServer.userId)]}
+                onClick={() => [
+                  setModalExpensesAddShow(true),
+                  setExpenseTypeByStatusActive(userProfileServer.userId),
+                  setBankByStatusActive(userProfileServer.userId),
+                ]}
               >
                 <IonIcon color={AppColor.SUCCESS} icon={add}/>
               </IonFabButton>
@@ -153,7 +164,10 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
                   <IonFabButton color={AppColor.LIGHT} size="small" title="Search">
                     <IonIcon
                       icon={search}
-                      onClick={() => [setModalExpensesSearchShow(true), setExpenseTypeByStatusActive(userProfileServer.userId)]}
+                      onClick={() => [
+                        setModalExpensesSearchShow(true),
+                        setExpenseTypeByStatusActive(userProfileServer.userId)
+                      ]}
                       size="small"
                     />
                   </IonFabButton>
@@ -164,7 +178,11 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
                   <IonFabButton color={AppColor.TERTIARY} size="small" title="Add new record">
                     <IonIcon
                       icon={add}
-                      onClick={() => [setModalExpensesAddShow(true), setExpenseTypeByStatusActive(userProfileServer.userId)]}
+                      onClick={() => [
+                        setModalExpensesAddShow(true),
+                        setExpenseTypeByStatusActive(userProfileServer.userId),
+                        setBankByStatusActive(userProfileServer.userId),
+                      ]}
                       size="small"
                     />
                   </IonFabButton>
@@ -190,9 +208,9 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
         setParams={setParams}
       />
       <LsModalExpensesAdd
-        setIsCustomSearch={setIsCustomSearch}
-        setCustomPeriod={setCustomPeriod}
-        setParams={setParams}
+        // setIsCustomSearch={setIsCustomSearch}
+        // setCustomPeriod={setCustomPeriod}
+        // setParams={setParams}
       />
 
       {/* <IonModal isOpen={showAddRecordModal} onDidDismiss={() => setShowAddRecordModal(false)}>
@@ -246,6 +264,7 @@ export default connect<{}, StateProps, DispatchProps> ({
     setModalExpensesSearchShow,
     setModalExpensesAddShow,
     setExpenseTypeByStatusActive,
+    setBankByStatusActive,
   }),
   component: React.memo(ExpensesPage)
 });

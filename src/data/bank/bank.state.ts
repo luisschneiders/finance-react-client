@@ -6,6 +6,9 @@ export interface BankListState {
     banks: Bank[];
     pagination: Pagination;
   };
+  bankStatusActive: {
+    banks: Bank[];
+  };
   bank: Bank;
   isFetching: boolean;
   isSaving: boolean;

@@ -4,10 +4,11 @@ export const EXPENSES_SET = 'EXPENSES_SET';
 
 export const BANK_ADD = 'BANK_ADD';
 export const BANK_BY_ID_SET = 'BANK_BY_ID_SET';
+export const BANK_IS_SAVING = 'BANK_IS_SAVING';
 export const BANK_LIST_IS_FETCHING = 'BANK_LIST_IS_FETCHING';
 export const BANK_LIST_SET = 'BANK_LIST_SET';
 export const BANK_MODAL_SHOW = 'BANK_MODAL_SHOW';
-export const BANK_IS_SAVING = 'BANK_IS_SAVING';
+export const BANK_STATUS_ACTIVE_SET = 'BANK_STATUS_ACTIVE_SET';
 export const BANK_UPDATE = 'BANK_UPDATE';
 
 export const EXPENSE_TYPE_ADD = 'EXPENSE_TYPE_ADD';

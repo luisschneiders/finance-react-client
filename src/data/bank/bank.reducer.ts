@@ -6,6 +6,7 @@ import {
   BANK_UPDATE,
   BANK_BY_ID_SET,
   BANK_MODAL_SHOW,
+  BANK_STATUS_ACTIVE_SET,
 } from '../actionTypes';
 import { BankAction } from './bank.actions';
 import { BankListState } from './bank.state';
@@ -38,6 +39,13 @@ export const bankReducer = (state: BankListState, action: BankAction) : BankList
         bankList: {
           banks: [...state.bankList.banks, ...action.payload.banks],
           pagination: {...state.bankList.pagination, ...action.payload.pagination},
+        }
+      }
+    case BANK_STATUS_ACTIVE_SET:
+      return {
+        ...state,
+        bankStatusActive: {
+          banks: [...state.bankStatusActive.banks, ...action.payload.banks],
         }
       }
     case BANK_BY_ID_SET:

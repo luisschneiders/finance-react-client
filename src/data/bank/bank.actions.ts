@@ -1,4 +1,8 @@
-import { Bank, BankList } from '../../models/Bank';
+import {
+  Bank,
+  BankList,
+  BankStatusActive
+} from '../../models/Bank';
 import { ActionType } from '../../util/types';
 import {
   BANK_ADD,
@@ -8,12 +12,14 @@ import {
   BANK_UPDATE,
   BANK_BY_ID_SET,
   BANK_MODAL_SHOW,
+  BANK_STATUS_ACTIVE_SET,
 } from '../actionTypes';
 import {
   fetchBankData,
   addBankData,
   updateBankData,
-  fetchBankByIdData
+  fetchBankByIdData,
+  fetchBankStatusActiveData
 } from './data';
 
 const saveBankAction = (data: Bank) => {
@@ -33,6 +39,13 @@ const updateBankAction = (data: Bank) => {
 const setBankListAction = (data: BankList) => {
   return ({
     type: BANK_LIST_SET,
+    payload: data
+  } as const);
+}
+
+const setBankByStatusActiveAction = (data: BankStatusActive) => {
+  return ({
+    type: BANK_STATUS_ACTIVE_SET,
     payload: data
   } as const);
 }
@@ -84,6 +97,15 @@ export const setBankList = (id: number, page: number, pageSize: number) => async
   return setBankListAction(data);
 }
 
+export const setBankByStatusActive = (userId: number) => async (dispatch: React.Dispatch<any>) => {
+
+  dispatch(isFetchingBankListAction(true));
+  const data = await fetchBankStatusActiveData(userId);
+  dispatch(isFetchingBankListAction(false));
+
+  return setBankByStatusActiveAction(data);
+}
+
 export const setBankById = (userId: number, bankId: number) => async (dispatch: React.Dispatch<any>) => {
 
   const data = await fetchBankByIdData(userId, bankId);
@@ -107,6 +129,7 @@ export type BankAction =
   | ActionType<typeof addBank>
   | ActionType<typeof updateBank>
   | ActionType<typeof setBankList>
+  | ActionType<typeof setBankByStatusActive>
   | ActionType<typeof setBankById>
   | ActionType<typeof setBankModalShow>
   | ActionType<typeof isFetchingBankList>

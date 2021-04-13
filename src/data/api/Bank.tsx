@@ -1,4 +1,4 @@
-import { Bank, BankList } from '../../models/Bank';
+import { Bank, BankList, BankStatusActive } from '../../models/Bank';
 import * as ROUTES from '../../constants/Routes';
 import { toast } from '../../components/toast/Toast';
 import { StatusColor } from '../../enum/StatusColor';
@@ -43,6 +43,50 @@ export function fetchBankList(id: number, page: number, pageSize: number) {
             const bankList: BankList = {
               banks: [],
               pagination: {page: 1, pageSize: PageListItem.ITEM_12, pageCount: 0, rowCount: 0}
+            };
+
+            toast(`Code: ${resStatus} -> ${error}`, StatusColor.ERROR, 4000);
+
+            return bankList;
+          });
+}
+
+export function fetchBankStatusActive(userId: number) {
+  let resStatus: any = null;
+
+  return fetch(`${ROUTES.SERVER}/get-active-banks/bankInsertedBy=${userId}`)
+          .then(response => {
+            resStatus = response.status;
+            return response.json()
+          })
+          .then((result: BankStatusActive) => {
+
+            const banksMap: Bank[] = [];
+            result.banks.forEach((item: any) => {
+              const bank: Bank = {
+                bankId: item.id,
+                bankDescription: item.bankDescription,
+                bankAccount: item.bankAccount,
+                bankInitialBalance: item.bankInitialBalance,
+                bankCurrentBalance: item.bankCurrentBalance,
+                bankIsActive: item.bankIsActive,
+                bankInsertedBy: item.bankInsertedBy,
+                bankCreatedAt: item.created_at,
+                bankUpdatedAt: item.updated_at,
+              };
+              banksMap.push(bank);
+            });
+
+            const bankList: BankStatusActive = {
+              banks: banksMap,
+            };
+
+            return bankList;
+          },
+          (error) => {
+            // Assign initial state as response
+            const bankList: BankStatusActive = {
+              banks: [],
             };
 
             toast(`Code: ${resStatus} -> ${error}`, StatusColor.ERROR, 4000);

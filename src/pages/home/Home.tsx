@@ -103,7 +103,7 @@ const HomePage: React.FC<HomeProps> = ({
           {width > MOBILE_VIEW &&
           <IonGrid className="ion-no-padding">
             <IonRow className="ion-no-padding">
-              <IonCol size="10" push="1" className="ion-no-padding">
+              <IonCol size="8" push="2" className="ion-no-padding">
               <LsTransition
                 monthOrYear="year"
                 period={period}

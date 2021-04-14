@@ -12,6 +12,7 @@ import {
   USER_IS_LOGGED_IN_SET,
   USER_PHOTO_URL_SET
 } from '../actionTypes';
+import React from 'react';
 
 const darkModeAction = (darkMode: boolean) => {
   return ({
@@ -24,6 +25,13 @@ const hasSeenWelcomeAction = (hasSeenWelcome: boolean) => {
   return ({
     type: USER_HAS_SEEN_WELCOME_SET,
     hasSeenWelcome
+  } as const);
+}
+
+const setIsLoggedInAction = (isLoggedIn: boolean) => {
+  return ({
+    type: USER_IS_LOGGED_IN_SET,
+    isLoggedIn
   } as const);
 }
 
@@ -47,11 +55,8 @@ export const getHasSeenWelcome = () => async (dispatch: React.Dispatch<any>) => 
   dispatch(hasSeenWelcomeAction(hasSeenWelcome));
 }
 
-export const setIsLoggedIn = (isLoggedIn: boolean) => async () => {
-  return ({
-    type: USER_IS_LOGGED_IN_SET,
-    isLoggedIn
-  } as const);
+export const setIsLoggedIn = (isLoggedIn: boolean) => async (dispatch: React.Dispatch<any>) => {
+  return setIsLoggedInAction(isLoggedIn);
 }
 
 export const setDisplayName = (displayName: string | null | undefined) => async (dispatch: React.Dispatch<any>) => {

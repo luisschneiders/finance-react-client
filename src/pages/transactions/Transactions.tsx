@@ -36,7 +36,6 @@ import { setTransactionTypeByStatusActive } from '../../data/transactionType/tra
 import LsModalTransactionsSearch from '../../components/modal/ModalTransactionsSearch';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { MOBILE_VIEW } from '../../constants/App';
-import LsMainChip from '../../components/chip/MainChip';
 
 interface StateProps {
   isLoggedIn: boolean;

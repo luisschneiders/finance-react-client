@@ -59,12 +59,13 @@ const AccountPage: React.FC<AccountProps> = ({
   }) => {
 
   const [username, setUsername] = useState<string | null | undefined>();
-  const [busy, setBusy] = useState(false);
+  const [busy, setBusy] = useState(true);
   const [{ data, isError, progress }, setFileData ] = useFirebaseUpload();
   const [isImageLoaded, setImageLoaded] = useState(false);
   const ios: boolean = isPlatform('ios');
   const onImgLoaded = () => {
     setImageLoaded(true);
+    setBusy(false);
   };
 
   const altImage: any = displayName;

@@ -17,6 +17,7 @@ import { connect } from '../../data/connect';
 import * as selectorsUser from '../../data/user/user.selectors';
 import * as selectorsSessions from '../../data/sessions/sessions.selectors';
 import * as selectorsModal from '../../data/modal/modal.selectors';
+import * as selectorsBank from '../../data/bank/bank.selectors';
 import * as selectorsExpenseType from '../../data/expenseType/expenseType.selectors';
 import { setModalExpensesAddShow } from '../../data/modal/modal.actions';
 import * as MOMENT  from '../../util/moment';
@@ -28,17 +29,19 @@ import {
 import { Period } from '../../models/Period';
 import { ExpenseTypeStatusActive } from '../../models/ExpenseType';
 import * as ROUTES  from '../../constants/Routes';
+import { BankStatusActive } from '../../models/Bank';
 
 interface ContainerProps {
-  setIsCustomSearch: (isCustomSearch: boolean) => void;
-  setCustomPeriod: (customPeriod: Period) => void;
-  setParams: (params: string) => void;
+  // setIsCustomSearch: (isCustomSearch: boolean) => void;
+  // setCustomPeriod: (customPeriod: Period) => void;
+  // setParams: (params: string) => void;
 }
 
 interface StateProps {
   isLoggedIn: boolean;
   userProfileServer: UserProfileServer;
   isShowModalExpensesAdd: boolean;
+  bankStatusActive: BankStatusActive;
   expenseTypeStatusActive: ExpenseTypeStatusActive;
 }
 
@@ -47,24 +50,25 @@ interface DispatchProps {
 }
 
 
-interface ModalExpensesSearchProps extends ContainerProps, StateProps, DispatchProps {}
+interface ModalExpensesAddProps extends ContainerProps, StateProps, DispatchProps {}
 
-const LsModalExpensesSearch: React.FC<ModalExpensesSearchProps> = ({
+const LsModalExpensesAdd: React.FC<ModalExpensesAddProps> = ({
     isLoggedIn,
     userProfileServer,
     isShowModalExpensesAdd,
+    bankStatusActive,
     expenseTypeStatusActive,
-    setCustomPeriod,
+    // setCustomPeriod,
     setModalExpensesAddShow,
-    setIsCustomSearch,
-    setParams,
+    // setIsCustomSearch,
+    // setParams,
   }) => {
 
   const { showModal, isSubmitting, handleShow, handleClose } = useModal();
 
-  const [selectedStartDate, setSelectedStartDate] = useState<string>(startPeriod(MOMENT.currentMonthYYYMMDD));
-  const [selectedEndDate, setSelectedEndDate] = useState<string>(endPeriod(MOMENT.currentMonthYYYMMDD));
+  const [selectedDate, setSelectedDate] = useState<string>(startPeriod(MOMENT.currentMonthYYYMMDD));
   const [expenseOptions, setExpenseOptions] = useState<[]>([]);
+  const [bankOptions, setBankOptions] = useState<[]>([]);
   const selectInput = {
     cssClass: 'select-input-expense-type'
   };
@@ -85,18 +89,13 @@ const LsModalExpensesSearch: React.FC<ModalExpensesSearchProps> = ({
     handleShow,
   ]);
 
-  const expensesSearchForm = async(e: React.FormEvent) => {
+  const expensesAddForm = async(e: React.FormEvent) => {
     e.preventDefault();
 
-    const newPeriod: Period = {
-      startDate: dateFormatYYYYMMDD(selectedStartDate),
-      endDate: dateFormatYYYYMMDD(selectedEndDate),
-    };
-
     if (isLoggedIn && userProfileServer) {
-      setIsCustomSearch(true);
-      setCustomPeriod(newPeriod);
-      setParams(expenseOptions.length ? expenseOptions.toString() : 'all');
+      // setIsCustomSearch(true);
+      // setCustomPeriod(newPeriod);
+      // setParams(expenseOptions.length ? expenseOptions.toString() : 'all');
     }
 
     handleClose();
@@ -105,37 +104,63 @@ const LsModalExpensesSearch: React.FC<ModalExpensesSearchProps> = ({
   return (
     <ModalProvider>
       <LsMainModal
-        id="modal-expenses-search"
+        id="modal-expenses-add"
         show={showModal}
         title="Add new expense"
         isSubmitting={isSubmitting}
         closeModal={handleClose}
       >
-        <form noValidate onSubmit={expensesSearchForm}>
+        <form noValidate onSubmit={expensesAddForm}>
           <IonList lines="full">
             <IonItem>
-              <IonLabel>From</IonLabel>
+              <IonLabel>Date</IonLabel>
               <IonDatetime
                 displayFormat="MMM DD, YYYY"
                 placeholder="Select Date"
-                value={selectedStartDate}
-                onIonChange={e => setSelectedStartDate(e.detail.value!)}
+                value={selectedDate}
+                onIonChange={e => setSelectedDate(e.detail.value!)}
               />
             </IonItem>
             <IonItem>
-              <IonLabel>To</IonLabel>
-              <IonDatetime
-                displayFormat="MMM DD, YYYY"
-                placeholder="Select Date"
-                value={selectedEndDate}
-                onIonChange={e => setSelectedEndDate(e.detail.value!)}
-              />
+              <IonLabel>Bank</IonLabel>
+              {bankStatusActive.banks.length ?
+                <IonSelect
+                  onIonChange={e => setBankOptions(e.detail.value)}
+                  disabled={!bankStatusActive.banks.length}
+                  interfaceOptions={selectInput}
+                >
+                  {bankStatusActive.banks.map((option: any, index: number) => (
+                    <IonSelectOption
+                      key={index}
+                      value={option.bankId}
+                    >
+                      {option.bankDescription}
+                    </IonSelectOption>
+                  ))}
+                </IonSelect> :
+                <IonSelect
+                  value={0}
+                  disabled
+                >
+                  <IonSelectOption value={0}>No bank found!</IonSelectOption>
+                </IonSelect>
+              }
             </IonItem>
+            {!bankStatusActive.banks.length &&
+              <IonItem lines="none">
+                  <IonButton slot="end"
+                    onClick={() => handleClose()}
+                    routerLink={ROUTES.SETUP_BANK}
+                    fill="clear"
+                  >
+                    Click here to add banks
+                  </IonButton>
+              </IonItem>
+            }
             <IonItem>
               <IonLabel>Expense</IonLabel>
               {expenseTypeStatusActive.expensesType.length ?
                 <IonSelect
-                  multiple={true}
                   onIonChange={e => setExpenseOptions(e.detail.value)}
                   disabled={!expenseTypeStatusActive.expensesType.length}
                   interfaceOptions={selectInput}
@@ -170,7 +195,7 @@ const LsModalExpensesSearch: React.FC<ModalExpensesSearchProps> = ({
             }
             <IonItem lines="none">
               <div slot="end" className="ion-padding-vertical">
-                <IonButton type="submit" shape="round" color={AppColor.TERTIARY}>Search</IonButton>
+                <IonButton size="default" type="submit" shape="round" color={AppColor.PRIMARY}>Save</IonButton>
               </div>
             </IonItem>
           </IonList>
@@ -185,10 +210,11 @@ export default connect<ContainerProps, StateProps, DispatchProps>({
     isLoggedIn: selectorsUser.getIsLoggedIn(state),
     userProfileServer: selectorsSessions.getUserProfileServer(state),
     isShowModalExpensesAdd: selectorsModal.showModalExpensesAdd(state),
+    bankStatusActive: selectorsBank.getBankStatusActive(state),
     expenseTypeStatusActive: selectorsExpenseType.getExpenseTypeStatusActive(state),
   }),
   mapDispatchToProps: ({
     setModalExpensesAddShow,
   }),
-  component: React.memo(LsModalExpensesSearch)
+  component: React.memo(LsModalExpensesAdd)
 });

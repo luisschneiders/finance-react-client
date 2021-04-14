@@ -60,6 +60,7 @@ const AccountPage: React.FC<AccountProps> = ({
 
   const [username, setUsername] = useState<string | null | undefined>();
   const [busy, setBusy] = useState(true);
+  const [message, setMessage] = useState<string>('Loading...');
   const [{ data, isError, progress }, setFileData ] = useFirebaseUpload();
   const [isImageLoaded, setImageLoaded] = useState(false);
   const ios: boolean = isPlatform('ios');
@@ -72,6 +73,7 @@ const AccountPage: React.FC<AccountProps> = ({
 
   const account = async (e: React.FormEvent) => {
     e.preventDefault();
+    setMessage('Uploading...')
     setBusy(true);
 
     const response: any = await updateProfile({
@@ -97,7 +99,7 @@ const AccountPage: React.FC<AccountProps> = ({
           <IonTitle>Account</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonLoading message="Updating..." duration={0} isOpen={busy}></IonLoading>
+      <IonLoading message={message} duration={0} isOpen={busy}></IonLoading>
       <IonContent className="ion-padding">
         <form noValidate onSubmit={account}>
           <IonCard>

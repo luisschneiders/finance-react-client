@@ -22,11 +22,8 @@ import * as selectorsExpenseType from '../../data/expenseType/expenseType.select
 import { setModalExpensesAddShow } from '../../data/modal/modal.actions';
 import * as MOMENT  from '../../util/moment';
 import {
-  dateFormatYYYYMMDD,
-  endPeriod,
   startPeriod
 } from '../../util/moment';
-import { Period } from '../../models/Period';
 import { ExpenseTypeStatusActive } from '../../models/ExpenseType';
 import * as ROUTES  from '../../constants/Routes';
 import { BankStatusActive } from '../../models/Bank';

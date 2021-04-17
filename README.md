@@ -46,11 +46,12 @@ Then within the project run:
 * `firebase init`
 
 Then the CLI will prompt:
-"**Which Firebase CLI features do you want to set up for this folder?**" Choose "**Hosting: Configure and deploy Firebase Hosting sites**."
-"**Select a default Firebase project for this directory:**" Choose the project you created on the Firebase website.
-"**What do you want to use as your public directory?**" Enter "**build**".
-"**Configure as a single-page app (rewrite all urls to /index.html)?**" Enter "**Yes**".
-"**File build/index.html already exists. Overwrite?**" Enter "**No**".
+* "**Which Firebase CLI features do you want to set up for this folder?**" Choose "**Hosting: Configure and deploy Firebase Hosting sites**."
+* "**Select a default Firebase project for this directory:**" Choose the project you created on the Firebase website.
+* "**What do you want to use as your public directory?**" Enter "**build**".
+* "**Configure as a single-page app (rewrite all urls to /index.html)?**" Enter "**Yes**".
+* "**Set up automatic builds and deploys with GitHub?**" Enter "**No**"
+* "**File build/index.html already exists. Overwrite?**" Enter "**No**" (If prompted).
 
 Next, build an optimized version of the app by running:
 * `ionic build --prod`

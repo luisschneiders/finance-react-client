@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Redirect,
   Route,
-} from 'react-router-dom';
+} from 'react-router';
 import {
   IonApp,
   IonRouterOutlet,

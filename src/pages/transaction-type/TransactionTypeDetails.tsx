@@ -117,7 +117,7 @@ const TransactionTypeDetailsPage: React.FC<TransactionTypeDetailsProps> = ({
     }
 
   return (
-    <IonPage id="news-details-page">
+    <IonPage id="transaction-type-details-page">
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">

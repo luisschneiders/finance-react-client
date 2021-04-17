@@ -106,7 +106,7 @@ const VehicleDetailsPage: React.FC<VehicleDetailsProps> = ({
     }
 
   return (
-    <IonPage id="news-details-page">
+    <IonPage id="vehicle-details-page">
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">

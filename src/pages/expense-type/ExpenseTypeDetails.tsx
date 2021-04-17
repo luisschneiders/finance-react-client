@@ -99,7 +99,7 @@ const ExpenseTypeDetailsPage: React.FC<ExpenseTypeDetailsProps> = ({
     }
 
   return (
-    <IonPage id="news-details-page">
+    <IonPage id="expense-type-details-page">
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">

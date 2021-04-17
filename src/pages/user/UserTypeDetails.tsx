@@ -122,7 +122,7 @@ const UserTypeDetailsPage: React.FC<UserTypeDetailsProps> = ({
     }
 
   return (
-    <IonPage id="news-details-page">
+    <IonPage id="user-type-details-page">
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">

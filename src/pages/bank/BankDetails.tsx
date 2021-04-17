@@ -113,7 +113,7 @@ const BankDetailsPage: React.FC<BankDetailsProps> = ({
     }
 
   return (
-    <IonPage id="news-details-page">
+    <IonPage id="bank-details-page">
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">

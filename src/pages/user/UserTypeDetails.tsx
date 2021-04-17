@@ -126,7 +126,7 @@ const UserTypeDetailsPage: React.FC<UserTypeDetailsProps> = ({
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref={ROUTES.SETUP_USER_TYPE}></IonBackButton>
+            <IonBackButton defaultHref={ROUTES.TABS_USER_TYPE}></IonBackButton>
           </IonButtons>
           <IonTitle className="ion-text-capitalize">
             Update <span className="ion-text-underline"> {userTypeDescription}</span>

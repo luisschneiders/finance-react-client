@@ -53,8 +53,6 @@ import LoginPage from './pages/login/Login';
 import RegisterPage from './pages/register/Register';
 import AccountPage from './pages/account/Account';
 import WelcomePage from './pages/welcome/Welcome';
-import DashboardPage from './pages/dashboard/Dashboard';
-import SetupPage from './pages/setup/Setup';
 
 import { StatusColor } from './enum/StatusColor';
 import { getAvatar } from './util/getAvatar';
@@ -62,17 +60,7 @@ import * as ROUTES  from './constants/Routes';
 import { setResetAppStore } from './data/app/app.actions';
 import { initialState } from './data/app/app.state';
 import { getUserProfileServer } from './data/sessions/sessions.actions';
-
-import BankPage from './pages/bank/Bank';
-import BankDetailsPage from './pages/bank/BankDetails';
-import ExpenseTypePage from './pages/expense-type/ExpenseType';
-import ExpenseTypeDetailsPage from './pages/expense-type/ExpenseTypeDetails';
-import TransactionType from './pages/transaction-type/TransactionType';
-import TransactionTypeDetailsPage from './pages/transaction-type/TransactionTypeDetails';
-import UserTypePage from './pages/user/UserType';
-import UserTypeDetailsPage from './pages/user/UserTypeDetails';
-import VehiclePage from './pages/vehicle/Vehicle';
-import VehicleDetailsPage from './pages/vehicle/VehicleDetails';
+import * as selectorsUser from './data/user/user.selectors';
 // import { setNews } from './data/news/news.actions';
 
 const App: React.FC = () => {
@@ -85,6 +73,7 @@ const App: React.FC = () => {
 
 interface StateProps {
   darkMode: boolean;
+  isLoggedIn: boolean;
 }
 
 interface DispatchProps {
@@ -102,6 +91,7 @@ interface IonicAppProps extends StateProps, DispatchProps {}
 
 const IonicApp: React.FC<IonicAppProps> = ({
     darkMode,
+    isLoggedIn,
     getDarkMode,
     getUserProfileServer,
     // setNews,
@@ -113,18 +103,21 @@ const IonicApp: React.FC<IonicAppProps> = ({
   }) => {
 
   const [busy, setBusy] = useState<boolean>(true);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   useEffect(() => {
     getDarkMode();
     // setNews();
     getCurrentUser().then((user: any) => {
       if (user) {
+        setIsAuthenticated(true);
         getUserProfileServer();
         setIsLoggedIn(true);
         setDisplayName(user.displayName);
         setPhotoURL(user.photoURL ? user.photoURL : getAvatar(user.email));
         setHasSeenWelcome(true);
       } else {
+        setIsAuthenticated(false);
         setIsLoggedIn(false);
       }
       setBusy(false);
@@ -148,28 +141,21 @@ const IonicApp: React.FC<IonicAppProps> = ({
                   <LsMenu />
                   <IonRouterOutlet id="main">
                     <Route path='/' component={HomeOrWelcome} exact={true} />
-                    <Route path={ROUTES.TABS} component={LsMainTabs} />
-                    <Route path={ROUTES.ACCOUNT} component={AccountPage} exact={true} />
-                    <Route path={ROUTES.DASHBOARD} component={DashboardPage} exact={true} />
+
                     <Route path={ROUTES.LOGIN} component={LoginPage} exact={true} />
                     <Route path={ROUTES.REGISTER} component={RegisterPage} exact={true} />
 
-                    <Route path={ROUTES.SETUP} component={SetupPage} exact={true} />
+                    <Route path={ROUTES.TABS}>
+                      {isAuthenticated || isLoggedIn ? <LsMainTabs /> : <Redirect to={ROUTES.LOGIN} />}
+                    </Route>
 
-                    <Route path={ROUTES.SETUP_BANK} component={BankPage} exact={true} />
-                    <Route path={`${ROUTES.SETUP_BANK}/:id`} component={BankDetailsPage} />
-
-                    <Route path={ROUTES.SETUP_EXPENSE_TYPE} component={ExpenseTypePage} exact={true} />
-                    <Route path={`${ROUTES.SETUP_EXPENSE_TYPE}/:id`} component={ExpenseTypeDetailsPage} />
-
-                    <Route path={ROUTES.SETUP_TRANSACTION_TYPE} component={TransactionType} exact={true} />
-                    <Route path={`${ROUTES.SETUP_TRANSACTION_TYPE}/:id`} component={TransactionTypeDetailsPage} />
-
-                    <Route path={ROUTES.SETUP_USER_TYPE} component={UserTypePage} exact={true} />
-                    <Route path={`${ROUTES.SETUP_USER_TYPE}/:id`} component={UserTypeDetailsPage} />
-
-                    <Route path={ROUTES.SETUP_VEHICLE} component={VehiclePage} exact={true} />
-                    <Route path={`${ROUTES.SETUP_VEHICLE}/:id`} component={VehicleDetailsPage} />
+                    <Route path={ROUTES.ACCOUNT} render={() => {
+                      if (isAuthenticated || isLoggedIn) {
+                        return <Route path={ROUTES.ACCOUNT} component={AccountPage} exact={true} />
+                      } else {
+                        return <Redirect to={ROUTES.LOGIN} />
+                      }
+                    }} />
 
                     <Route path={ROUTES.WELCOME} component={WelcomePage} exact={true} />
                     <Route path={ROUTES.LOGOUT} render={() => {
@@ -195,6 +181,7 @@ export default App;
 const IonicAppConnected = connect<{}, StateProps, DispatchProps>({
   mapStateToProps: (state) => ({
     darkMode: state.userReducer.darkMode,
+    isLoggedIn: selectorsUser.getIsLoggedIn(state),
   }),
   mapDispatchToProps: {
     getDarkMode,

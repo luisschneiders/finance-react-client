@@ -53,23 +53,23 @@ const SetupPage: React.FC<SetupProps> = ({
       </IonHeader>
       <IonContent fullscreen>
         <IonList lines="full">
-          <IonItem detail={true} routerLink={ROUTES.SETUP_BANK} routerDirection="none">
+          <IonItem detail={true} routerLink={ROUTES.TABS_BANK} routerDirection="none">
             <IonIcon slot="start" icon={businessOutline} />
             <IonLabel>Banks</IonLabel>
           </IonItem>
-          <IonItem detail={true} routerLink={ROUTES.SETUP_EXPENSE_TYPE} routerDirection="none">
+          <IonItem detail={true} routerLink={ROUTES.TABS_EXPENSE_TYPE} routerDirection="none">
             <IonIcon slot="start" icon={pricetagOutline} />
             <IonLabel>Expense Categories</IonLabel>
           </IonItem>
-          <IonItem detail={true} routerLink={ROUTES.SETUP_TRANSACTION_TYPE} routerDirection="none">
+          <IonItem detail={true} routerLink={ROUTES.TABS_TRANSACTION_TYPE} routerDirection="none">
             <IonIcon slot="start" icon={repeatOutline} />
             <IonLabel>Transaction Categories</IonLabel>
           </IonItem>
-          <IonItem detail={true} routerLink={ROUTES.SETUP_USER_TYPE} routerDirection="none">
+          <IonItem detail={true} routerLink={ROUTES.TABS_USER_TYPE} routerDirection="none">
             <IonIcon slot="start" icon={peopleOutline} />
             <IonLabel>Users</IonLabel>
           </IonItem>
-          <IonItem detail={true} routerLink={ROUTES.SETUP_VEHICLE} routerDirection="none">
+          <IonItem detail={true} routerLink={ROUTES.TABS_VEHICLE} routerDirection="none">
             <IonIcon slot="start" icon={carOutline} />
             <IonLabel>Vehicles</IonLabel>
           </IonItem>
@@ -79,7 +79,7 @@ const SetupPage: React.FC<SetupProps> = ({
   )
 };
 
-export default connect<OwnProps, StateProps, DispatchProps>({
+export default connect<{}, StateProps, DispatchProps>({
   mapStateToProps: (state) => ({
     isLoggedIn: selectorsUser.getIsLoggedIn(state),
     userProfileServer: selectorsSessions.getUserProfileServer(state),

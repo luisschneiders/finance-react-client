@@ -157,7 +157,7 @@ const LsModalTransactionsSearch: React.FC<ModalTransactionsSearchProps> = ({
               <IonItem lines="none">
                   <IonButton slot="end"
                     onClick={() => handleClose()}
-                    routerLink={ROUTES.SETUP_TRANSACTION_TYPE}
+                    routerLink={ROUTES.TABS_TRANSACTION_TYPE}
                     fill="clear"
                   >
                     Click here to add transactions

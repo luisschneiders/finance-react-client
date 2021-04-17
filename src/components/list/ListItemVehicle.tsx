@@ -79,7 +79,7 @@ const LsListItemVehicle: React.FC<ListVehicleProps> = ({
                 <IonItem
                   className="ion-text-uppercase"
                   lines="none"
-                  routerLink={`${ROUTES.SETUP_VEHICLE}/${item.vehicleId}`}
+                  routerLink={`${ROUTES.TABS_VEHICLE}/${item.vehicleId}`}
                 >
                   <IonLabel>
                     <div className="ion-text-capitalize">Vehicle: </div>

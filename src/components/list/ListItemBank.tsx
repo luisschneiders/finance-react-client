@@ -80,7 +80,7 @@ const LsListItemBank: React.FC<ListBankProps> = ({
                 <IonItem
                   className="ion-text-uppercase"
                   lines="none"
-                  routerLink={`${ROUTES.SETUP_BANK}/${item.bankId}`}
+                  routerLink={`${ROUTES.TABS_BANK}/${item.bankId}`}
                 >
                   <IonLabel>
                     <div className="ion-text-capitalize">Bank: </div>

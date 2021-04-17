@@ -110,7 +110,7 @@ const VehicleDetailsPage: React.FC<VehicleDetailsProps> = ({
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref={ROUTES.SETUP_VEHICLE}></IonBackButton>
+            <IonBackButton defaultHref={ROUTES.TABS_VEHICLE}></IonBackButton>
           </IonButtons>
           <IonTitle className="ion-text-capitalize">
             Update <span className="ion-text-underline"> {vehicleDescription}</span>

@@ -121,7 +121,7 @@ const TransactionTypeDetailsPage: React.FC<TransactionTypeDetailsProps> = ({
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref={ROUTES.SETUP_TRANSACTION_TYPE}></IonBackButton>
+            <IonBackButton defaultHref={ROUTES.TABS_TRANSACTION_TYPE}></IonBackButton>
           </IonButtons>
           <IonTitle className="ion-text-capitalize">
             Update <span className="ion-text-underline"> {transactionTypeDescription}</span>

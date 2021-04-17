@@ -82,6 +82,7 @@ const LsModalExpensesAdd: React.FC<ModalExpensesAddProps> = ({
     isShowModalExpensesAdd,
     expenseTypeStatusActive,
     expenseOptions,
+    bankOptions,
     setModalExpensesAddShow,
     handleShow,
   ]);
@@ -147,7 +148,7 @@ const LsModalExpensesAdd: React.FC<ModalExpensesAddProps> = ({
               <IonItem lines="none">
                   <IonButton slot="end"
                     onClick={() => handleClose()}
-                    routerLink={ROUTES.SETUP_BANK}
+                    routerLink={ROUTES.TABS_BANK}
                     fill="clear"
                   >
                     Click here to add banks
@@ -183,7 +184,7 @@ const LsModalExpensesAdd: React.FC<ModalExpensesAddProps> = ({
               <IonItem lines="none">
                   <IonButton slot="end"
                     onClick={() => handleClose()}
-                    routerLink={ROUTES.SETUP_EXPENSE_TYPE}
+                    routerLink={ROUTES.TABS_EXPENSE_TYPE}
                     fill="clear"
                   >
                     Click here to add expenses

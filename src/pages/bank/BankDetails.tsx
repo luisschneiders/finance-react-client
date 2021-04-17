@@ -117,7 +117,7 @@ const BankDetailsPage: React.FC<BankDetailsProps> = ({
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref={ROUTES.SETUP_BANK}></IonBackButton>
+            <IonBackButton defaultHref={ROUTES.TABS_BANK}></IonBackButton>
           </IonButtons>
           <IonTitle className="ion-text-capitalize">
             Update <span className="ion-text-underline"> {bankDescription}</span>

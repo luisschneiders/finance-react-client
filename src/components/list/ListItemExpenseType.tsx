@@ -79,7 +79,7 @@ const LsListItemExpenseType: React.FC<ListExpensesTypeProps> = ({
                 <IonItem
                   className="ion-text-uppercase"
                   lines="none"
-                  routerLink={`${ROUTES.SETUP_EXPENSE_TYPE}/${item.expenseTypeId}`}
+                  routerLink={`${ROUTES.TABS_EXPENSE_TYPE}/${item.expenseTypeId}`}
                 >
                   <IonLabel>
                     <div className="ion-text-capitalize">Expense: </div>

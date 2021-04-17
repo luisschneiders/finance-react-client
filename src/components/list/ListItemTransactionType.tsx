@@ -87,7 +87,7 @@ const LsListItemTransactionType: React.FC<ListTransactionTypeProps> = ({
                 <IonItem
                   className="ion-text-uppercase"
                   lines="none"
-                  routerLink={`${ROUTES.SETUP_TRANSACTION_TYPE}/${item.transactionTypeId}`}
+                  routerLink={`${ROUTES.TABS_TRANSACTION_TYPE}/${item.transactionTypeId}`}
                 >
                   <IonLabel>
                     <div className="ion-text-capitalize">Transaction: </div>

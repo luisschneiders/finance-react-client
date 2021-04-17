@@ -103,7 +103,7 @@ const ExpenseTypeDetailsPage: React.FC<ExpenseTypeDetailsProps> = ({
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref={ROUTES.SETUP_EXPENSE_TYPE}></IonBackButton>
+            <IonBackButton defaultHref={ROUTES.TABS_EXPENSE_TYPE}></IonBackButton>
           </IonButtons>
           <IonTitle className="ion-text-capitalize">
             Update <span className="ion-text-underline"> {expenseTypeDescription}</span>

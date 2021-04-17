@@ -88,7 +88,7 @@ const LsListItemUserType: React.FC<ListUserTypeProps> = ({
                 <IonItem
                   className="ion-text-uppercase"
                   lines="none"
-                  routerLink={`${ROUTES.SETUP_USER_TYPE}/${item.userTypeId}`}
+                  routerLink={`${ROUTES.TABS_USER_TYPE}/${item.userTypeId}`}
                 >
                   <IonLabel>
                     <div className="ion-text-capitalize">User: </div>

@@ -60,7 +60,7 @@ const BankPage: React.FC<BankProps> = ({
   ]);
   
   return (
-    <IonPage>
+    <IonPage id="bank-page">
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">

@@ -161,7 +161,7 @@ const LsModalExpensesSearch: React.FC<ModalExpensesSearchProps> = ({
               <IonItem lines="none">
                   <IonButton slot="end"
                     onClick={() => handleClose()}
-                    routerLink={ROUTES.SETUP_EXPENSE_TYPE}
+                    routerLink={ROUTES.TABS_EXPENSE_TYPE}
                     fill="clear"
                   >
                     Click here to add expenses

@@ -137,7 +137,7 @@ const UserTypeDetailsPage: React.FC<UserTypeDetailsProps> = ({
         <form noValidate onSubmit={formUserType}>
           <IonList>
             <IonItem lines="full" disabled={!userType && !userTypeById}>
-              <IonLabel position="stacked" color={AppColor.PRIMARY}>Description</IonLabel>
+              <IonLabel position="stacked" color={AppColor.PRIMARY}>Name</IonLabel>
               <IonInput name="userTypeDescription" type="text"
                         value={userTypeDescription} spellCheck={false} autocapitalize="off"
                         onIonChange={(e: any) => setUserTypeDescription(e.detail.value!)} required>

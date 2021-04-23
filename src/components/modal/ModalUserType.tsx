@@ -102,7 +102,7 @@ const LsModalUserType: React.FC<ModalUserTypeProps> = ({
       >
         <form noValidate onSubmit={userTypeForm}>
           <IonItem>
-            <IonLabel position="stacked">Description</IonLabel>
+            <IonLabel position="stacked">Name</IonLabel>
             <IonInput
               name="userTypeDescription"
               type="text"
@@ -125,7 +125,7 @@ const LsModalUserType: React.FC<ModalUserTypeProps> = ({
             </IonSelect>
           </IonItem>
           <IonItem>
-            <IonLabel position="stacked">Rates</IonLabel>
+            <IonLabel position="stacked">Rate/Hour</IonLabel>
             <IonInput
               type="number"
               step="0.01"

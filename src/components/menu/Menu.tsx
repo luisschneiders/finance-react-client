@@ -23,6 +23,7 @@ import {
 import { connect } from '../../data/connect';
 import { appPages } from '../../app/AppPages';
 import { AppColor } from '../../enum/AppColor';
+import LsMainChip from '../chip/MainChip';
 
 interface StateProps {
   darkMode: boolean;
@@ -86,6 +87,9 @@ const LsMenu: React.FC<MenuProps> = ({darkMode, history, isAuthenticated, setDar
           <IonItem>
             <IonIcon slot="start" icon={businessOutline}></IonIcon>
             <IonLabel color={AppColor.TERTIARY}>Schneiders Tech</IonLabel>
+            <span className="ion-text-uppercase company-division-title">
+              <LsMainChip text="Finance" color={AppColor.SECONDARY} />
+            </span>
           </IonItem>
         </IonList>
         <IonList lines="none">

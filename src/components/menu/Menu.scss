@@ -5,6 +5,10 @@ ion-menu ion-content {
   --background: var(--ion-item-background, var(--ion-background-color, #fff));
 }
 
+.item .company-division-title ion-chip ion-label {
+  font-size: .58rem;
+}
+
 /* Remove background transitions for switching themes */
 ion-menu ion-item {
   --transition: none;

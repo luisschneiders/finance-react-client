@@ -105,7 +105,7 @@ const HomePage: React.FC<HomeProps> = ({
             <IonRow className="ion-no-padding">
               <IonCol size="8" push="2" className="ion-no-padding">
               <LsTransition
-                monthOrYear="year"
+                dayOrMonthOrYear="year"
                 period={period}
                 setPeriod={setPeriod}
               />
@@ -116,7 +116,7 @@ const HomePage: React.FC<HomeProps> = ({
         </IonToolbar>
         {width <= MOBILE_VIEW && <IonToolbar>
           <LsTransition
-            monthOrYear="year"
+            dayOrMonthOrYear="year"
             period={period}
             setPeriod={setPeriod}
           />

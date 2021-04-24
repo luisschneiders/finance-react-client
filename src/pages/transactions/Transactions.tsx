@@ -140,7 +140,7 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
               </IonCol>
               <IonCol size="8" className="ion-no-padding">
                 <LsTransition
-                  monthOrYear='month'
+                  dayOrMonthOrYear="month"
                   period={period}
                   setPeriod={setPeriod}
                 />
@@ -173,7 +173,7 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
         </IonToolbar>
         {width <= MOBILE_VIEW && <IonToolbar>
           <LsTransition
-            monthOrYear='month'
+            dayOrMonthOrYear="month"
             period={period}
             setPeriod={setPeriod}
           />

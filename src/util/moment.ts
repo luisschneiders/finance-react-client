@@ -7,46 +7,47 @@ import { Period } from '../models/Period';
 export const now = moment();
 export const currentYearYYYY: string = moment().format('YYYY');
 export const currentMonthYYYMMDD: string = moment().format('YYYY-MM-DD');
+export const currentDayDD: string = moment().format('YYYY-MM-DD');
 
-export const startPeriod = (date: string, monthOrYear: any = 'month') => {
-  return moment(date).startOf(monthOrYear).format('YYYY-MM-DD');
+export const startPeriod = (date: string, dayOrMonthOrYear: any = 'month') => {
+  return moment(date).startOf(dayOrMonthOrYear).format('YYYY-MM-DD');
 };
-export const endPeriod = (date: string, monthOrYear: any = 'month') => {
-  return moment(date).endOf(monthOrYear).format('YYYY-MM-DD');
-};
-
-export const subtractStartPeriod = (date: string, monthOrYear: any = 'month') => {
-  return moment(date).subtract(1, monthOrYear).startOf(monthOrYear).format('YYYY-MM-DD');
-};
-export const subtractEndPeriod = (date: string, monthOrYear: any = 'month') => {
-  return moment(date).subtract(1, monthOrYear).endOf(monthOrYear).format('YYYY-MM-DD');
+export const endPeriod = (date: string, dayOrMonthOrYear: any = 'month') => {
+  return moment(date).endOf(dayOrMonthOrYear).format('YYYY-MM-DD');
 };
 
-export const addStartPeriod = (date: string, monthOrYear: any = 'month') => {
-  return moment(date).add(1, monthOrYear).startOf(monthOrYear).format('YYYY-MM-DD');
+export const subtractStartPeriod = (date: string, dayOrMonthOrYear: any = 'month') => {
+  return moment(date).subtract(1, dayOrMonthOrYear).startOf(dayOrMonthOrYear).format('YYYY-MM-DD');
 };
-export const addEndPeriod = (date: string, monthOrYear: any = 'month') => {
-  return moment(date).add(1, monthOrYear).endOf(monthOrYear).format('YYYY-MM-DD');
+export const subtractEndPeriod = (date: string, dayOrMonthOrYear: any = 'month') => {
+  return moment(date).subtract(1, dayOrMonthOrYear).endOf(dayOrMonthOrYear).format('YYYY-MM-DD');
 };
 
-export const decreasePeriod = (period: Period, monthOrYear: any = 'month') => {
+export const addStartPeriod = (date: string, dayOrMonthOrYear: any = 'month') => {
+  return moment(date).add(1, dayOrMonthOrYear).startOf(dayOrMonthOrYear).format('YYYY-MM-DD');
+};
+export const addEndPeriod = (date: string, dayOrMonthOrYear: any = 'month') => {
+  return moment(date).add(1, dayOrMonthOrYear).endOf(dayOrMonthOrYear).format('YYYY-MM-DD');
+};
+
+export const decreasePeriod = (period: Period, dayOrMonthOrYear: any = 'month') => {
   return {
-    startDate: subtractStartPeriod(period.startDate, monthOrYear),
-    endDate: subtractEndPeriod(period.endDate, monthOrYear),
+    startDate: subtractStartPeriod(period.startDate, dayOrMonthOrYear),
+    endDate: subtractEndPeriod(period.endDate, dayOrMonthOrYear),
   };
 };
 
-export const increasePeriod = (period: Period, monthOrYear: any = 'month') => {
+export const increasePeriod = (period: Period, dayOrMonthOrYear: any = 'month') => {
   return {
-    startDate: addStartPeriod(period.startDate, monthOrYear),
-    endDate: addEndPeriod(period.endDate, monthOrYear),
+    startDate: addStartPeriod(period.startDate, dayOrMonthOrYear),
+    endDate: addEndPeriod(period.endDate, dayOrMonthOrYear),
   };
 };
 
-export const currentPeriod = (monthOrYear: any = 'month') => {
+export const currentPeriod = (dayOrMonthOrYear: any = 'month') => {
   return {
-    startDate: startPeriod(currentMonthYYYMMDD, monthOrYear),
-    endDate: endPeriod(currentMonthYYYMMDD, monthOrYear),
+    startDate: startPeriod(currentMonthYYYMMDD, dayOrMonthOrYear),
+    endDate: endPeriod(currentMonthYYYMMDD, dayOrMonthOrYear),
   };
 };
 

@@ -20,27 +20,27 @@ import {
 } from '../../util/moment';
 
 interface ContainerProps {
-  monthOrYear: 'month' | 'year';
+  dayOrMonthOrYear: 'day' | 'month' | 'year';
   period: Period;
   setPeriod: (period: Period) => void;
 }
 
-const LsTransition: React.FC<ContainerProps> = ({ monthOrYear, period, setPeriod }) => {
+const LsTransition: React.FC<ContainerProps> = ({ dayOrMonthOrYear, period, setPeriod }) => {
   return (
     <IonGrid>
       <IonRow>
         <IonCol className="ion-text-right ion-no-padding">
-          <IonButton color={AppColor.LIGHT} size="small" onClick={() => setPeriod(decreasePeriod(period, monthOrYear))}>
+          <IonButton color={AppColor.LIGHT} size="small" onClick={() => setPeriod(decreasePeriod(period, dayOrMonthOrYear))}>
             <IonIcon icon={arrowBackOutline}/>
           </IonButton>
         </IonCol>
         <IonCol className="ion-text-center ion-no-padding">
-          <IonButton color={AppColor.LIGHT} size="small" onClick={() => setPeriod(currentPeriod(monthOrYear))}>
+          <IonButton color={AppColor.LIGHT} size="small" onClick={() => setPeriod(currentPeriod(dayOrMonthOrYear))}>
             {`${dateFormatDDMMYYYY(period.startDate)} - ${dateFormatDDMMYYYY(period.endDate)}`}
           </IonButton>
         </IonCol>
         <IonCol className="ion-text-left ion-no-padding">
-          <IonButton color={AppColor.LIGHT} size="small" onClick={() => setPeriod(increasePeriod(period, monthOrYear))}>
+          <IonButton color={AppColor.LIGHT} size="small" onClick={() => setPeriod(increasePeriod(period, dayOrMonthOrYear))}>
             <IonIcon icon={arrowForwardOutline}/>
           </IonButton>
         </IonCol>

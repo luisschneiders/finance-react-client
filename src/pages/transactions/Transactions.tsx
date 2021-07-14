@@ -58,6 +58,7 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
   setTransactionTypeByStatusActive,
 
 }) => {
+  /* eslint-disable  @typescript-eslint/no-unused-vars */
   const [height, width] = useWindowSize();
   const [period, setPeriod] = useState<Period>({
     startDate: startPeriod(MOMENT.currentMonthYYYMMDD),

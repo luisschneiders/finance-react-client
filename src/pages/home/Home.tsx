@@ -51,6 +51,7 @@ const HomePage: React.FC<HomeProps> = ({
     setAppSummary,
     // setNews,
 }) => {
+  /* eslint-disable  @typescript-eslint/no-unused-vars */
   const [height, width] = useWindowSize();
   const [period, setPeriod] = useState<Period>({
     startDate: startPeriod(MOMENT.currentYearYYYY, 'year'),

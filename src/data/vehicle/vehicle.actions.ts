@@ -66,16 +66,14 @@ export const isSavingVehicle = (isSaving: boolean) => async () => {
 }
 
 export const setVehicleList = (id: number, page: number, pageSize: number) => async (dispatch: React.Dispatch<any>) => {
-  dispatch(isFetchingVehicleListAction(true));
+  // dispatch(isFetchingVehicleListAction(true));
   const data = await fetchVehicleData(id, page, pageSize);
-  dispatch(isFetchingVehicleListAction(false));
+  // dispatch(isFetchingVehicleListAction(false));
   return setVehicleListAction(data);
 }
 
 export const setVehicleById = (userId: number, vehicleId: number) => async (dispatch: React.Dispatch<any>) => {
-
   const data = await fetchVehicleByIdData(userId, vehicleId);
-
   return setVehicleByIdAction(data);
 }
 

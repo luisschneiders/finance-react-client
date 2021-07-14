@@ -91,9 +91,9 @@ export const setBankModalShow = (showBankModal: boolean) => async () => {
 }
 
 export const setBankList = (id: number, page: number, pageSize: number) => async (dispatch: React.Dispatch<any>) => {
-  dispatch(isFetchingBankListAction(true));
+  // dispatch(isFetchingBankListAction(true));
   const data = await fetchBankData(id, page, pageSize);
-  dispatch(isFetchingBankListAction(false));
+  // dispatch(isFetchingBankListAction(false));
   return setBankListAction(data);
 }
 

@@ -75,9 +75,9 @@ export const isSavingTransactionType = (isSaving: boolean) => async () => {
 }
 
 export const setTransactionTypeList = (id: number, page: number, pageSize: number) => async (dispatch: React.Dispatch<any>) => {
-  dispatch(isFetchingTransactionTypeListAction(true));
+  // dispatch(isFetchingTransactionTypeListAction(true));
   const data = await fetchTransactionTypeData(id, page, pageSize);
-  dispatch(isFetchingTransactionTypeListAction(false));
+  // dispatch(isFetchingTransactionTypeListAction(false));
   return setTransactionTypeListAction(data);
 }
 

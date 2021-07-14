@@ -66,9 +66,9 @@ export const isSavingUserType = (isSaving: boolean) => async () => {
 }
 
 export const setUserTypeList = (id: number, page: number, pageSize: number) => async (dispatch: React.Dispatch<any>) => {
-  dispatch(isFetchingUserTypeListAction(true));
+  // dispatch(isFetchingUserTypeListAction(true));
   const data = await fetchUserTypeData(id, page, pageSize);
-  dispatch(isFetchingUserTypeListAction(false));
+  // dispatch(isFetchingUserTypeListAction(false));
   return setUserTypeListAction(data);
 }
 

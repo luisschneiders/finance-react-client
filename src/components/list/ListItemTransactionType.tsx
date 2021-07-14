@@ -5,6 +5,8 @@ import {
   IonList,
   IonButton,
   IonToggle,
+  IonAvatar,
+  IonIcon,
 } from '@ionic/react';
 import { connect } from '../../data/connect';
 import * as selectorsUser from '../../data/user/user.selectors';
@@ -22,6 +24,7 @@ import { PageListItem } from '../../enum/PageListItem';
 import LsMainCard from '../card/MainCard';
 import * as ROUTES from '../../constants/Routes';
 import { transactionTypeOptions } from '../../pages/transaction-type/TransactionTypeOptions';
+import { repeatOutline } from 'ionicons/icons';
 
 interface StateProps {
   isLoggedIn: boolean;
@@ -80,34 +83,35 @@ const LsListItemTransactionType: React.FC<ListTransactionTypeProps> = ({
   return (
     <>
       {transactionType && transactionType.length > 0 &&
-        <IonList lines="full">
+        <IonList lines="full" className="ion-no-padding">
           {transactionType.map((item: TransactionType, index: number) => (
             <IonItem key={index}>
               <IonLabel>
                 <IonItem
-                  className="ion-text-uppercase"
+                  className="ion-no-padding"
                   lines="none"
                   routerLink={`${ROUTES.TABS_TRANSACTION_TYPE}/${item.transactionTypeId}`}
                 >
+                  <IonAvatar slot="start">
+                    <IonIcon size="large" icon={repeatOutline} color={AppColor.SECONDARY} />
+                  </IonAvatar>
                   <IonLabel>
-                    <div className="ion-text-capitalize">Transaction: </div>
-                    <div className={item.transactionTypeIsActive ? StatusColor.IS_ACTIVE : StatusColor.IS_INACTIVE}>
+                    <h2>
                       {item.transactionTypeDescription}
-                    </div>
-                  </IonLabel>
-                  <IonLabel>
-                    <div className="ion-text-capitalize">Action: </div>
-                    <div className={item.transactionTypeIsActive ? StatusColor.IS_ACTIVE : StatusColor.IS_INACTIVE}>
-                      {transactionTypeOptionsList.map((type: any, key: number) => {
+                    </h2>
+                    <p>
+                      Action: {transactionTypeOptionsList.map((type: any, key: number) => {
                         return type.value === item.transactionTypeAction ? <span key={key}>{type.description}</span> : '';
                       })}
-                    </div>
+                    </p>
                   </IonLabel>
                 </IonItem>
               </IonLabel>
-              <div slot="end">
-                <IonToggle color={StatusColor.SUCCESS} checked={item.transactionTypeIsActive} onClick={() => changeStatus(item)} />
-              </div>
+              <IonToggle
+                color={StatusColor.SUCCESS}
+                checked={item.transactionTypeIsActive}
+                onClick={() => changeStatus(item)}
+              />
             </IonItem>
           ))}
         </IonList>

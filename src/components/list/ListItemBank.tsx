@@ -5,6 +5,8 @@ import {
   IonList,
   IonButton,
   IonToggle,
+  IonAvatar,
+  IonIcon,
 } from '@ionic/react';
 import { connect } from '../../data/connect';
 import * as selectorsUser from '../../data/user/user.selectors';
@@ -22,6 +24,7 @@ import { PageListItem } from '../../enum/PageListItem';
 import LsMainCard from '../card/MainCard';
 import * as ROUTES from '../../constants/Routes';
 import { currencyMask } from '../../util/currencyMask';
+import { businessOutline } from 'ionicons/icons';
 
 interface StateProps {
   isLoggedIn: boolean;
@@ -78,33 +81,34 @@ const LsListItemBank: React.FC<ListBankProps> = ({
             <IonItem key={index}>
               <IonLabel>
                 <IonItem
-                  className="ion-text-uppercase"
                   lines="none"
+                  className="ion-no-padding"
                   routerLink={`${ROUTES.TABS_BANK}/${item.bankId}`}
                 >
+                  <IonAvatar slot="start">
+                    <IonIcon size="large" icon={businessOutline} color={AppColor.SECONDARY} />
+                  </IonAvatar>
                   <IonLabel>
-                    <div className="ion-text-capitalize">Bank: </div>
-                    <div className={item.bankIsActive ? StatusColor.IS_ACTIVE : StatusColor.IS_INACTIVE}>
+                    <h2>
                       {item.bankDescription}
-                    </div>
-                  </IonLabel>
-                  <IonLabel>
-                    <div className="ion-text-capitalize">Account: </div>
-                    <div className={item.bankIsActive ? StatusColor.IS_ACTIVE : StatusColor.IS_INACTIVE}>
-                      {item.bankAccount}
-                    </div>
-                  </IonLabel>
-                  <IonLabel>
-                    <div className="ion-text-capitalize">Current balance: </div>
-                    <div className={item.bankIsActive ? StatusColor.IS_ACTIVE : StatusColor.IS_INACTIVE}>
-                      {currencyMask('en-AU', item.bankCurrentBalance, 'AUD')}
-                    </div>
+                    </h2>
+                    <p>
+                      Account: {item.bankAccount}
+                    </p>
+                    <p>
+                      Initial balance: {currencyMask('en-AU', item.bankInitialBalance, 'AUD')}
+                    </p>
+                    <p>
+                      Current balance: {currencyMask('en-AU', item.bankCurrentBalance, 'AUD')}
+                    </p>
                   </IonLabel>
                 </IonItem>
               </IonLabel>
-              <div slot="end">
-                <IonToggle color={StatusColor.SUCCESS} checked={item.bankIsActive} onClick={() => changeStatus(item)} />
-              </div>
+              <IonToggle
+                color={StatusColor.SUCCESS}
+                checked={item.bankIsActive}
+                onClick={() => changeStatus(item)}
+              />
             </IonItem>
           ))}
         </IonList>

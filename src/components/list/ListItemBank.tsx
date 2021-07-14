@@ -76,7 +76,7 @@ const LsListItemBank: React.FC<ListBankProps> = ({
   return (
     <>
       {bank && bank.length > 0 &&
-        <IonList lines="full">
+        <IonList lines="full" className="ion-no-padding">
           {bank.map((item: Bank, index: number) => (
             <IonItem key={index}>
               <IonLabel>

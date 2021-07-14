@@ -5,6 +5,8 @@ import {
   IonList,
   IonButton,
   IonToggle,
+  IonAvatar,
+  IonIcon,
 } from '@ionic/react';
 import { connect } from '../../data/connect';
 import * as selectorsUser from '../../data/user/user.selectors';
@@ -21,6 +23,7 @@ import { UserProfileServer } from '../../models/UserProfileServer';
 import { PageListItem } from '../../enum/PageListItem';
 import LsMainCard from '../card/MainCard';
 import * as ROUTES from '../../constants/Routes';
+import { pricetagOutline } from 'ionicons/icons';
 
 interface StateProps {
   isLoggedIn: boolean;
@@ -72,26 +75,30 @@ const LsListItemExpenseType: React.FC<ListExpensesTypeProps> = ({
   return (
     <>
       {expenseType && expenseType.length > 0 &&
-        <IonList lines="full">
+        <IonList lines="full" className="ion-no-padding">
           {expenseType.map((item: ExpenseType, index: number) => (
             <IonItem key={index}>
               <IonLabel>
                 <IonItem
-                  className="ion-text-uppercase"
+                  className="ion-no-padding"
                   lines="none"
                   routerLink={`${ROUTES.TABS_EXPENSE_TYPE}/${item.expenseTypeId}`}
                 >
+                  <IonAvatar slot="start">
+                    <IonIcon size="large" icon={pricetagOutline} color={AppColor.SECONDARY} />
+                  </IonAvatar>
                   <IonLabel>
-                    <div className="ion-text-capitalize">Expense: </div>
-                    <div className={item.expenseTypeIsActive ? StatusColor.IS_ACTIVE : StatusColor.IS_INACTIVE}>
+                    <h2>
                       {item.expenseTypeDescription}
-                    </div>
+                    </h2>
                   </IonLabel>
                 </IonItem>
               </IonLabel>
-              <div slot="end">
-                <IonToggle color={StatusColor.SUCCESS} checked={item.expenseTypeIsActive} onClick={() => changeStatus(item)} />
-              </div>
+              <IonToggle
+                color={StatusColor.SUCCESS}
+                checked={item.expenseTypeIsActive}
+                onClick={() => changeStatus(item)}
+              />
             </IonItem>
           ))}
         </IonList>

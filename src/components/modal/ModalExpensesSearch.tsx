@@ -114,7 +114,7 @@ const LsModalExpensesSearch: React.FC<ModalExpensesSearchProps> = ({
         <form noValidate onSubmit={expensesSearchForm}>
           <IonList lines="full">
             <IonItem>
-              <IonLabel>From</IonLabel>
+              <IonLabel position="stacked">From</IonLabel>
               <IonDatetime
                 displayFormat="MMM DD, YYYY"
                 placeholder="Select Date"
@@ -123,7 +123,7 @@ const LsModalExpensesSearch: React.FC<ModalExpensesSearchProps> = ({
               />
             </IonItem>
             <IonItem>
-              <IonLabel>To</IonLabel>
+              <IonLabel position="stacked">To</IonLabel>
               <IonDatetime
                 displayFormat="MMM DD, YYYY"
                 placeholder="Select Date"
@@ -132,7 +132,7 @@ const LsModalExpensesSearch: React.FC<ModalExpensesSearchProps> = ({
               />
             </IonItem>
             <IonItem>
-              <IonLabel>Expense</IonLabel>
+              <IonLabel position="stacked">Expense</IonLabel>
               {expenseTypeStatusActive.expensesType.length ?
                 <IonSelect
                   multiple={true}

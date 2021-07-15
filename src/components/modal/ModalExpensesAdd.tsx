@@ -6,6 +6,7 @@ import {
   IonList,
   IonSelect,
   IonSelectOption,
+  IonTextarea,
 } from '@ionic/react';
 import React, { useEffect, useState } from 'react';
 import { AppColor } from '../../enum/AppColor';
@@ -20,13 +21,14 @@ import * as selectorsModal from '../../data/modal/modal.selectors';
 import * as selectorsBank from '../../data/bank/bank.selectors';
 import * as selectorsExpenseType from '../../data/expenseType/expenseType.selectors';
 import { setModalExpensesAddShow } from '../../data/modal/modal.actions';
-import * as MOMENT  from '../../util/moment';
+import * as MOMENT from '../../util/moment';
 import {
   startPeriod
 } from '../../util/moment';
 import { ExpenseTypeStatusActive } from '../../models/ExpenseType';
 import * as ROUTES  from '../../constants/Routes';
 import { BankStatusActive } from '../../models/Bank';
+import { currencyMask } from '../../util/currencyMask';
 
 interface ContainerProps {
   // setIsCustomSearch: (isCustomSearch: boolean) => void;
@@ -63,9 +65,10 @@ const LsModalExpensesAdd: React.FC<ModalExpensesAddProps> = ({
 
   const { showModal, isSubmitting, handleShow, handleClose } = useModal();
 
-  const [selectedDate, setSelectedDate] = useState<string>(startPeriod(MOMENT.currentMonthYYYMMDD));
+  const [selectedDate, setSelectedDate] = useState<string>(MOMENT.currentDayDD);
   const [expenseOptions, setExpenseOptions] = useState<[]>([]);
   const [bankOptions, setBankOptions] = useState<[]>([]);
+  const [expenseComments, setExpenseComments] = useState<string>('');
   const selectInput = {
     cssClass: 'select-input-expense-type'
   };
@@ -111,7 +114,7 @@ const LsModalExpensesAdd: React.FC<ModalExpensesAddProps> = ({
         <form noValidate onSubmit={expensesAddForm}>
           <IonList lines="full">
             <IonItem>
-              <IonLabel>Date</IonLabel>
+              <IonLabel position="stacked">Date</IonLabel>
               <IonDatetime
                 displayFormat="MMM DD, YYYY"
                 placeholder="Select Date"
@@ -120,7 +123,7 @@ const LsModalExpensesAdd: React.FC<ModalExpensesAddProps> = ({
               />
             </IonItem>
             <IonItem>
-              <IonLabel>Bank</IonLabel>
+              <IonLabel position="stacked">Bank</IonLabel>
               {bankStatusActive.banks.length ?
                 <IonSelect
                   onIonChange={e => setBankOptions(e.detail.value)}
@@ -132,7 +135,7 @@ const LsModalExpensesAdd: React.FC<ModalExpensesAddProps> = ({
                       key={index}
                       value={option.bankId}
                     >
-                      {option.bankDescription}
+                      {`${option.bankDescription} ${currencyMask('en-AU', option.bankCurrentBalance, 'AUD')}`}
                     </IonSelectOption>
                   ))}
                 </IonSelect> :
@@ -156,7 +159,7 @@ const LsModalExpensesAdd: React.FC<ModalExpensesAddProps> = ({
               </IonItem>
             }
             <IonItem>
-              <IonLabel>Expense</IonLabel>
+              <IonLabel position="stacked">Expense</IonLabel>
               {expenseTypeStatusActive.expensesType.length ?
                 <IonSelect
                   onIonChange={e => setExpenseOptions(e.detail.value)}
@@ -192,8 +195,23 @@ const LsModalExpensesAdd: React.FC<ModalExpensesAddProps> = ({
               </IonItem>
             }
             <IonItem lines="none">
+              <IonLabel position="stacked">Comments</IonLabel>
+              <IonTextarea
+                value={expenseComments}
+                onIonChange={e => setExpenseComments(e.detail.value!)}
+                required={true}
+              ></IonTextarea>
+            </IonItem>
+            <IonItem lines="none">
               <div slot="end" className="ion-padding-vertical">
-                <IonButton size="default" type="submit" shape="round" color={AppColor.PRIMARY}>Save</IonButton>
+                <IonButton
+                  size="default"
+                  type="submit"
+                  shape="round"
+                  color={AppColor.PRIMARY}
+                >
+                  Save
+                </IonButton>
               </div>
             </IonItem>
           </IonList>

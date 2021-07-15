@@ -68,10 +68,14 @@ const TransactionTypePage: React.FC<TransactionTypeProps> = ({
           </IonButtons>
           <IonTitle>Transactions Categories</IonTitle>
           <IonFab vertical="center" horizontal="end">
-            <IonFabButton color={AppColor.TERTIARY} size="small" title="Add new record">
+            <IonFabButton
+              color={AppColor.TERTIARY}
+              size="small"
+              title="Add new record"
+              onClick={() => setModalTransactionTypeShow(true)}
+            >
               <IonIcon
                 icon={add}
-                onClick={() => setModalTransactionTypeShow(true)}
                 size="small"
               />
             </IonFabButton>

@@ -68,10 +68,14 @@ const ExpenseTypePage: React.FC<ExpensesTypeProps> = ({
           </IonButtons>
           <IonTitle>Expense Categories</IonTitle>
           <IonFab vertical="center" horizontal="end">
-            <IonFabButton color={AppColor.TERTIARY} size="small" title="Add new record">
+            <IonFabButton
+              color={AppColor.TERTIARY}
+              size="small"
+              title="Add new record"
+              onClick={() => setModalExpenseTypeShow(true)}
+            >
               <IonIcon 
                 icon={add}
-                onClick={() => setModalExpenseTypeShow(true)}
                 size="small"
               />
             </IonFabButton>

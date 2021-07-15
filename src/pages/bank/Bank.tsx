@@ -68,10 +68,14 @@ const BankPage: React.FC<BankProps> = ({
           </IonButtons>
           <IonTitle>Banks</IonTitle>
           <IonFab vertical="center" horizontal="end">
-            <IonFabButton color={AppColor.TERTIARY} size="small" title="Add new record">
+            <IonFabButton
+              color={AppColor.TERTIARY}
+              size="small"
+              title="Add new record"
+              onClick={() => setModalBankShow(true)}
+            >
               <IonIcon
                 icon={add}
-                onClick={() => setModalBankShow(true)}
                 size="small"
               />
             </IonFabButton>

@@ -68,10 +68,14 @@ const UserTypePage: React.FC<UserTypeProps> = ({
           </IonButtons>
           <IonTitle>Users</IonTitle>
           <IonFab vertical="center" horizontal="end">
-            <IonFabButton color={AppColor.TERTIARY} size="small" title="Add new record">
+            <IonFabButton
+              color={AppColor.TERTIARY}
+              size="small"
+              title="Add new record"
+              onClick={() => setModalUserTypeShow(true)}
+            >
               <IonIcon
                 icon={add}
-                onClick={() => setModalUserTypeShow(true)}
                 size="small"
               />
             </IonFabButton>

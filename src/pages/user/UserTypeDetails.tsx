@@ -144,7 +144,7 @@ const UserTypeDetailsPage: React.FC<UserTypeDetailsProps> = ({
               </IonInput>
             </IonItem>
             <IonItem>
-              <IonLabel position="stacked">Type</IonLabel>
+              <IonLabel position="stacked">Role</IonLabel>
               <IonSelect
                 onIonChange={e => setUserTypeOptionsList(e.detail.value)}
                 value={userTypeOption}

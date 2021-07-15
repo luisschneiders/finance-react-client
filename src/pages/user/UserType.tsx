@@ -79,7 +79,7 @@ const UserTypePage: React.FC<UserTypeProps> = ({
         </IonToolbar>
       </IonHeader>
       <IonLoading message="Please wait..." duration={0} isOpen={isFetching}></IonLoading>
-      <IonContent className="ion-padding">
+      <IonContent className="ion-no-padding">
         <LsListItemUserType />
         <LsModalUserType />
       </IonContent>

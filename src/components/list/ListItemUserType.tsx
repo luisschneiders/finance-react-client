@@ -5,6 +5,8 @@ import {
   IonList,
   IonButton,
   IonToggle,
+  IonAvatar,
+  IonIcon,
 } from '@ionic/react';
 import { connect } from '../../data/connect';
 import * as selectorsUser from '../../data/user/user.selectors';
@@ -23,6 +25,7 @@ import LsMainCard from '../card/MainCard';
 import * as ROUTES from '../../constants/Routes';
 import { currencyMask } from '../../util/currencyMask';
 import { userTypeOptions } from '../../pages/user/UserTypeOptions';
+import { peopleOutline } from 'ionicons/icons';
 
 interface StateProps {
   isLoggedIn: boolean;
@@ -81,40 +84,38 @@ const LsListItemUserType: React.FC<ListUserTypeProps> = ({
   return (
     <>
       {userType && userType.length > 0 &&
-        <IonList lines="full">
+        <IonList lines="full" className="ion-no-padding">
           {userType.map((item: UserType, index: number) => (
             <IonItem key={index}>
               <IonLabel>
                 <IonItem
-                  className="ion-text-uppercase"
+                  className="ion-no-padding"
                   lines="none"
                   routerLink={`${ROUTES.TABS_USER_TYPE}/${item.userTypeId}`}
                 >
+                  <IonAvatar slot="start">
+                    <IonIcon size="large" icon={peopleOutline} color={AppColor.SECONDARY} />
+                  </IonAvatar>
                   <IonLabel>
-                    <div className="ion-text-capitalize">User: </div>
-                    <div className={item.userTypeIsActive ? StatusColor.IS_ACTIVE : StatusColor.IS_INACTIVE}>
+                    <h2>
                       {item.userTypeDescription}
-                    </div>
-                  </IonLabel>
-                  <IonLabel>
-                    <div className="ion-text-capitalize">Rate: </div>
-                    <div className={item.userTypeIsActive ? StatusColor.IS_ACTIVE : StatusColor.IS_INACTIVE}>
-                      {currencyMask('en-AU', item.userTypeRates, 'AUD')}
-                    </div>
-                  </IonLabel>
-                  <IonLabel>
-                    <div className="ion-text-capitalize">Type: </div>
-                    <div className={item.userTypeIsActive ? StatusColor.IS_ACTIVE : StatusColor.IS_INACTIVE}>
-                      {userTypeOptionsList.map((type: any, key: number) => {
+                    </h2>
+                    <p>
+                      Rate: {currencyMask('en-AU', item.userTypeRates, 'AUD')}
+                    </p>
+                    <p>
+                      Role: {userTypeOptionsList.map((type: any, key: number) => {
                         return type.value === item.userTypeOptions ? <span key={key}>{type.description}</span> : '';
                       })}
-                    </div>
+                    </p>
                   </IonLabel>
                 </IonItem>
               </IonLabel>
-              <div slot="end">
-                <IonToggle color={StatusColor.SUCCESS} checked={item.userTypeIsActive} onClick={() => changeStatus(item)} />
-              </div>
+              <IonToggle
+                color={StatusColor.SUCCESS}
+                checked={item.userTypeIsActive}
+                onClick={() => changeStatus(item)}
+              />
             </IonItem>
           ))}
         </IonList>

@@ -112,7 +112,7 @@ const LsModalUserType: React.FC<ModalUserTypeProps> = ({
             />
           </IonItem>
           <IonItem>
-            <IonLabel position="stacked">Type</IonLabel>
+            <IonLabel position="stacked">Role</IonLabel>
             <IonSelect onIonChange={e => setUserTypeOption(e.detail.value)}>
               {userTypeOptionsList.map((option: any, index: number) => (
                 <IonSelectOption 

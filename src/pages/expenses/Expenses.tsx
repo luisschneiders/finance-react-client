@@ -110,6 +110,15 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
               <IonIcon icon={ellipsisVertical} />
             </IonFabButton>
             <IonFabList side="start">
+            <IonFabButton
+                onClick={() => [
+                  setModalExpensesAddShow(true),
+                  setExpenseTypeByStatusActive(userProfileServer.userId),
+                  setBankByStatusActive(userProfileServer.userId),
+                ]}
+              >
+                <IonIcon color={AppColor.SUCCESS} icon={add}/>
+              </IonFabButton>
               <IonFabButton 
                 onClick={() => [
                   setModalExpensesSearchShow(true),
@@ -120,15 +129,6 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
                   color={AppColor.TERTIARY}
                   icon={search}
                 />
-              </IonFabButton>
-              <IonFabButton
-                onClick={() => [
-                  setModalExpensesAddShow(true),
-                  setExpenseTypeByStatusActive(userProfileServer.userId),
-                  setBankByStatusActive(userProfileServer.userId),
-                ]}
-              >
-                <IonIcon color={AppColor.SUCCESS} icon={add}/>
               </IonFabButton>
             </IonFabList>
           </IonFab>}

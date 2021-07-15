@@ -104,6 +104,14 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
               <IonIcon icon={ellipsisVertical} />
             </IonFabButton>
             <IonFabList side="start">
+            <IonFabButton
+                onClick={() => [
+                  setModalTransactionsSearchShow(true),
+                  setTransactionTypeByStatusActive(userProfileServer.userId)
+                ]}
+              >
+                <IonIcon color={AppColor.SUCCESS} icon={add} />
+              </IonFabButton>
               <IonFabButton
                 onClick={() => [
                   setModalTransactionsSearchShow(true),
@@ -114,14 +122,6 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
                   color={AppColor.TERTIARY}
                   icon={search}
                 />
-              </IonFabButton>
-              <IonFabButton
-                onClick={() => [
-                  setModalTransactionsSearchShow(true),
-                  setTransactionTypeByStatusActive(userProfileServer.userId)
-                ]}
-              >
-                <IonIcon color={AppColor.SUCCESS} icon={add} />
               </IonFabButton>
             </IonFabList>
           </IonFab>}

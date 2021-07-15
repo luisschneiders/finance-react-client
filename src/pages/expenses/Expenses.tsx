@@ -161,13 +161,17 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
               </IonCol>
               <IonCol size="1" className="ion-no-padding">
                 <IonFab vertical="center" horizontal="end">
-                  <IonFabButton color={AppColor.LIGHT} size="small" title="Search">
+                  <IonFabButton
+                    color={AppColor.LIGHT}
+                    size="small"
+                    title="Search"
+                    onClick={() => [
+                      setModalExpensesSearchShow(true),
+                      setExpenseTypeByStatusActive(userProfileServer.userId)
+                    ]}
+                  >
                     <IonIcon
                       icon={search}
-                      onClick={() => [
-                        setModalExpensesSearchShow(true),
-                        setExpenseTypeByStatusActive(userProfileServer.userId)
-                      ]}
                       size="small"
                     />
                   </IonFabButton>
@@ -175,14 +179,18 @@ const ExpensesPage: React.FC<ExpensesProps> = ({
               </IonCol>
               <IonCol size="1" className="ion-no-padding">
                 <IonFab vertical="center" horizontal="end">
-                  <IonFabButton color={AppColor.TERTIARY} size="small" title="Add new record">
+                  <IonFabButton
+                    color={AppColor.TERTIARY}
+                    size="small"
+                    title="Add new record"
+                    onClick={() => [
+                      setModalExpensesAddShow(true),
+                      setExpenseTypeByStatusActive(userProfileServer.userId),
+                      setBankByStatusActive(userProfileServer.userId),
+                    ]}
+                  >
                     <IonIcon
                       icon={add}
-                      onClick={() => [
-                        setModalExpensesAddShow(true),
-                        setExpenseTypeByStatusActive(userProfileServer.userId),
-                        setBankByStatusActive(userProfileServer.userId),
-                      ]}
                       size="small"
                     />
                   </IonFabButton>

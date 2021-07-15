@@ -105,7 +105,10 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
             </IonFabButton>
             <IonFabList side="start">
               <IonFabButton
-                onClick={() => [setModalTransactionsSearchShow(true), setTransactionTypeByStatusActive(userProfileServer.userId)]}
+                onClick={() => [
+                  setModalTransactionsSearchShow(true),
+                  setTransactionTypeByStatusActive(userProfileServer.userId)
+                ]}
               >
                 <IonIcon
                   color={AppColor.TERTIARY}
@@ -113,7 +116,10 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
                 />
               </IonFabButton>
               <IonFabButton
-                onClick={() => [setModalTransactionsSearchShow(true), setTransactionTypeByStatusActive(userProfileServer.userId)]}
+                onClick={() => [
+                  setModalTransactionsSearchShow(true),
+                  setTransactionTypeByStatusActive(userProfileServer.userId)
+                ]}
               >
                 <IonIcon color={AppColor.SUCCESS} icon={add} />
               </IonFabButton>
@@ -148,10 +154,17 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
               </IonCol>
               <IonCol size="1" className="ion-no-padding">
                 <IonFab vertical="center" horizontal="end">
-                  <IonFabButton color={AppColor.LIGHT} size="small" title="Search">
+                  <IonFabButton
+                    color={AppColor.LIGHT}
+                    size="small"
+                    title="Search"
+                    onClick={() => [
+                      setModalTransactionsSearchShow(true),
+                      setTransactionTypeByStatusActive(userProfileServer.userId)
+                    ]}
+                  >
                     <IonIcon
                       icon={search}
-                      onClick={() => [setModalTransactionsSearchShow(true), setTransactionTypeByStatusActive(userProfileServer.userId)]}
                       size="small"
                     />
                   </IonFabButton>
@@ -159,10 +172,17 @@ const TransactionsPage: React.FC<TransactionsProps> = ({
               </IonCol>
               <IonCol size="1" className="ion-no-padding">
                 <IonFab vertical="center" horizontal="end">
-                  <IonFabButton color={AppColor.TERTIARY} size="small" title="Add new record">
+                  <IonFabButton
+                    color={AppColor.TERTIARY}
+                    size="small"
+                    title="Add new record"
+                    onClick={() => [
+                      setModalTransactionsSearchShow(true),
+                      setTransactionTypeByStatusActive(userProfileServer.userId)
+                    ]}
+                  >
                     <IonIcon
                       icon={add}
-                      onClick={() => [setModalTransactionsSearchShow(true), setTransactionTypeByStatusActive(userProfileServer.userId)]}
                       size="small"
                     />
                   </IonFabButton>

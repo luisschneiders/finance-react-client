@@ -68,10 +68,14 @@ const VehiclePage: React.FC<VehicleProps> = ({
           </IonButtons>
           <IonTitle>Vehicles</IonTitle>
           <IonFab vertical="center" horizontal="end">
-            <IonFabButton color={AppColor.TERTIARY} size="small" title="Add new record">
+            <IonFabButton
+              color={AppColor.TERTIARY}
+              size="small"
+              title="Add new record"
+              onClick={() => setModalVehicleShow(true)}
+            >
               <IonIcon 
                 icon={add}
-                onClick={() => setModalVehicleShow(true)}
                 size="small"
               />
             </IonFabButton>
@@ -79,7 +83,7 @@ const VehiclePage: React.FC<VehicleProps> = ({
         </IonToolbar>
       </IonHeader>
       <IonLoading message="Please wait..." duration={0} isOpen={isFetching}></IonLoading>
-      <IonContent className="ion-padding">
+      <IonContent className="ion-no-padding">
         <LsListItemVehicle />
         <LsModalVehicle />
       </IonContent>

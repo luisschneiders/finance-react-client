@@ -1,6 +1,7 @@
 import {
   IonButton,
   IonDatetime,
+  IonInput,
   IonItem,
   IonLabel,
   IonList,
@@ -22,9 +23,6 @@ import * as selectorsBank from '../../data/bank/bank.selectors';
 import * as selectorsExpenseType from '../../data/expenseType/expenseType.selectors';
 import { setModalExpensesAddShow } from '../../data/modal/modal.actions';
 import * as MOMENT from '../../util/moment';
-import {
-  startPeriod
-} from '../../util/moment';
 import { ExpenseTypeStatusActive } from '../../models/ExpenseType';
 import * as ROUTES  from '../../constants/Routes';
 import { BankStatusActive } from '../../models/Bank';
@@ -67,8 +65,10 @@ const LsModalExpensesAdd: React.FC<ModalExpensesAddProps> = ({
 
   const [selectedDate, setSelectedDate] = useState<string>(MOMENT.currentDayDD);
   const [expenseOptions, setExpenseOptions] = useState<[]>([]);
-  const [bankOptions, setBankOptions] = useState<[]>([]);
+  const [bankOptions, setBankOptions] = useState<number>();
   const [expenseComments, setExpenseComments] = useState<string>('');
+  const [expenseAmount, setExpenseAmount] = useState<number>();
+  const [remainingAmount, setRemainingAmount] = useState<number>(0);
   const selectInput = {
     cssClass: 'select-input-expense-type'
   };
@@ -89,6 +89,20 @@ const LsModalExpensesAdd: React.FC<ModalExpensesAddProps> = ({
     setModalExpensesAddShow,
     handleShow,
   ]);
+
+  const handleOnChange = async (e: any) => {
+    if (!bankOptions || !e.detail.value) {
+      setExpenseAmount(undefined);
+      setRemainingAmount(0);
+      return;
+    }
+
+    const bankFiltered: any = bankStatusActive.banks.filter(bank => bank.bankId === bankOptions);
+
+    setExpenseAmount(e.detail.value!);
+    setRemainingAmount(parseFloat(bankFiltered[0].bankCurrentBalance) - parseFloat(e.detail.value))
+
+  }
 
   const expensesAddForm = async(e: React.FormEvent) => {
     e.preventDefault();
@@ -194,13 +208,28 @@ const LsModalExpensesAdd: React.FC<ModalExpensesAddProps> = ({
                   </IonButton>
               </IonItem>
             }
-            <IonItem lines="none">
+            <IonItem>
               <IonLabel position="stacked">Comments</IonLabel>
               <IonTextarea
                 value={expenseComments}
                 onIonChange={e => setExpenseComments(e.detail.value!)}
                 required={true}
               ></IonTextarea>
+            </IonItem>
+            <IonItem>
+              <IonLabel position="stacked">Amount</IonLabel>
+              <IonInput
+                type="number"
+                step="0.01"
+                name="expenseAmount"
+                value={expenseAmount}
+                onIonChange={handleOnChange}
+                min="0.01"
+                required
+              />
+            </IonItem>
+            <IonItem lines="none">
+              <h6>Remaining amount: {currencyMask('en-AU', remainingAmount, 'AUD')}</h6>
             </IonItem>
             <IonItem lines="none">
               <div slot="end" className="ion-padding-vertical">
